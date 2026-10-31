@@ -127,8 +127,45 @@
     .hero-left { grid-column: 1; grid-row: 2; align-self: center; max-width: 330px; }
     .hero-left h2 { font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: 8px; }
     .hero-left p { color: var(--muted); font-size: .98rem; margin-bottom: 24px; }
-    .stage { grid-column: 2; grid-row: 2; position: relative; min-height: 380px; height: 100%; max-height: 560px; pointer-events: none; }
-    .stage canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
+    /* ---------- Portrait: black & white, full colour on hover / tap ---------- */
+    .stage { grid-column: 2; grid-row: 2; position: relative; display: grid; place-items: center; padding: 24px 0; perspective: 1200px; }
+    .stage::before, .stage::after {
+      content: ""; position: absolute; left: 50%; top: 50%; border-radius: 50%; pointer-events: none;
+      border: 1px solid var(--line); translate: -50% -50%;
+    }
+    .stage::before { width: min(520px, 125%); aspect-ratio: 1; border-style: dashed; animation: spin 60s linear infinite; }
+    .stage::after { width: min(420px, 100%); aspect-ratio: 1; background: radial-gradient(circle, rgba(47,123,246,.35), transparent 65%); border: 0; }
+    @keyframes spin { to { rotate: 360deg; } }
+    .portrait {
+      position: relative; z-index: 1; width: min(360px, 100%); aspect-ratio: 4 / 5; margin: 0;
+      border-radius: 999px 999px 28px 28px; overflow: hidden; cursor: pointer;
+      background: linear-gradient(180deg, #13244a, #070f20);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 40px 90px -30px rgba(47,123,246,.6), inset 0 1px 0 rgba(255,255,255,.12);
+      transition: transform .6s var(--ease), box-shadow .6s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .portrait img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
+      filter: grayscale(1) contrast(1.05) brightness(.95); transform: scale(1.05);
+      transition: filter .8s var(--ease), transform 1.2s var(--ease);
+    }
+    .portrait:hover img, .portrait:focus-visible img, .portrait.color img { filter: none; transform: scale(1); }
+    .portrait:hover, .portrait.color { box-shadow: 0 50px 100px -30px rgba(47,123,246,.85), inset 0 1px 0 rgba(255,255,255,.18); }
+    .portrait::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 65%, rgba(3,6,13,.55)); }
+    .portrait-ph { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: var(--dim); font-size: .85rem; text-align: center; padding: 20px; }
+    .portrait-ph svg { width: 42%; max-width: 140px; color: rgba(140,196,255,.35); }
+    .portrait.empty img { display: none; }
+    .portrait.empty .portrait-ph { display: flex; }
+    .portrait-hint {
+      position: absolute; z-index: 2; left: 50%; bottom: 14px; translate: -50% 0; white-space: nowrap;
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ice);
+      padding: 6px 12px; border-radius: 100px; background: rgba(3,6,13,.6); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: opacity .4s;
+    }
+    .portrait:hover .portrait-hint, .portrait.color .portrait-hint, .portrait.empty .portrait-hint { opacity: 0; }
+    .stage > .fade { position: relative; z-index: 1; width: 100%; display: grid; place-items: center; transform: translateY(60px); }
+    .ready .stage .fade { transform: none; transition-delay: .5s; transition-duration: 1.2s; }
     .hero-right { grid-column: 3; grid-row: 2; align-self: center; justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
     .hero-right .label { font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
     .fade { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
@@ -143,10 +180,13 @@
       .hero .wrap { display: flex; flex-direction: column; padding-top: 100px; }
       .hero h1 { white-space: normal; font-size: clamp(2.6rem, 14vw, 7rem); }
       .hero h1 .word { display: block; }
-      .stage { height: clamp(280px, 68vw, 420px); min-height: 0; margin: 4px 0 10px; }
-      .hero-left { max-width: 560px; }
-      .hero-right { flex-direction: row; flex-wrap: wrap; align-items: center; justify-self: auto; margin-top: 26px; }
-      .hero-right .label { width: 100%; }
+      .stage { order: -1; margin: 20px 0 30px; padding: 10px 0; }
+      .hero h1 { order: -2; }
+      .portrait { width: min(320px, 78vw); }
+      .stage::before { width: min(440px, 112vw); }
+      .hero-left { max-width: 560px; align-self: center; text-align: center; }
+      .hero-right { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; align-self: center; margin-top: 26px; }
+      .hero-right .label { width: 100%; text-align: center; }
       .scroll-cue { display: none; }
     }
 
@@ -309,7 +349,19 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
         </div>
 
-        <div class="stage" id="stage" aria-hidden="true"></div>
+        <div class="stage">
+          <!-- Portrait: drop your photo at images/hicham.jpg -->
+          <div class="fade">
+          <figure class="portrait" id="portrait" tabindex="0" role="button" aria-pressed="false" aria-label="Portrait of Hicham Noeman — show in colour">
+            <img src="images/hicham.jpg" alt="Portrait of Hicham Noeman" width="720" height="900" fetchpriority="high" decoding="async">
+            <div class="portrait-ph" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21.5c.8-4.6 4.2-7.3 8.5-7.3s7.7 2.7 8.5 7.3z"/></svg>
+              Photo coming soon
+            </div>
+            <span class="portrait-hint" id="portraitHint" aria-hidden="true">Hover for colour</span>
+          </figure>
+          </div>
+        </div>
 
         <div class="hero-right fade late">
           <span class="label">Connect</span>
@@ -569,22 +621,13 @@
 
   <div class="preview" id="preview" aria-hidden="true"></div>
 
-  <script type="importmap">
-    { "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-    } }
-  </script>
 
   <script>
-    // page must stay usable even if the 3D module fails to load
+    // page must stay usable even if the main script fails
     setTimeout(() => { if (!document.body.classList.contains("ready")) document.body.classList.add("ready", "no-js"); }, 3000);
   </script>
 
   <script type="module">
-    import * as THREE from "three";
-    import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-    import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -701,131 +744,25 @@
       })();
     }
 
-    /* ---------- Hero 3D: floating glass cards (contained in the centre column) ---------- */
-    const stage = document.getElementById("stage");
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 900 ? 1.5 : 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
-    stage.appendChild(renderer.domElement);
 
-    const scene = new THREE.Scene();
-    const pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-
-    scene.add(new THREE.AmbientLight(0x3366cc, 0.6));
-    const back = new THREE.DirectionalLight(0x5aa0ff, 4); back.position.set(0, 3, -5); scene.add(back);
-    const key = new THREE.DirectionalLight(0xffffff, 1.5); key.position.set(-4, 3, 5); scene.add(key);
-    const rim = new THREE.PointLight(0x8cc4ff, 25, 12); rim.position.set(3, -1, 2); scene.add(rim);
-
-    function cardTexture(top, bottom, label, dark) {
-      const c = document.createElement("canvas"); c.width = 512; c.height = 720;
-      const g = c.getContext("2d");
-      const lg = g.createLinearGradient(0, 0, 512, 720);
-      lg.addColorStop(0, top); lg.addColorStop(1, bottom);
-      g.fillStyle = lg; g.fillRect(0, 0, 512, 720);
-      const hl = g.createRadialGradient(170, 200, 0, 170, 200, 320);
-      hl.addColorStop(0, dark ? "rgba(120,170,255,.25)" : "rgba(255,255,255,.6)"); hl.addColorStop(1, "rgba(255,255,255,0)");
-      g.fillStyle = hl; g.fillRect(0, 0, 512, 720);
-      g.fillStyle = dark ? "rgba(214,232,255,.85)" : "rgba(10,30,70,.6)";
-      g.font = "600 38px Manrope, sans-serif";
-      g.fillText(label, 44, 664);
-      g.globalAlpha = 0.5;
-      g.beginPath(); g.arc(466, 64, 14, 0, Math.PI * 2); g.fill();
-      const t = new THREE.CanvasTexture(c);
-      t.colorSpace = THREE.SRGBColorSpace;
-      t.anisotropy = 8;
-      return t;
-    }
-    const mkMat = (map, dark) => new THREE.MeshPhysicalMaterial({
-      map, roughness: dark ? 0.22 : 0.32, metalness: dark ? 0.45 : 0.05,
-      clearcoat: 1, clearcoatRoughness: 0.12, transparent: true, opacity: dark ? 0.97 : 0.92,
-      envMapIntensity: dark ? 1.4 : 1, iridescence: dark ? 0 : 0.3
-    });
-
-    const geo = new RoundedBoxGeometry(1.5, 2.1, 0.06, 6, 0.12);
-    const group = new THREE.Group();
-    scene.add(group);
-    const cards = [
-      { mat: mkMat(cardTexture("#bcd9ff", "#3b7fe6", "AL", false), false), pos: [-0.8, 0.35, 0.5], rot: [-0.2, 0.5, 0.32] },
-      { mat: mkMat(cardTexture("#16294d", "#04070f", "Business Central", true), true), pos: [0, 0, 0], rot: [-0.12, 0.32, 0.22] },
-      { mat: mkMat(cardTexture("#e6f1ff", "#6ea8ff", "Power Platform", false), false), pos: [0.8, -0.35, -0.5], rot: [-0.16, 0.2, 0.14] }
-    ].map(({ mat, pos, rot }, i) => {
-      const m = new THREE.Mesh(geo, mat);
-      m.userData = { base: new THREE.Vector3(...pos), rot: new THREE.Euler(...rot), phase: i * 1.7 };
-      group.add(m);
-      return m;
-    });
-
-    const glowTex = (() => {
-      const c = document.createElement("canvas"); c.width = c.height = 256;
-      const g = c.getContext("2d");
-      const r = g.createRadialGradient(128, 128, 0, 128, 128, 128);
-      r.addColorStop(0, "rgba(90,160,255,.85)"); r.addColorStop(0.4, "rgba(47,123,246,.3)"); r.addColorStop(1, "rgba(47,123,246,0)");
-      g.fillStyle = r; g.fillRect(0, 0, 256, 256);
-      return new THREE.CanvasTexture(c);
-    })();
-    const glow = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.MeshBasicMaterial({ map: glowTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
-    glow.position.z = -2;
-    scene.add(glow);
-
-    // fit the camera so the whole card group always sits inside the stage box
-    const NEED_W = 3.9, NEED_H = 3.4;
-    function resize() {
-      const w = stage.clientWidth, h = stage.clientHeight;
-      if (!w || !h) return;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      const t = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-      camera.position.set(0, 0, Math.max(NEED_H / 2 / t, NEED_W / 2 / (t * camera.aspect)) + 0.6);
-      camera.updateProjectionMatrix();
-      render();
-    }
-
-    const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
-    if (finePointer) addEventListener("pointermove", e => {
-      mouse.x = (e.clientX / innerWidth) * 2 - 1;
-      mouse.y = -(e.clientY / innerHeight) * 2 + 1;
-    });
-
-    const clock = new THREE.Clock();
-    let intro = reduced ? 1 : 0, introStart = null;
-    function render() {
-      const t = clock.getElapsedTime();
-      // time-based ease-out so the rise looks the same on 60 Hz and 144 Hz screens
-      if (!reduced && document.body.classList.contains("ready")) {
-        if (introStart === null) introStart = t;
-        intro = 1 - Math.pow(1 - Math.min((t - introStart) / 1.8, 1), 3);
-      }
-      mouse.sx += (mouse.x - mouse.sx) * 0.05;
-      mouse.sy += (mouse.y - mouse.sy) * 0.05;
-      const rise = (1 - intro) * -4.5; // cards rise into view on load
-
-      cards.forEach((m, i) => {
-        const { base, rot, phase } = m.userData;
-        const f = reduced ? 0 : Math.sin(t * 0.8 + phase);
-        m.position.set(base.x, base.y + f * 0.07 + rise * (1 + i * 0.25), base.z);
-        m.rotation.set(rot.x + f * 0.03, rot.y + (reduced ? 0 : Math.sin(t * 0.5 + phase) * 0.07), rot.z + f * 0.02);
+    /* ---------- Portrait: placeholder until the photo exists, colour on hover / tap, 3D tilt ---------- */
+    const portrait = document.getElementById("portrait");
+    const photo = portrait.querySelector("img");
+    const markEmpty = () => portrait.classList.add("empty");
+    photo.addEventListener("error", markEmpty);
+    if (photo.complete && !photo.naturalWidth) markEmpty();
+    if (!finePointer) document.getElementById("portraitHint").textContent = "Tap for colour";
+    const toggleColour = () => portrait.setAttribute("aria-pressed", portrait.classList.toggle("color"));
+    portrait.addEventListener("click", () => { if (!finePointer) toggleColour(); });
+    portrait.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleColour(); } });
+    if (finePointer && !reduced) {
+      portrait.addEventListener("pointermove", e => {
+        const r = portrait.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
+        portrait.style.transform = `rotateY(${px * 10}deg) rotateX(${-py * 10}deg)`;
       });
-      group.rotation.y = mouse.sx * 0.3;
-      group.rotation.x = -mouse.sy * 0.15;
-      glow.material.opacity = (0.7 + Math.sin(t * 0.7) * 0.08) * intro;
-      renderer.render(scene, camera);
+      portrait.addEventListener("pointerleave", () => (portrait.style.transform = ""));
     }
-
-    let visible = true, running = false;
-    function loop() {
-      if (!visible || document.hidden) { running = false; return; }
-      render();
-      requestAnimationFrame(loop);
-    }
-    const start = () => { if (!running && !reduced) { running = true; loop(); } };
-    new ResizeObserver(resize).observe(stage);
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; start(); }).observe(stage);
-    document.addEventListener("visibilitychange", start);
-    resize();
-    start();
 
     requestAnimationFrame(() => document.body.classList.add("ready"));
   </script>
