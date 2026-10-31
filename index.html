@@ -41,6 +41,8 @@
     .skip { position: fixed; top: -60px; left: 16px; z-index: 200; padding: 10px 18px; border-radius: 100px; background: var(--text); color: var(--bg); font-weight: 600; transition: top .2s; }
     .skip:focus { top: 16px; }
     .wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--pad-x); position: relative; }
+    /* the huge ghost words must never widen the page on phones */
+    main { overflow-x: clip; }
 
     /* ---------- Small pieces ---------- */
     .chip-pill {
@@ -137,26 +139,18 @@
     .stage::after { width: min(420px, 100%); aspect-ratio: 1; background: radial-gradient(circle, rgba(47,123,246,.35), transparent 65%); border: 0; }
     @keyframes spin { to { rotate: 360deg; } }
     /* colour is revealed only inside a soft circle around the cursor / finger (--x, --y, radius --r) */
-    @property --r { syntax: "<length>"; inherits: true; initial-value: 0px; }
+    /* colour is painted like a brush along the cursor / finger path and fades out ~1.5s later (canvas .brush) */
     .portrait {
-      --x: 50%; --y: 30%; --r: 0px;
       position: relative; z-index: 1; width: min(360px, 100%); aspect-ratio: 4 / 5; margin: 0;
       border-radius: 999px 999px 28px 28px; overflow: hidden; cursor: crosshair;
       background: linear-gradient(180deg, #13244a, #070f20);
       border: 1px solid var(--glass-border);
       box-shadow: 0 40px 90px -30px rgba(47,123,246,.6), inset 0 1px 0 rgba(255,255,255,.12);
-      transition: --r .5s var(--ease), box-shadow .6s;
-      -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent; touch-action: pan-y;
     }
     .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; user-select: none; -webkit-user-drag: none; }
     .portrait .bw { filter: grayscale(1) contrast(1.05) brightness(.95); }
-    .portrait .clr {
-      -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 40%, transparent 100%);
-      mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 40%, transparent 100%);
-    }
-    .portrait.spot { --r: 90px; }
-    .portrait.color { --r: 1200px; }
-    .portrait.spot, .portrait.color { box-shadow: 0 50px 100px -30px rgba(47,123,246,.85), inset 0 1px 0 rgba(255,255,255,.18); }
+    .portrait .brush { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     /* cut-out photo (transparent PNG): no frame, body fades out at the bottom */
     .portrait.cutout { border: 0; border-radius: 0; background: none; box-shadow: none; overflow: visible; -webkit-mask-image: linear-gradient(#000 70%, transparent 97%); mask-image: linear-gradient(#000 70%, transparent 97%); }
     .portrait.cutout img { object-fit: contain; object-position: center bottom; }
@@ -166,14 +160,6 @@
     .portrait-ph svg { width: 42%; max-width: 140px; color: rgba(140,196,255,.35); }
     .portrait.empty img { display: none; }
     .portrait.empty .portrait-ph { display: flex; }
-    .portrait-hint {
-      position: absolute; z-index: 2; left: 50%; bottom: 14px; translate: -50% 0; white-space: nowrap;
-      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ice);
-      padding: 6px 12px; border-radius: 100px; background: rgba(3,6,13,.6); border: 1px solid var(--glass-border);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: opacity .4s;
-    }
-    .portrait.spot + .portrait-hint, .portrait.color + .portrait-hint, .portrait.empty + .portrait-hint { opacity: 0; }
-    .portrait.cutout + .portrait-hint { bottom: 4%; }
     .stage > .fade { position: relative; z-index: 1; width: 100%; display: grid; place-items: center; transform: translateY(60px); }
     .ready .stage .fade { transform: none; transition-delay: .5s; transition-duration: 1.2s; }
     .hero-right { grid-column: 3; grid-row: 2; align-self: center; justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
@@ -259,6 +245,8 @@
     .experience { padding: var(--pad-y) 0; background: var(--bg-2); border-block: 1px solid var(--line); }
     .xp { border-top: 1px solid var(--line); }
     .xp-item { border-bottom: 1px solid var(--line); }
+    .xp-sub { margin: clamp(50px, 7vw, 80px) 0 18px; font-size: .8rem; font-weight: 600; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 14px; }
+    .xp-sub::after { content: ""; flex: 1; height: 1px; background: var(--line); }
     .xp-btn {
       width: 100%; display: grid; grid-template-columns: 1fr auto 40px; align-items: center; gap: 20px; text-align: left;
       padding: clamp(20px, 2.6vw, 28px) clamp(8px, 1.5vw, 20px); transition: background .4s;
@@ -364,13 +352,12 @@
           <div class="fade">
           <figure class="portrait cutout" id="portrait" tabindex="0" role="button" aria-pressed="false" aria-label="Portrait of Hicham Noeman — show in full colour">
             <img class="bw" src="images/hicham-cutout.webp" alt="Portrait of Hicham Noeman" width="960" height="1200" fetchpriority="high" decoding="async">
-            <img class="clr" src="images/hicham-cutout.webp" alt="" aria-hidden="true" width="960" height="1200" decoding="async">
+            <canvas class="brush" id="brush" aria-hidden="true"></canvas>
             <div class="portrait-ph" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21.5c.8-4.6 4.2-7.3 8.5-7.3s7.7 2.7 8.5 7.3z"/></svg>
               Photo coming soon
             </div>
           </figure>
-          <span class="portrait-hint" id="portraitHint" aria-hidden="true">Hover to reveal colour</span>
           </div>
         </div>
 
@@ -401,7 +388,7 @@
         <div class="about-grid">
           <div class="reveal">
             <p>As a Software Developer at <strong>ProService 365</strong>, I specialize in tailored <strong>Microsoft Dynamics 365 Business Central</strong> solutions — covering the entire project lifecycle, from requirements analysis to deployment and support.</p>
-            <p>Using <strong>AL programming</strong>, <strong>Power Apps</strong> and <strong>Power Automate</strong>, I optimize workflows and build practical, user-centric solutions. Curious by nature, always learning — and powered by tea ☕.</p>
+            <p>Using <strong>AL programming</strong>, <strong>Power Apps</strong> and <strong>Power Automate</strong>, I optimize workflows and build practical, user-centric solutions. Curious by nature, always learning — and powered by tea.</p>
           </div>
           <div class="stats reveal">
             <div><strong>3+</strong><span>Years at ProService 365</span></div>
@@ -545,6 +532,105 @@
               </div>
             </div></div>
             <div class="pv"><div class="ttl">Zaka.ai</div><div class="tags"><span>AI</span><span>Workshops</span><span>Course design</span><span>Community</span></div></div>
+          </div>
+        </div>
+
+        <h3 class="xp-sub reveal">Other experience</h3>
+        <div class="xp">
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="xp4">
+              <span><span class="co">AEC Alameddine Engineering & Contracting</span><span class="ro">Social Media Manager & Graphic Designer</span></span>
+              <span class="dt">Aug 2025 — Aug 2026</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp4"><div>
+              <div class="xp-body">
+                <div>
+                  <p>Managed the company's digital presence and created visual content that reflected its brand and showcased its engineering and construction projects.</p>
+                  <div class="meta">Tripoli, Lebanon · Part-time</div>
+                </div>
+                <ul class="list">
+                  <li>Planned and managed content across the company's social media platforms</li>
+                  <li>Designed branded graphics and visual materials for digital channels</li>
+                  <li>Produced and edited videos highlighting projects and company activities</li>
+                  <li>Captured project photos and footage to present on-site work</li>
+                  <li>Maintained a consistent visual identity across all platforms</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">AEC Alameddine</div><div class="tags"><span>Social media</span><span>Graphic design</span><span>Video editing</span><span>Photography</span><span>Branding</span></div></div>
+          </div>
+
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="xp5">
+              <span><span class="co">Khotwa Center</span><span class="ro">Administrative & Student Affairs Officer</span></span>
+              <span class="dt">Oct 2025 — Jun 2026</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp5"><div>
+              <div class="xp-body">
+                <div>
+                  <p>Supported students and managed daily administrative operations, with a strong focus on improving efficiency through automation and organized systems.</p>
+                  <div class="meta">Tripoli, Lebanon · Full-time</div>
+                </div>
+                <ul class="list">
+                  <li>Provided academic guidance and ongoing support to students throughout their studies</li>
+                  <li>Managed and maintained student records and academic data accurately</li>
+                  <li>Coordinated student activities, events, and communication between students and staff</li>
+                  <li>Automated and streamlined administrative processes to reduce manual work and save time</li>
+                  <li>Helped build more organized, data-driven systems for student services</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">Khotwa Center</div><div class="tags"><span>Administration</span><span>Student affairs</span><span>Process automation</span><span>Records & data</span></div></div>
+          </div>
+
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="xp6">
+              <span><span class="co">Alemni Foundation</span><span class="ro">Project Officer</span></span>
+              <span class="dt">Dec 2022 — Aug 2025</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp6"><div>
+              <div class="xp-body">
+                <div>
+                  <p>Planned and delivered programs supporting the personal, academic, and professional development of university students, from first to third year.</p>
+                  <div class="meta">Tripoli, Lebanon · Part-time</div>
+                </div>
+                <ul class="list">
+                  <li>Planned, coordinated, and executed student development projects and initiatives</li>
+                  <li>Designed and delivered self-development training programs based on research and practical experience</li>
+                  <li>Facilitated courses that equip students with essential academic and professional skills</li>
+                  <li>Coordinated with team members and volunteers to deliver projects on time</li>
+                  <li>Managed project logistics, schedules, and communication with participants</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">Alemni Foundation</div><div class="tags"><span>Project management</span><span>Training design</span><span>Facilitation</span><span>Coordination</span></div></div>
+          </div>
+
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="xp7">
+              <span><span class="co">Alemni Foundation</span><span class="ro">Initiatives Manager · Volunteer</span></span>
+              <span class="dt">Jan 2024 — Apr 2025</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp7"><div>
+              <div class="xp-body">
+                <div>
+                  <p>Led initiatives for children, taking each one from the first idea to the final event and making sure every activity had a real impact on the children taking part.</p>
+                  <div class="meta">Volunteer · Children</div>
+                </div>
+                <ul class="list">
+                  <li>Planned and managed initiatives and events from start to finish</li>
+                  <li>Recruited, coordinated, and guided teams of volunteers</li>
+                  <li>Organized logistics, schedules, and responsibilities to keep projects on track</li>
+                  <li>Worked with partners and team members to deliver meaningful activities for children</li>
+                  <li>Solved problems on the spot to keep every event running smoothly</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">Initiatives Manager</div><div class="tags"><span>Leadership</span><span>Volunteer teams</span><span>Event planning</span><span>Partnerships</span></div></div>
           </div>
         </div>
       </div>
@@ -741,16 +827,21 @@
         const src = el.querySelector(".pv");
         if (!src) return;
         const hot = el.classList.contains("row") ? el : el.querySelector(".xp-btn");
-        hot.addEventListener("pointerenter", e => { pv.innerHTML = src.innerHTML; pv.classList.add("on"); active = true; x = tx = e.clientX; y = ty = e.clientY; });
+        hot.addEventListener("pointerenter", e => { pv.innerHTML = src.innerHTML; active = true; x = tx = e.clientX; y = ty = e.clientY; });
         hot.addEventListener("pointerleave", () => { pv.classList.remove("on"); active = false; });
       });
-      addEventListener("pointermove", e => { tx = e.clientX; ty = e.clientY; });
+      addEventListener("pointermove", e => {
+        tx = e.clientX; ty = e.clientY;
+        // hide the preview over the +/− button so it never covers what you're about to click
+        pv.classList.toggle("on", active && !e.target.closest(".pm"));
+      });
       (function follow() {
         const nx = x + (tx - x) * 0.14;
         vx = nx - x; x = nx; y += (ty - y) * 0.14;
         if (active || pv.classList.contains("on")) {
           const w = pv.offsetWidth, h = pv.offsetHeight;
-          const px = Math.min(x + 28, innerWidth - w - 16);
+          // sit to the right of the cursor, or flip to its left near the right edge (never on top of it)
+          const px = x + 28 + w < innerWidth - 16 ? x + 28 : Math.max(x - w - 28, 16);
           const py = Math.min(Math.max(y - h / 2, 16), innerHeight - h - 16);
           pv.style.transform = `translate(${px}px, ${py}px) rotate(${Math.max(Math.min(vx * 0.6, 8), -8)}deg)`;
         }
@@ -759,36 +850,89 @@
     }
 
 
-    /* ---------- Portrait: black & white, colour only where the cursor / finger is ---------- */
+    /* ---------- Portrait: black & white, colour painted like a brush that fades after ~1.5s ---------- */
     const portrait = document.getElementById("portrait");
     const photo = portrait.querySelector(".bw");
+    const canvas = document.getElementById("brush");
+    const ctx = canvas.getContext("2d");
     const markEmpty = () => portrait.classList.add("empty");
     photo.addEventListener("error", markEmpty);
     if (photo.complete && !photo.naturalWidth) markEmpty();
-    if (!finePointer) document.getElementById("portraitHint").textContent = "Tap to reveal colour";
 
-    const moveSpot = e => {
+    const FADE = 1500;           // ms a brush mark stays before it is gone
+    const strokes = [];          // { x, y, t } brush dabs in portrait-local px
+    let last = null, full = false, raf = 0, w = 0, h = 0, down = false;
+
+    function sizeCanvas() {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      w = portrait.clientWidth; h = portrait.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+    // draw the colour photo exactly where the CSS draws the black & white one
+    function drawPhoto() {
+      const iw = photo.naturalWidth, ih = photo.naturalHeight;
+      const cut = portrait.classList.contains("cutout");
+      const s = cut ? Math.min(w / iw, h / ih) : Math.max(w / iw, h / ih);
+      const dw = iw * s, dh = ih * s;
+      ctx.drawImage(photo, (w - dw) / 2, cut ? h - dh : (h - dh) * 0.2, dw, dh);
+    }
+    function draw() {
+      const now = performance.now();
+      while (strokes.length && now - strokes[0].t > FADE) strokes.shift();
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = 1;
+      ctx.clearRect(0, 0, w, h);
+      if (!photo.naturalWidth || (!full && !strokes.length)) return;
+      if (full) ctx.fillRect(0, 0, w, h);
+      else {
+        const R = Math.max(w * 0.1, 24);
+        strokes.forEach(p => {
+          const k = 1 - (now - p.t) / FADE;
+          ctx.globalAlpha = k * k * (3 - 2 * k); // smooth fade-out
+          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, R);
+          g.addColorStop(0, "rgba(0,0,0,1)");
+          g.addColorStop(0.5, "rgba(0,0,0,.6)");
+          g.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.fillStyle = g;
+          ctx.fillRect(p.x - R, p.y - R, R * 2, R * 2);
+        });
+      }
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-in"; // keep colour only where the brush painted
+      drawPhoto();
+    }
+    function loop() {
+      draw();
+      raf = strokes.length ? requestAnimationFrame(loop) : 0;
+    }
+    function paint(e) {
       const r = portrait.getBoundingClientRect();
-      portrait.style.setProperty("--x", `${e.clientX - r.left}px`);
-      portrait.style.setProperty("--y", `${e.clientY - r.top}px`);
-    };
-    let spotTimer;
-    portrait.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") { moveSpot(e); portrait.classList.add("spot"); } });
-    portrait.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") portrait.classList.remove("spot"); });
-    portrait.addEventListener("pointermove", moveSpot);
-    // touch / pen: the spotlight appears where you tap and fades after a moment
-    portrait.addEventListener("pointerdown", e => {
-      if (e.pointerType === "mouse") return;
-      moveSpot(e);
-      portrait.classList.add("spot");
-      clearTimeout(spotTimer);
-      spotTimer = setTimeout(() => portrait.classList.remove("spot"), 2500);
-    });
+      const x = e.clientX - r.left, y = e.clientY - r.top, now = performance.now();
+      if (last) { // fill the gap between events so fast moves still leave a continuous stroke
+        const dx = x - last.x, dy = y - last.y, d = Math.hypot(dx, dy);
+        for (let s = 6; s < d; s += 6) strokes.push({ x: last.x + dx * s / d, y: last.y + dy * s / d, t: now });
+      }
+      strokes.push({ x, y, t: now });
+      if (strokes.length > 800) strokes.splice(0, strokes.length - 800);
+      last = { x, y };
+      if (!raf) raf = requestAnimationFrame(loop);
+    }
+
+    new ResizeObserver(sizeCanvas).observe(portrait);
+    photo.addEventListener("load", sizeCanvas);
+    // mouse paints on hover; touch / pen paint while the finger is down (vertical swipes still scroll the page)
+    portrait.addEventListener("pointermove", e => { if (e.pointerType === "mouse" || down) paint(e); });
+    portrait.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") { down = true; last = null; paint(e); } });
+    ["pointerup", "pointercancel", "pointerleave"].forEach(t => portrait.addEventListener(t, () => { down = false; last = null; }));
     // keyboard: Enter / Space shows the whole photo in colour
     portrait.addEventListener("keydown", e => {
       if (e.key !== "Enter" && e.key !== " ") return;
       e.preventDefault();
-      portrait.setAttribute("aria-pressed", portrait.classList.toggle("color"));
+      full = !full;
+      portrait.setAttribute("aria-pressed", full);
+      draw();
     });
 
     requestAnimationFrame(() => document.body.classList.add("ready"));
