@@ -136,22 +136,31 @@
     .stage::before { width: min(520px, 125%); aspect-ratio: 1; border-style: dashed; animation: spin 60s linear infinite; }
     .stage::after { width: min(420px, 100%); aspect-ratio: 1; background: radial-gradient(circle, rgba(47,123,246,.35), transparent 65%); border: 0; }
     @keyframes spin { to { rotate: 360deg; } }
+    /* colour is revealed only inside a soft circle around the cursor / finger (--x, --y, radius --r) */
+    @property --r { syntax: "<length>"; inherits: true; initial-value: 0px; }
     .portrait {
+      --x: 50%; --y: 30%; --r: 0px;
       position: relative; z-index: 1; width: min(360px, 100%); aspect-ratio: 4 / 5; margin: 0;
-      border-radius: 999px 999px 28px 28px; overflow: hidden; cursor: pointer;
+      border-radius: 999px 999px 28px 28px; overflow: hidden; cursor: crosshair;
       background: linear-gradient(180deg, #13244a, #070f20);
       border: 1px solid var(--glass-border);
       box-shadow: 0 40px 90px -30px rgba(47,123,246,.6), inset 0 1px 0 rgba(255,255,255,.12);
-      transition: transform .6s var(--ease), box-shadow .6s;
-      -webkit-tap-highlight-color: transparent;
+      transition: --r .5s var(--ease), box-shadow .6s;
+      -webkit-tap-highlight-color: transparent; touch-action: manipulation;
     }
-    .portrait img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
-      filter: grayscale(1) contrast(1.05) brightness(.95); transform: scale(1.05);
-      transition: filter .8s var(--ease), transform 1.2s var(--ease);
+    .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; user-select: none; -webkit-user-drag: none; }
+    .portrait .bw { filter: grayscale(1) contrast(1.05) brightness(.95); }
+    .portrait .clr {
+      -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 40%, transparent 100%);
+      mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 40%, transparent 100%);
     }
-    .portrait:hover img, .portrait:focus-visible img, .portrait.color img { filter: none; transform: scale(1); }
-    .portrait:hover, .portrait.color { box-shadow: 0 50px 100px -30px rgba(47,123,246,.85), inset 0 1px 0 rgba(255,255,255,.18); }
+    .portrait.spot { --r: 90px; }
+    .portrait.color { --r: 1200px; }
+    .portrait.spot, .portrait.color { box-shadow: 0 50px 100px -30px rgba(47,123,246,.85), inset 0 1px 0 rgba(255,255,255,.18); }
+    /* cut-out photo (transparent PNG): no frame, body fades out at the bottom */
+    .portrait.cutout { border: 0; border-radius: 0; background: none; box-shadow: none; overflow: visible; -webkit-mask-image: linear-gradient(#000 70%, transparent 97%); mask-image: linear-gradient(#000 70%, transparent 97%); }
+    .portrait.cutout img { object-fit: contain; object-position: center bottom; }
+    .portrait.cutout::after { display: none; }
     .portrait::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 65%, rgba(3,6,13,.55)); }
     .portrait-ph { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: var(--dim); font-size: .85rem; text-align: center; padding: 20px; }
     .portrait-ph svg { width: 42%; max-width: 140px; color: rgba(140,196,255,.35); }
@@ -163,7 +172,8 @@
       padding: 6px 12px; border-radius: 100px; background: rgba(3,6,13,.6); border: 1px solid var(--glass-border);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: opacity .4s;
     }
-    .portrait:hover .portrait-hint, .portrait.color .portrait-hint, .portrait.empty .portrait-hint { opacity: 0; }
+    .portrait.spot + .portrait-hint, .portrait.color + .portrait-hint, .portrait.empty + .portrait-hint { opacity: 0; }
+    .portrait.cutout + .portrait-hint { bottom: 4%; }
     .stage > .fade { position: relative; z-index: 1; width: 100%; display: grid; place-items: center; transform: translateY(60px); }
     .ready .stage .fade { transform: none; transition-delay: .5s; transition-duration: 1.2s; }
     .hero-right { grid-column: 3; grid-row: 2; align-self: center; justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
@@ -350,16 +360,17 @@
         </div>
 
         <div class="stage">
-          <!-- Portrait: drop your photo at images/hicham.jpg -->
+          <!-- Portrait: images/hicham.jpg in the arch frame. For a cut-out, point both imgs at a transparent PNG and add class "cutout". -->
           <div class="fade">
-          <figure class="portrait" id="portrait" tabindex="0" role="button" aria-pressed="false" aria-label="Portrait of Hicham Noeman — show in colour">
-            <img src="images/hicham.jpg" alt="Portrait of Hicham Noeman" width="720" height="900" fetchpriority="high" decoding="async">
+          <figure class="portrait cutout" id="portrait" tabindex="0" role="button" aria-pressed="false" aria-label="Portrait of Hicham Noeman — show in full colour">
+            <img class="bw" src="images/hicham-cutout.webp" alt="Portrait of Hicham Noeman" width="960" height="1200" fetchpriority="high" decoding="async">
+            <img class="clr" src="images/hicham-cutout.webp" alt="" aria-hidden="true" width="960" height="1200" decoding="async">
             <div class="portrait-ph" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21.5c.8-4.6 4.2-7.3 8.5-7.3s7.7 2.7 8.5 7.3z"/></svg>
               Photo coming soon
             </div>
-            <span class="portrait-hint" id="portraitHint" aria-hidden="true">Hover for colour</span>
           </figure>
+          <span class="portrait-hint" id="portraitHint" aria-hidden="true">Hover to reveal colour</span>
           </div>
         </div>
 
@@ -371,6 +382,8 @@
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
           <a class="social" href="mailto:hnoeman@proservice365.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+          <a class="social" href="https://wa.me/96171684504" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.06L2 22l5.06-1.55A9.9 9.9 0 1 0 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3 .92.93-2.93-.2-.31a8.2 8.2 0 1 1 6.75 3.65zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/></svg>WhatsApp</a>
         </div>
       </div>
       <div class="scroll-cue fade late" aria-hidden="true"><i></i>Scroll</div>
@@ -609,6 +622,7 @@
           <a class="social" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
           <a class="social" href="https://github.com/Hicham-Noeman" target="_blank" rel="noopener">GitHub</a>
           <a class="social" href="mailto:hnoeman@proservice365.com">Email</a>
+          <a class="social" href="https://wa.me/96171684504" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
     </section>
@@ -745,24 +759,37 @@
     }
 
 
-    /* ---------- Portrait: placeholder until the photo exists, colour on hover / tap, 3D tilt ---------- */
+    /* ---------- Portrait: black & white, colour only where the cursor / finger is ---------- */
     const portrait = document.getElementById("portrait");
-    const photo = portrait.querySelector("img");
+    const photo = portrait.querySelector(".bw");
     const markEmpty = () => portrait.classList.add("empty");
     photo.addEventListener("error", markEmpty);
     if (photo.complete && !photo.naturalWidth) markEmpty();
-    if (!finePointer) document.getElementById("portraitHint").textContent = "Tap for colour";
-    const toggleColour = () => portrait.setAttribute("aria-pressed", portrait.classList.toggle("color"));
-    portrait.addEventListener("click", () => { if (!finePointer) toggleColour(); });
-    portrait.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleColour(); } });
-    if (finePointer && !reduced) {
-      portrait.addEventListener("pointermove", e => {
-        const r = portrait.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
-        portrait.style.transform = `rotateY(${px * 10}deg) rotateX(${-py * 10}deg)`;
-      });
-      portrait.addEventListener("pointerleave", () => (portrait.style.transform = ""));
-    }
+    if (!finePointer) document.getElementById("portraitHint").textContent = "Tap to reveal colour";
+
+    const moveSpot = e => {
+      const r = portrait.getBoundingClientRect();
+      portrait.style.setProperty("--x", `${e.clientX - r.left}px`);
+      portrait.style.setProperty("--y", `${e.clientY - r.top}px`);
+    };
+    let spotTimer;
+    portrait.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") { moveSpot(e); portrait.classList.add("spot"); } });
+    portrait.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") portrait.classList.remove("spot"); });
+    portrait.addEventListener("pointermove", moveSpot);
+    // touch / pen: the spotlight appears where you tap and fades after a moment
+    portrait.addEventListener("pointerdown", e => {
+      if (e.pointerType === "mouse") return;
+      moveSpot(e);
+      portrait.classList.add("spot");
+      clearTimeout(spotTimer);
+      spotTimer = setTimeout(() => portrait.classList.remove("spot"), 2500);
+    });
+    // keyboard: Enter / Space shows the whole photo in colour
+    portrait.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      portrait.setAttribute("aria-pressed", portrait.classList.toggle("color"));
+    });
 
     requestAnimationFrame(() => document.body.classList.add("ready"));
   </script>
