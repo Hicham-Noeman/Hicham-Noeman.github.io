@@ -2,583 +2,561 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Hicham Noeman — Technical Consultant</title>
-  <meta name="description" content="Hicham Noeman — Technical Consultant & Software Developer specializing in Microsoft Dynamics 365 Business Central, Power Apps and Power Automate.">
+  <meta name="description" content="Hicham Noeman — Technical Consultant & Software Developer specializing in Microsoft Dynamics 365 Business Central, AL, Power Apps and Power Automate.">
+  <meta name="theme-color" content="#03060d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #05060a;
-      --bg-2: #0a0c14;
-      --text: #eef0f6;
-      --muted: #8b90a3;
-      --line: rgba(255, 255, 255, 0.08);
-      --card: rgba(255, 255, 255, 0.03);
-      --blue: #5b8cff;
-      --violet: #9d6bff;
-      --teal: #2ee6c5;
-      --grad: linear-gradient(120deg, var(--blue), var(--violet) 50%, var(--teal));
-      --display: "Space Grotesk", system-ui, sans-serif;
-      --body: "Inter", system-ui, sans-serif;
-      --serif: "Instrument Serif", Georgia, serif;
+      --bg: #03060d;
+      --bg-2: #060c19;
+      --blue: #2f7bf6;
+      --sky: #8cc4ff;
+      --ice: #d6e8ff;
+      --text: #eef4ff;
+      --muted: #9fb0c9;
+      --dim: #5d6f8c;
+      --line: rgba(160, 195, 255, 0.13);
+      --glass-border: rgba(200, 222, 255, 0.16);
+      --green: #4ade80;
+      --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+      --pad-x: clamp(16px, 5vw, 72px);
+      --pad-y: clamp(80px, 10vw, 140px);
+      --ease: cubic-bezier(.2, .8, .2, 1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--body);
-      font-weight: 300;
-      line-height: 1.65;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      background: var(--bg); color: var(--text); font-family: var(--font);
+      font-size: 16px; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
     }
-    ::selection { background: var(--violet); color: #fff; }
+    ::selection { background: var(--blue); color: #fff; }
     a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--sky); outline-offset: 4px; border-radius: 8px; }
+    .skip { position: fixed; top: -60px; left: 16px; z-index: 200; padding: 10px 18px; border-radius: 100px; background: var(--text); color: var(--bg); font-weight: 600; transition: top .2s; }
+    .skip:focus { top: 16px; }
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--pad-x); position: relative; }
 
-    /* ---------- WebGL + overlays ---------- */
-    #gl { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; }
-    .vignette {
-      position: fixed; inset: 0; z-index: 1; pointer-events: none;
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(5, 6, 10, 0.85) 100%);
+    /* ---------- Small pieces ---------- */
+    .chip-pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 100px;
+      font-size: .8rem; font-weight: 500; color: var(--ice);
+      background: rgba(255, 255, 255, .05); border: 1px solid var(--glass-border);
     }
-    .grain {
-      position: fixed; inset: -50%; z-index: 2; pointer-events: none; opacity: 0.05;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      animation: grain 8s steps(10) infinite;
+    .chip-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); flex: none; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px;
+      padding: 12px 22px; border-radius: 100px; font-size: .92rem; font-weight: 600;
+      background: var(--text); color: var(--bg); transition: transform .3s var(--ease), box-shadow .3s;
     }
-    @keyframes grain {
-      0%, 100% { transform: translate(0, 0); }
-      30% { transform: translate(-5%, 3%); }
-      60% { transform: translate(4%, -4%); }
-      90% { transform: translate(-3%, 5%); }
-    }
+    .btn:hover { box-shadow: 0 0 34px rgba(47, 123, 246, .55); }
+    .btn svg { width: 16px; height: 16px; transition: transform .3s var(--ease); }
+    .btn:hover svg { transform: translate(2px, -2px); }
+    .btn.ghost { background: rgba(255, 255, 255, .06); color: var(--text); border: 1px solid var(--glass-border); }
+    .social { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 100px; font-size: .85rem; font-weight: 500; color: var(--ice); background: rgba(255,255,255,.04); border: 1px solid var(--glass-border); transition: background .3s, border-color .3s; }
+    .social:hover { background: rgba(255,255,255,.1); border-color: rgba(200,222,255,.35); }
+    .social svg { width: 15px; height: 15px; flex: none; }
 
-    /* ---------- Loader ---------- */
-    .loader {
-      position: fixed; inset: 0; z-index: 100; background: var(--bg);
-      display: grid; place-items: center;
-      transition: opacity 0.9s ease, visibility 0.9s ease;
+    /* section header: "/TITLE" with a huge faint word behind it */
+    .sec-head { position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 64px); }
+    .ghost {
+      position: absolute; left: 50%; top: 50%; translate: -50% -62%; z-index: 0; pointer-events: none; white-space: nowrap;
+      font-weight: 800; font-size: clamp(4rem, 15vw, 13rem); letter-spacing: .02em; line-height: 1;
+      color: rgba(140, 196, 255, .045); user-select: none;
     }
-    .loader.done { opacity: 0; visibility: hidden; }
-    .loader-mark {
-      font-family: var(--display); font-weight: 600; font-size: 1rem; letter-spacing: 0.5em;
-      color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 18px;
-    }
-    .loader-bar { width: 160px; height: 1px; background: var(--line); overflow: hidden; }
-    .loader-bar span { display: block; height: 100%; width: 0; background: var(--grad); animation: load 1.4s ease forwards; }
-    @keyframes load { to { width: 100%; } }
+    .sec-head h2 { position: relative; z-index: 1; font-weight: 600; font-size: clamp(2rem, 4.5vw, 3.4rem); letter-spacing: -.03em; line-height: 1; overflow: hidden; }
+    .sec-head h2 span { display: inline-block; transform: translateY(105%); transition: transform 1s var(--ease); }
+    .sec-head.in h2 span { transform: none; }
+    .sec-head .aside { position: relative; z-index: 1; color: var(--muted); font-size: .95rem; }
+    .sec-head.center { justify-content: center; text-align: center; }
 
-    /* ---------- Cursor ---------- */
-    .cursor {
-      position: fixed; top: 0; left: 0; z-index: 90; pointer-events: none;
-      width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      transition: width 0.3s, height 0.3s, margin 0.3s, background 0.3s, border-color 0.3s;
-      mix-blend-mode: difference;
-    }
-    .cursor.hover { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: rgba(255, 255, 255, 0.9); border-color: transparent; }
-    @media (hover: none) { .cursor { display: none; } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
 
     /* ---------- Nav ---------- */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 22px clamp(16px, 5vw, 64px);
-      transition: background 0.4s, backdrop-filter 0.4s, padding 0.4s;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+      padding: 18px var(--pad-x); padding-top: max(18px, env(safe-area-inset-top));
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      transition: background .4s, border-color .4s, padding .4s; border-bottom: 1px solid transparent;
     }
-    nav.scrolled { background: rgba(5, 6, 10, 0.6); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding-top: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-    .logo { font-family: var(--display); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.08em; display: flex; align-items: center; gap: 10px; }
-    .logo i { width: 9px; height: 9px; border-radius: 50%; background: var(--grad); box-shadow: 0 0 14px var(--violet); }
-    .nav-links { display: flex; gap: 34px; list-style: none; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; }
-    .nav-links a { color: var(--muted); transition: color 0.3s; position: relative; }
+    nav.scrolled { background: rgba(3, 6, 13, .8); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); padding-top: max(12px, env(safe-area-inset-top)); padding-bottom: 12px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; font-size: .9rem; font-weight: 500; }
+    .nav-links a { color: var(--muted); transition: color .3s; }
     .nav-links a:hover { color: var(--text); }
-    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -6px; height: 1px; width: 0; background: var(--grad); transition: width 0.35s; }
-    .nav-links a:hover::after { width: 100%; }
-    @media (max-width: 820px) { .nav-links { display: none; } }
+    .nav-links sup { font-size: .65rem; color: var(--dim); margin-left: 3px; }
+    .nav .btn { min-height: 40px; padding: 9px 18px; font-size: .85rem; }
+    .menu-btn { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--glass-border); background: rgba(255,255,255,.05); place-items: center; }
+    .menu-btn span, .menu-btn span::before, .menu-btn span::after { display: block; width: 16px; height: 1.5px; background: currentColor; position: relative; transition: transform .3s, background .3s; }
+    .menu-btn span::before, .menu-btn span::after { content: ""; position: absolute; left: 0; }
+    .menu-btn span::before { top: -5px; } .menu-btn span::after { top: 5px; }
+    .menu-open .menu-btn span { background: transparent; }
+    .menu-open .menu-btn span::before { transform: translateY(5px) rotate(45deg); }
+    .menu-open .menu-btn span::after { transform: translateY(-5px) rotate(-45deg); }
+    @media (max-width: 900px) {
+      .menu-btn { display: grid; }
+      .nav-cta { display: none; }
+      .nav-links { position: fixed; inset: 0; z-index: -1; flex-direction: column; justify-content: center; align-items: center; gap: 26px; background: rgba(3,6,13,.97); font-size: 1.6rem; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
+      .nav-links a { color: var(--text); }
+      .menu-open .nav-links { opacity: 1; visibility: visible; }
+    }
+    @media (max-width: 480px) { .nav .chip-pill .long { display: none; } }
 
-    /* ---------- Layout ---------- */
-    main { position: relative; z-index: 5; }
-    section { position: relative; padding: 140px clamp(16px, 7vw, 120px); max-width: 1400px; margin: 0 auto; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 12px;
-      font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px;
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden;
+      background: radial-gradient(50% 45% at 50% 72%, rgba(47, 123, 246, .3), transparent 70%), var(--bg);
     }
-    .eyebrow::before { content: ""; width: 40px; height: 1px; background: var(--grad); }
-    h2 {
-      font-family: var(--display); font-weight: 500;
-      font-size: clamp(2.2rem, 5.5vw, 4.4rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 40px;
-    }
-    .serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: 0; }
-    .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-
-    /* ---------- Hero ---------- */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 120px; }
-    .status {
-      display: inline-flex; align-items: center; gap: 10px; width: fit-content;
-      padding: 8px 16px; border: 1px solid var(--line); border-radius: 100px;
-      font-size: 0.8rem; color: var(--muted); background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(8px);
-      margin-bottom: 36px;
-    }
-    .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); animation: pulse 2s infinite; }
-    @keyframes pulse { 50% { opacity: 0.35; } }
+    .hero .wrap { min-height: inherit; display: grid; grid-template-columns: 1fr 1.25fr 1fr; grid-template-rows: auto 1fr; column-gap: 24px; padding-top: 110px; padding-bottom: 40px; }
     .hero h1 {
-      font-family: var(--display); font-weight: 600;
-      font-size: clamp(3.2rem, 11vw, 9.5rem); line-height: 0.92; letter-spacing: -0.05em;
-      perspective: 800px;
+      grid-column: 1 / -1; text-align: center; font-weight: 800; text-transform: uppercase;
+      font-size: clamp(2.8rem, 8.6vw, 10rem); line-height: .95; letter-spacing: -.02em; white-space: nowrap;
     }
-    .hero h1 .line { display: block; overflow: hidden; padding-bottom: 0.06em; }
-    .hero h1 .char { display: inline-block; transform: translateY(110%) rotateX(-80deg); transform-origin: bottom; opacity: 0; }
-    .ready .hero h1 .char { animation: charIn 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: calc(var(--i) * 0.035s + 0.2s); }
-    @keyframes charIn { to { transform: none; opacity: 1; } }
-    .hero-sub {
-      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 40px; margin-top: 56px;
-    }
-    .hero-sub p { max-width: 520px; font-size: clamp(1rem, 1.4vw, 1.18rem); color: var(--muted); }
-    .hero-sub p strong { color: var(--text); font-weight: 500; }
-    .role { font-family: var(--display); font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text); text-align: right; line-height: 2; }
-    .role span { color: var(--muted); }
-    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
-    .ready .fade-up { opacity: 1; transform: none; transition-delay: 1.1s; }
-    .scroll-hint {
-      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 12px;
-      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted);
-    }
-    .scroll-hint i { width: 1px; height: 54px; background: linear-gradient(var(--text), transparent); animation: drip 2.2s infinite; transform-origin: top; }
-    @keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+    .hero h1 .word { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .02em .04em; }
+    /* gradients are applied per letter: background-clip:text on the parent breaks with transformed children */
+    .hero h1 .outline .ch { background: linear-gradient(180deg, rgba(214, 232, 255, .55), rgba(140, 196, 255, .28)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero h1 .solid .ch { background: linear-gradient(180deg, #ffffff, #8cc4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero h1 .ch { display: inline-block; transform: translateY(110%); }
+    .ready .hero h1 .ch { transform: none; transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * .04s + .1s); }
 
-    /* ---------- Marquee ---------- */
-    .marquee { position: relative; z-index: 5; border-block: 1px solid var(--line); padding: 26px 0; overflow: hidden; background: rgba(5, 6, 10, 0.4); backdrop-filter: blur(6px); }
-    .marquee-track { display: flex; gap: 60px; width: max-content; animation: marquee 40s linear infinite; }
-    .marquee-track span { font-family: var(--display); font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 500; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35); display: flex; align-items: center; gap: 60px; }
-    .marquee-track span::after { content: "✦"; -webkit-text-stroke: 0; color: var(--violet); font-size: 0.6em; }
+    .hero-left { grid-column: 1; grid-row: 2; align-self: center; max-width: 330px; }
+    .hero-left h2 { font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: 8px; }
+    .hero-left p { color: var(--muted); font-size: .98rem; margin-bottom: 24px; }
+    .stage { grid-column: 2; grid-row: 2; position: relative; min-height: 380px; height: 100%; max-height: 560px; pointer-events: none; }
+    .stage canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
+    .hero-right { grid-column: 3; grid-row: 2; align-self: center; justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+    .hero-right .label { font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+    .fade { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .ready .fade { opacity: 1; transform: none; transition-delay: .9s; }
+    .ready .fade.late { transition-delay: 1.15s; }
+    .scroll-cue { position: absolute; left: 50%; bottom: 22px; translate: -50% 0; font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--dim); display: flex; align-items: center; gap: 10px; }
+    .scroll-cue i { width: 18px; height: 28px; border: 1px solid var(--dim); border-radius: 10px; position: relative; }
+    .scroll-cue i::after { content: ""; position: absolute; left: 50%; top: 6px; width: 2px; height: 5px; margin-left: -1px; background: var(--ice); border-radius: 2px; animation: wheel 1.8s infinite; }
+    @keyframes wheel { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(9px); } }
+
+    @media (max-width: 960px) {
+      .hero .wrap { display: flex; flex-direction: column; padding-top: 100px; }
+      .hero h1 { white-space: normal; font-size: clamp(2.6rem, 14vw, 7rem); }
+      .hero h1 .word { display: block; }
+      .stage { height: clamp(280px, 68vw, 420px); min-height: 0; margin: 4px 0 10px; }
+      .hero-left { max-width: 560px; }
+      .hero-right { flex-direction: row; flex-wrap: wrap; align-items: center; justify-self: auto; margin-top: 26px; }
+      .hero-right .label { width: 100%; }
+      .scroll-cue { display: none; }
+    }
+
+    /* ---------- ABOUT ---------- */
+    .about { padding: var(--pad-y) 0; }
+    .statement { font-weight: 500; font-size: clamp(1.6rem, 3.6vw, 3rem); line-height: 1.25; letter-spacing: -.025em; max-width: 1100px; }
+    .statement .w { color: var(--dim); transition: color .35s; }
+    .statement .w.lit { color: var(--text); }
+    .statement .w.accent.lit { color: var(--sky); }
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(30px, 6vw, 90px); margin-top: clamp(50px, 7vw, 90px); align-items: start; }
+    .about-grid p { color: var(--muted); font-size: 1.05rem; margin-bottom: 16px; }
+    .about-grid p strong { color: var(--text); font-weight: 600; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+    .stats div { padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .stats div:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--line); }
+    .stats div:nth-child(even) { padding-left: 20px; }
+    .stats strong { display: block; font-size: clamp(2rem, 3.4vw, 2.8rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.1; }
+    .stats span { color: var(--muted); font-size: .88rem; }
+    @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } }
+
+    /* ---------- SERVICES (list rows) ---------- */
+    .services { padding: var(--pad-y) 0; }
+    .rows { border-top: 1px solid var(--line); }
+    .row {
+      position: relative; display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 20px;
+      padding: clamp(22px, 3vw, 34px) clamp(8px, 1.5vw, 20px); border-bottom: 1px solid var(--line);
+      transition: background .4s, padding .4s var(--ease);
+    }
+    .row::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(47,123,246,.14), transparent 80%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .row:hover::before { opacity: 1; }
+    .row .num { font-size: .85rem; color: var(--dim); font-weight: 500; }
+    .row h3 { font-weight: 600; font-size: clamp(1.4rem, 3.6vw, 2.9rem); letter-spacing: -.03em; line-height: 1.1; text-transform: uppercase; transition: transform .5s var(--ease), color .4s; }
+    .row:hover h3 { transform: translateX(12px); color: var(--sky); }
+    .row p { color: var(--muted); font-size: .95rem; margin-top: 8px; max-width: 560px; }
+    .row .arr { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--glass-border); transition: transform .5s var(--ease), background .4s, color .4s; }
+    .row .arr svg { width: 18px; height: 18px; }
+    .row:hover .arr { transform: rotate(45deg); background: var(--text); color: var(--bg); }
+    .pv { display: none; }
+    @media (max-width: 600px) { .row { grid-template-columns: 1fr auto; } .row .num { display: none; } .row .arr { width: 38px; height: 38px; } }
+
+    /* floating preview that follows the cursor over rows */
+    .preview {
+      position: fixed; left: 0; top: 0; z-index: 70; width: 300px; pointer-events: none;
+      border-radius: 16px; overflow: hidden; opacity: 0; scale: .85;
+      background: linear-gradient(165deg, rgba(22, 40, 78, .96), rgba(6, 13, 28, .97));
+      border: 1px solid var(--glass-border); box-shadow: 0 30px 70px -20px rgba(47, 123, 246, .55);
+      transition: opacity .3s, scale .4s var(--ease);
+    }
+    .preview.on { opacity: 1; scale: 1; }
+    .preview .bar { display: flex; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); align-items: center; }
+    .preview .bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2); }
+    .preview .bar span { margin-left: auto; font-family: var(--mono); font-size: .65rem; color: var(--dim); }
+    .preview pre { font-family: var(--mono); font-size: .7rem; line-height: 1.75; color: var(--ice); padding: 14px 16px; white-space: pre; overflow: hidden; }
+    .preview .k { color: #7fb2ff; } .preview .s { color: #b8f0d8; } .preview .c { color: var(--dim); } .preview .f { color: #ffd59a; }
+    .preview .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px; }
+    .preview .tags span { font-size: .72rem; padding: 4px 10px; border-radius: 100px; background: rgba(255,255,255,.07); border: 1px solid var(--glass-border); color: var(--ice); }
+    .preview .ttl { padding: 16px 16px 0; font-weight: 600; font-size: .95rem; }
+
+    /* ---------- EXPERIENCE (dark list) ---------- */
+    .experience { padding: var(--pad-y) 0; background: var(--bg-2); border-block: 1px solid var(--line); }
+    .xp { border-top: 1px solid var(--line); }
+    .xp-item { border-bottom: 1px solid var(--line); }
+    .xp-btn {
+      width: 100%; display: grid; grid-template-columns: 1fr auto 40px; align-items: center; gap: 20px; text-align: left;
+      padding: clamp(20px, 2.6vw, 28px) clamp(8px, 1.5vw, 20px); transition: background .4s;
+    }
+    .xp-btn:hover { background: rgba(47, 123, 246, .07); }
+    .xp-btn .co { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 600; display: block; }
+    .xp-btn .ro { color: var(--muted); font-size: .95rem; }
+    .xp-btn .dt { color: var(--muted); font-size: .92rem; white-space: nowrap; }
+    .xp-btn .dt .now { color: var(--green); font-weight: 600; }
+    .xp-btn .pm { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--glass-border); position: relative; justify-self: end; transition: transform .4s var(--ease), background .3s; }
+    .xp-btn .pm::before, .xp-btn .pm::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: currentColor; translate: -50% -50%; }
+    .xp-btn .pm::after { rotate: 90deg; transition: rotate .4s var(--ease); }
+    .xp-btn[aria-expanded="true"] .pm { background: var(--text); color: var(--bg); }
+    .xp-btn[aria-expanded="true"] .pm::after { rotate: 0deg; }
+    .xp-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--ease); }
+    .xp-panel > div { overflow: hidden; }
+    .xp-item.open .xp-panel { grid-template-rows: 1fr; }
+    .xp-body { padding: 0 clamp(8px, 1.5vw, 20px) 30px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 30px; }
+    .xp-body p { color: var(--muted); }
+    .xp-body .meta { color: var(--dim); font-size: .88rem; margin-top: 10px; }
+    .list { list-style: none; display: grid; gap: 9px; }
+    .list li { position: relative; padding-left: 20px; color: var(--ice); font-size: .95rem; }
+    .list li::before { content: ""; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--sky); }
+    @media (max-width: 760px) {
+      .xp-btn { grid-template-columns: 1fr 36px; }
+      .xp-btn .dt { grid-column: 1; grid-row: 2; font-size: .85rem; }
+      .xp-btn .pm { grid-column: 2; grid-row: 1 / span 2; }
+      .xp-body { grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    /* ---------- SKILLS ---------- */
+    .skills { padding: var(--pad-y) 0; overflow: hidden; }
+    .marquee { border-block: 1px solid var(--line); padding: 20px 0; overflow: hidden; margin-bottom: clamp(40px, 6vw, 70px); }
+    .marquee-track { display: flex; width: max-content; animation: marquee 35s linear infinite; }
+    .marquee-track span { font-weight: 700; font-size: clamp(1.4rem, 3.4vw, 2.6rem); text-transform: uppercase; white-space: nowrap; padding-right: 48px; display: flex; align-items: center; gap: 48px; }
+    .marquee-track span:nth-child(odd) { color: transparent; -webkit-text-stroke: 1px rgba(214, 232, 255, .55); }
+    .marquee-track span::after { content: "✦"; color: var(--blue); -webkit-text-stroke: 0; font-size: .5em; }
     @keyframes marquee { to { transform: translateX(-50%); } }
+    .skill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .skill-card { border: 1px solid var(--line); border-radius: 18px; padding: clamp(22px, 3vw, 30px); background: linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.01)); transition: border-color .4s, transform .5s var(--ease); }
+    .skill-card:hover { border-color: rgba(140, 196, 255, .35); transform: translateY(-4px); }
+    .skill-card h3 { font-weight: 600; font-size: 1.1rem; margin-bottom: 16px; display: flex; justify-content: space-between; gap: 10px; }
+    .skill-card h3 small { font-size: .72rem; letter-spacing: .18em; color: var(--dim); font-weight: 500; }
+    .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips li { font-size: .86rem; padding: 6px 13px; border-radius: 100px; background: rgba(255,255,255,.05); border: 1px solid var(--glass-border); color: var(--ice); }
+    @media (max-width: 960px) { .skill-grid { grid-template-columns: 1fr; } }
 
-    /* ---------- About ---------- */
-    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items: start; }
-    .about-text p { font-size: clamp(1.05rem, 1.5vw, 1.25rem); color: var(--muted); margin-bottom: 24px; }
-    .about-text p strong { color: var(--text); font-weight: 500; }
-    .quote {
-      font-family: var(--serif); font-style: italic; font-size: clamp(1.8rem, 3.4vw, 2.8rem); line-height: 1.2;
-      padding-left: 28px; border-left: 1px solid; border-image: var(--grad) 1; margin: 44px 0;
-    }
-    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (max-width: 960px) { .about-grid { grid-template-columns: 1fr; gap: 50px; } }
+    /* ---------- EDUCATION ---------- */
+    .education { padding: 0 0 var(--pad-y); }
 
-    /* ---------- 3D Tilt Card ---------- */
-    .tilt { transform-style: preserve-3d; perspective: 1000px; }
-    .card {
-      position: relative; border: 1px solid var(--line); border-radius: 20px; padding: 30px;
-      background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s;
-      overflow: hidden;
-    }
-    .card::before {
-      content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.4s;
-      background: radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(157, 107, 255, 0.16), transparent 40%);
-    }
-    .card:hover { border-color: rgba(157, 107, 255, 0.35); }
-    .card:hover::before { opacity: 1; }
-    .card .lift { transform: translateZ(40px); }
-    .stat .num { font-family: var(--display); font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
-    .stat .lbl { font-size: 0.85rem; color: var(--muted); margin-top: 10px; }
+    /* ---------- CTA ---------- */
+    .cta { position: relative; padding: var(--pad-y) 0 clamp(50px, 6vw, 70px); text-align: center; overflow: hidden; background: radial-gradient(55% 60% at 50% 45%, rgba(47,123,246,.28), transparent 70%), var(--bg-2); border-top: 1px solid var(--line); }
+    .cta h2 { font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 7vw, 6rem); line-height: 1; letter-spacing: -.03em; margin: 22px 0 20px; }
+    .cta h2 .outline { color: transparent; -webkit-text-stroke: 1.5px var(--ice); }
+    .cta p { color: var(--muted); max-width: 480px; margin: 0 auto 32px; font-size: 1.05rem; }
+    .cta .socials { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: clamp(50px, 8vw, 90px); }
+    footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 24px var(--pad-x); padding-bottom: max(24px, env(safe-area-inset-bottom)); color: var(--dim); font-size: .85rem; background: var(--bg-2); border-top: 1px solid var(--line); }
 
-    /* ---------- Approach ---------- */
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .step { min-height: 300px; display: flex; flex-direction: column; justify-content: space-between; }
-    .step .idx { font-family: var(--display); font-size: 0.8rem; letter-spacing: 0.2em; color: var(--muted); }
-    .step .icon {
-      width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; margin: 30px 0;
-      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line);
-      transform: translateZ(60px);
-    }
-    .step .icon svg { width: 26px; height: 26px; stroke: url(#g); }
-    .step h3 { font-family: var(--display); font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; transform: translateZ(30px); }
-    .step p { color: var(--muted); font-size: 0.95rem; transform: translateZ(20px); }
-    @media (max-width: 1100px) { .steps { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }
-
-    /* ---------- Experience ---------- */
-    .timeline { position: relative; display: flex; flex-direction: column; gap: 22px; }
-    .job { display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 40px; }
-    .job .when { font-family: var(--display); font-size: 0.85rem; color: var(--muted); letter-spacing: 0.06em; }
-    .job .when b { display: block; color: var(--text); font-weight: 500; font-size: 1rem; margin-bottom: 6px; }
-    .badge { display: inline-block; margin-top: 14px; padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--line); color: var(--muted); }
-    .badge.live { color: var(--teal); border-color: rgba(46, 230, 197, 0.35); }
-    .job h3 { font-family: var(--display); font-size: clamp(1.4rem, 2.4vw, 2rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
-    .job .org { color: var(--violet); font-size: 0.95rem; margin: 6px 0 18px; font-weight: 400; }
-    .job .desc { color: var(--muted); margin-bottom: 18px; }
-    .job ul { list-style: none; display: grid; gap: 10px; }
-    .job li { position: relative; padding-left: 22px; color: #c3c7d4; font-size: 0.95rem; }
-    .job li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 8px; height: 1px; background: var(--grad); }
-    .job.featured { border-color: rgba(91, 140, 255, 0.3); background: linear-gradient(160deg, rgba(91, 140, 255, 0.09), rgba(157, 107, 255, 0.03) 60%, rgba(255, 255, 255, 0.01)); }
-    .job.compact ul { grid-template-columns: 1fr 1fr; column-gap: 30px; }
-    @media (max-width: 860px) {
-      .job { grid-template-columns: 1fr; gap: 18px; padding: 28px; }
-      .job.compact ul { grid-template-columns: 1fr; }
-    }
-
-    /* ---------- Skills sphere ---------- */
-    .skills-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
-    .sphere-wrap { position: relative; height: 560px; perspective: 1200px; cursor: grab; user-select: none; touch-action: pan-y; }
-    .sphere-wrap:active { cursor: grabbing; }
-    .sphere { position: absolute; inset: 0; transform-style: preserve-3d; }
-    .sphere span {
-      position: absolute; left: 50%; top: 50%; white-space: nowrap;
-      font-family: var(--display); font-weight: 500; font-size: 1rem;
-      padding: 7px 16px; border-radius: 100px; border: 1px solid var(--line);
-      background: rgba(10, 12, 20, 0.7); backdrop-filter: blur(4px);
-      will-change: transform, opacity;
-    }
-    .sphere span.core { border-color: rgba(91, 140, 255, 0.5); color: #fff; background: rgba(91, 140, 255, 0.14); }
-    .skill-groups { display: grid; gap: 18px; }
-    .skill-groups h4 { font-family: var(--display); font-weight: 500; font-size: 1.1rem; margin-bottom: 14px; display: flex; justify-content: space-between; }
-    .skill-groups h4 small { color: var(--muted); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.15em; }
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chips span { font-size: 0.85rem; padding: 6px 14px; border-radius: 100px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); color: #c3c7d4; }
-    @media (max-width: 960px) { .skills-grid { grid-template-columns: 1fr; } .sphere-wrap { height: 420px; } }
-
-    /* ---------- Education & Volunteer ---------- */
-    .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-    .edu { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; padding: 44px; }
-    .edu h3, .vol h3 { font-family: var(--display); font-size: clamp(1.5rem, 2.6vw, 2.2rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
-    .edu .deg { font-family: var(--serif); font-style: italic; font-size: 1.5rem; margin: 10px 0 6px; }
-    .meta { color: var(--muted); font-size: 0.9rem; }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-    .tags span { font-size: 0.78rem; padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(46, 230, 197, 0.25); color: var(--teal); }
-    .vol { padding: 36px; }
-    .vol .org { color: var(--violet); margin: 6px 0 4px; }
-    .vol p { color: var(--muted); margin-top: 18px; font-size: 0.95rem; }
-    .vol ul, .edu ul { list-style: none; display: grid; gap: 9px; margin-top: 18px; }
-    .vol li, .edu li { position: relative; padding-left: 22px; color: #c3c7d4; font-size: 0.92rem; }
-    .vol li::before, .edu li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 8px; height: 1px; background: var(--grad); }
-    @media (max-width: 860px) { .duo, .edu { grid-template-columns: 1fr; } .edu { padding: 28px; gap: 24px; } .vol { padding: 28px; } }
-
-    /* ---------- Contact ---------- */
-    .contact { text-align: center; padding-top: 180px; padding-bottom: 120px; }
-    .contact h2 { font-size: clamp(2.8rem, 9vw, 8rem); letter-spacing: -0.05em; margin-bottom: 30px; }
-    .contact p { color: var(--muted); max-width: 520px; margin: 0 auto 50px; font-size: 1.1rem; }
-    .btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
-    .btn {
-      position: relative; display: inline-flex; align-items: center; gap: 12px;
-      padding: 18px 34px; border-radius: 100px; font-family: var(--display); font-weight: 500; font-size: 1rem;
-      border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(8px);
-      transition: transform 0.3s, border-color 0.3s, background 0.3s;
-    }
-    .btn:hover { border-color: rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.06); }
-    .btn.primary { background: var(--text); color: var(--bg); border-color: transparent; }
-    .btn.primary:hover { background: #fff; box-shadow: 0 0 40px rgba(157, 107, 255, 0.45); }
-    .btn svg { width: 18px; height: 18px; }
-    footer {
-      position: relative; z-index: 5; border-top: 1px solid var(--line);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-      padding: 30px clamp(16px, 5vw, 64px); color: var(--muted); font-size: 0.85rem;
-    }
-
-    /* ---------- Reveal ---------- */
-    .reveal { opacity: 0; transform: translateY(60px) rotateX(-8deg); transform-origin: top; transition: opacity 1.1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1); }
-    .reveal.in { opacity: 1; transform: none; }
-
+    .no-js .reveal, .no-js .fade, .no-js .hero h1 .ch, .no-js .sec-head h2 span { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
-      .hero h1 .char, .fade-up, .reveal { opacity: 1 !important; transform: none !important; }
+      .reveal, .fade, .hero h1 .ch, .sec-head h2 span { opacity: 1 !important; transform: none !important; }
+      .statement .w { color: var(--text); }
     }
   </style>
 </head>
 <body>
-  <!-- shared SVG gradient for icons -->
-  <svg width="0" height="0" style="position:absolute">
-    <defs>
-      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#5b8cff"/><stop offset=".5" stop-color="#9d6bff"/><stop offset="1" stop-color="#2ee6c5"/>
-      </linearGradient>
-    </defs>
-  </svg>
+  <a href="#about" class="skip">Skip to content</a>
 
-  <div class="loader" id="loader">
-    <div class="loader-mark">HICHAM NOEMAN<div class="loader-bar"><span></span></div></div>
-  </div>
-
-  <canvas id="gl"></canvas>
-  <div class="vignette"></div>
-  <div class="grain"></div>
-  <div class="cursor" id="cursor"></div>
-
-  <nav id="nav">
-    <a href="#top" class="logo"><i></i>HN</a>
-    <ul class="nav-links">
+  <nav id="nav" class="nav" aria-label="Main">
+    <span class="chip-pill"><span class="dot"></span>Technical Consultant<span class="long">&nbsp;@ ProService 365</span></span>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
-      <li><a href="#approach">Approach</a></li>
-      <li><a href="#experience">Experience</a></li>
+      <li><a href="#services">Services<sup>(4)</sup></a></li>
+      <li><a href="#experience">Experience<sup>(3+)</sup></a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <a class="btn nav-cta" href="#contact">Let's Talk
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
   </nav>
 
   <main id="top">
     <!-- HERO -->
-    <section class="hero" data-gl="1.6,0,1">
-      <div class="status fade-up" style="transition-delay:.4s"><i></i>Technical Consultant · ProService 365</div>
-      <h1 id="title">
-        <span class="line">Hicham</span>
-        <span class="line"><span class="grad">Noeman.</span></span>
-      </h1>
-      <div class="hero-sub fade-up">
-        <p>I build <strong>Microsoft Dynamics 365 Business Central</strong> solutions that fit how a business <em class="serif" style="color:var(--text)">actually</em> works — from AL extensions to Power Platform automation.</p>
-        <div class="role">Software Developer<br><span>AL · Power Apps · Power Automate</span></div>
+    <section class="hero" aria-label="Introduction">
+      <div class="wrap">
+        <h1 id="title" aria-label="Hicham Noeman">
+          <span class="word outline" aria-hidden="true">Hicham</span>
+          <span class="word solid" aria-hidden="true">Noeman</span>
+        </h1>
+
+        <div class="hero-left fade">
+          <h2>Technical Consultant</h2>
+          <p>Building Microsoft Dynamics 365 Business Central solutions — AL, Power Apps and Power Automate — that fit how a business actually works.</p>
+          <a class="btn" href="#contact">Let's collaborate
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </div>
+
+        <div class="stage" id="stage" aria-hidden="true"></div>
+
+        <div class="hero-right fade late">
+          <span class="label">Connect</span>
+          <a class="social" href="https://www.linkedin.com/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zm6.5 0h3.8v1.5h.05c.53-1 1.84-2.05 3.78-2.05 4.05 0 4.8 2.66 4.8 6.12v5.43h-4v-4.82c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.9h-4z"/></svg>LinkedIn</a>
+          <a class="social" href="https://github.com/Hicham-Noeman" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+          <a class="social" href="mailto:hnoeman@proservice365.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+        </div>
       </div>
-      <div class="scroll-hint fade-up"><i></i>Scroll</div>
+      <div class="scroll-cue fade late" aria-hidden="true"><i></i>Scroll</div>
     </section>
-  </main>
 
-  <div class="marquee">
-    <div class="marquee-track">
-      <span>Dynamics 365 Business Central</span><span>AL Programming</span><span>Power Apps</span><span>Power Automate</span><span>ERP Implementation</span><span>Process Automation</span>
-      <span>Dynamics 365 Business Central</span><span>AL Programming</span><span>Power Apps</span><span>Power Automate</span><span>ERP Implementation</span><span>Process Automation</span>
-    </div>
-  </div>
-
-  <main>
     <!-- ABOUT -->
-    <section id="about" data-gl="-2.2,0.2,0.8">
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <div class="eyebrow">01 — About</div>
-          <h2>Development goes <span class="serif grad">far beyond</span> writing code.</h2>
-          <p>As a Software Developer at <strong>ProService 365</strong>, I specialize in delivering tailored <strong>Microsoft Dynamics 365 Business Central</strong> solutions. My role spans the entire project lifecycle — from requirements analysis to deployment and support.</p>
-          <p>Leveraging <strong>Power Apps</strong>, <strong>Power Automate</strong> and <strong>AL programming</strong>, I optimize workflows and create practical, user-centric solutions. With a Bachelor's in Computer Science from Jinan University, I bring technical depth together with a real understanding of business operations.</p>
-          <div class="quote">“Understand the operation first. <span class="grad">Code second.</span>”</div>
-          <p>Curious by nature, always learning — and powered by tea ☕.</p>
+    <section class="about" id="about">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">ABOUT</span>
+          <h2><span>/ABOUT</span></h2>
+          <span class="aside">Understand first. Code second.</span>
         </div>
-        <div class="stats reveal">
-          <div class="tilt"><div class="card stat"><div class="lift"><div class="num grad">3+</div><div class="lbl">Years building Business Central solutions</div></div></div></div>
-          <div class="tilt"><div class="card stat"><div class="lift"><div class="num">E2E</div><div class="lbl">Full lifecycle — analysis to go-live & support</div></div></div></div>
-          <div class="tilt"><div class="card stat"><div class="lift"><div class="num">B.Sc.</div><div class="lbl">Computer Science, Jinan University</div></div></div></div>
-          <div class="tilt"><div class="card stat"><div class="lift"><div class="num grad">∞</div><div class="lbl">Cups of tea per release</div></div></div></div>
+        <p class="statement" id="statement">For me, development goes far beyond writing code. It starts with understanding how a business <em class="accent">actually works</em>, finding the challenge behind the process, and building the <em class="accent">right solution</em> around it.</p>
+        <div class="about-grid">
+          <div class="reveal">
+            <p>As a Software Developer at <strong>ProService 365</strong>, I specialize in tailored <strong>Microsoft Dynamics 365 Business Central</strong> solutions — covering the entire project lifecycle, from requirements analysis to deployment and support.</p>
+            <p>Using <strong>AL programming</strong>, <strong>Power Apps</strong> and <strong>Power Automate</strong>, I optimize workflows and build practical, user-centric solutions. Curious by nature, always learning — and powered by tea ☕.</p>
+          </div>
+          <div class="stats reveal">
+            <div><strong>3+</strong><span>Years at ProService 365</span></div>
+            <div><strong>E2E</strong><span>Analysis → go-live → support</span></div>
+            <div><strong>AL</strong><span>Extensions, pages, reports & logic</span></div>
+            <div><strong>B.Sc.</strong><span>Computer Science</span></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- APPROACH -->
-    <section id="approach" data-gl="0,-0.4,0.55">
-      <div class="reveal">
-        <div class="eyebrow">02 — Approach</div>
-        <h2>From the challenge behind<br>the process — <span class="serif grad">to the solution.</span></h2>
-      </div>
-      <div class="steps">
-        <div class="tilt reveal"><div class="card step">
-          <div class="idx">01</div>
-          <div><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
-          <h3>Understand</h3><p>Analyze client workflows and uncover how the business actually operates.</p></div>
-        </div></div>
-        <div class="tilt reveal"><div class="card step">
-          <div class="idx">02</div>
-          <div><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M3 7h18M3 12h12M3 17h7"/><circle cx="18" cy="17" r="3"/></svg></div>
-          <h3>Design</h3><p>Translate business needs into a clear, practical solution architecture.</p></div>
-        </div></div>
-        <div class="tilt reveal"><div class="card step">
-          <div class="idx">03</div>
-          <div><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></div>
-          <h3>Build</h3><p>AL extensions, Power Apps and Power Automate flows integrated with Business Central.</p></div>
-        </div></div>
-        <div class="tilt reveal"><div class="card step">
-          <div class="idx">04</div>
-          <div><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <h3>Support</h3><p>Test, optimize, train end users and document for smooth adoption.</p></div>
-        </div></div>
+    <!-- SERVICES -->
+    <section class="services" id="services">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">SERVICE</span>
+          <h2><span>/SERVICES</span></h2>
+          <span class="aside">What I build</span>
+        </div>
+        <div class="rows">
+          <div class="row reveal">
+            <span class="num">01</span>
+            <div><h3>Business Central Development</h3><p>AL extensions with custom tables, pages, reports and business logic.</p></div>
+            <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="pv"><div class="bar"><i></i><i></i><i></i><span>Customer.TableExt.al</span></div><pre><span class="k">tableextension</span> 50100 <span class="s">"HN Customer"</span>
+  <span class="k">extends</span> Customer
+{
+  <span class="k">fields</span>
+  {
+    <span class="k">field</span>(50100; <span class="s">"Credit Score"</span>; Integer)
+    { Caption = <span class="s">'Credit Score'</span>; }
+  }
+}</pre></div>
+          </div>
+          <div class="row reveal">
+            <span class="num">02</span>
+            <div><h3>ERP Implementation</h3><p>Requirements analysis, solution design, development, testing and deployment.</p></div>
+            <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="pv"><div class="ttl">Implementation lifecycle</div><div class="tags"><span>Requirements</span><span>Fit-gap</span><span>Solution design</span><span>Development</span><span>UAT</span><span>Go-live</span><span>Support</span></div></div>
+          </div>
+          <div class="row reveal">
+            <span class="num">03</span>
+            <div><h3>Power Platform Automation</h3><p>Power Apps and Power Automate integrated with Business Central to remove manual work.</p></div>
+            <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="pv"><div class="bar"><i></i><i></i><i></i><span>Flow · Approval</span></div><pre><span class="c">// Power Automate</span>
+<span class="f">When</span> a sales order is created
+  ↓
+<span class="f">Get</span> record from Business Central
+  ↓
+<span class="f">Start</span> approval → Teams
+  ↓
+<span class="f">Update</span> status <span class="s">"Released"</span></pre></div>
+          </div>
+          <div class="row reveal">
+            <span class="num">04</span>
+            <div><h3>Optimization & Support</h3><p>Debugging, performance tuning, end-user training and clear documentation.</p></div>
+            <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="pv"><div class="ttl">Reliability first</div><div class="tags"><span>Debugging</span><span>Performance</span><span>Testing</span><span>User training</span><span>Documentation</span></div></div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- EXPERIENCE -->
-    <section id="experience" data-gl="2.4,0,0.7">
-      <div class="reveal">
-        <div class="eyebrow">03 — Experience</div>
-        <h2>Where I've <span class="serif grad">made an impact.</span></h2>
-      </div>
-      <div class="timeline">
-        <div class="tilt reveal"><article class="card job featured">
-          <div class="when"><b>Apr 2023 — Present</b>Canada · Remote<br>Contract<br><span class="badge live">● Current</span></div>
-          <div>
-            <h3>Software Developer / Technical Consultant</h3>
-            <div class="org">ProService 365</div>
-            <p class="desc">I develop and deliver Microsoft Dynamics 365 Business Central solutions for clients across the full project lifecycle — building solutions that fit how each business actually operates.</p>
-            <ul>
-              <li>Develop Business Central extensions in AL, including custom tables, pages, reports, and business logic</li>
-              <li>Take part in ERP implementations: requirements analysis, solution design, development, testing, and deployment</li>
-              <li>Build Power Apps and Power Automate solutions integrated with Business Central to automate manual processes</li>
-              <li>Analyze client workflows and translate business needs into practical technical solutions</li>
-              <li>Debug, test, and optimize existing customizations to improve performance and reliability</li>
-              <li>Support and train end users, and document solutions for smooth adoption</li>
-            </ul>
+    <section class="experience" id="experience">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">EXPERIENCE</span>
+          <h2><span>/EXPERIENCE</span></h2>
+          <span class="aside">3+ years of experience</span>
+        </div>
+        <div class="xp">
+          <div class="xp-item reveal open">
+            <button class="xp-btn" aria-expanded="true" aria-controls="xp1">
+              <span><span class="co">ProService 365</span><span class="ro">Software Developer · Technical Consultant</span></span>
+              <span class="dt">Apr 2023 — <span class="now">Now</span></span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp1"><div>
+              <div class="xp-body">
+                <div>
+                  <p>I develop and deliver Microsoft Dynamics 365 Business Central solutions for clients across the full project lifecycle — from understanding business requirements to go-live and ongoing support.</p>
+                  <div class="meta">Canada · Remote · Contract</div>
+                </div>
+                <ul class="list">
+                  <li>Develop Business Central extensions in AL, including custom tables, pages, reports, and business logic</li>
+                  <li>Take part in ERP implementations: requirements analysis, solution design, development, testing, and deployment</li>
+                  <li>Build Power Apps and Power Automate solutions integrated with Business Central to automate manual processes</li>
+                  <li>Analyze client workflows and translate business needs into practical technical solutions</li>
+                  <li>Debug, test, and optimize existing customizations to improve performance and reliability</li>
+                  <li>Support and train end users, and document solutions for smooth adoption</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">ProService 365</div><div class="tags"><span>Business Central</span><span>AL</span><span>Power Apps</span><span>Power Automate</span><span>ERP</span><span>Integrations</span></div></div>
           </div>
-        </article></div>
 
-        <div class="tilt reveal"><article class="card job compact">
-          <div class="when"><b>Aug 2025 — Aug 2026</b>Tripoli, Lebanon<br>Part-time</div>
-          <div>
-            <h3>Social Media Manager & Graphic Designer</h3>
-            <div class="org">AEC Alameddine Engineering and Contracting</div>
-            <p class="desc">Managed the company's digital presence and created visual content showcasing its engineering and construction projects.</p>
-            <ul>
-              <li>Planned and managed content across social platforms</li>
-              <li>Designed branded graphics and visual materials</li>
-              <li>Produced and edited project videos</li>
-              <li>Captured on-site project photos and footage</li>
-              <li>Maintained a consistent visual identity</li>
-            </ul>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="xp2">
+              <span><span class="co">Eshraqat Elem</span><span class="ro">Python Trainer</span></span>
+              <span class="dt">Jul 2025 — Aug 2025</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp2"><div>
+              <div class="xp-body">
+                <div>
+                  <p>Taught Python and computer science fundamentals to high school students (Grades 10–11), focusing on logical thinking and problem solving rather than memorizing syntax.</p>
+                  <div class="meta">Tripoli, Lebanon · Contract</div>
+                </div>
+                <ul class="list">
+                  <li>Taught the evolution of computing, programming logic, and Python fundamentals</li>
+                  <li>Used project-based learning and relatable examples</li>
+                  <li>Guided students through hands-on coding exercises and small projects</li>
+                  <li>Encouraged creativity and independent problem solving with code</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="bar"><i></i><i></i><i></i><span>lesson_01.py</span></div><pre><span class="k">def</span> <span class="f">solve</span>(problem):
+    <span class="c"># think first, code second</span>
+    steps = understand(problem)
+    <span class="k">return</span> [build(s) <span class="k">for</span> s <span class="k">in</span> steps]</pre></div>
           </div>
-        </article></div>
 
-        <div class="tilt reveal"><article class="card job compact">
-          <div class="when"><b>Oct 2025 — Jun 2026</b>Tripoli, Lebanon<br>Full-time</div>
-          <div>
-            <h3>Administrative & Student Affairs Officer</h3>
-            <div class="org">Khotwa Center</div>
-            <p class="desc">Supported students and managed daily operations, with a strong focus on efficiency through automation and organized systems.</p>
-            <ul>
-              <li>Provided academic guidance and ongoing support</li>
-              <li>Managed student records and academic data</li>
-              <li>Coordinated activities, events and communication</li>
-              <li>Automated administrative processes to cut manual work</li>
-              <li>Built organized, data-driven student services</li>
-            </ul>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="xp3">
+              <span><span class="co">ZAKA | زكا</span><span class="ro">Zaka.ai Ambassador · Jinan University</span></span>
+              <span class="dt">Mar 2024 — Mar 2025</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp3"><div>
+              <div class="xp-body">
+                <div>
+                  <p>Represented Zaka.ai on campus and helped fellow students discover artificial intelligence and start learning it.</p>
+                  <div class="meta">Volunteer · Education</div>
+                </div>
+                <ul class="list">
+                  <li>Organized AI-focused events, workshops, and awareness sessions</li>
+                  <li>Developed and delivered introductory AI courses for fellow students</li>
+                  <li>Connected students with learning opportunities in AI and technology</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">Zaka.ai</div><div class="tags"><span>AI</span><span>Workshops</span><span>Course design</span><span>Community</span></div></div>
           </div>
-        </article></div>
-
-        <div class="tilt reveal"><article class="card job compact">
-          <div class="when"><b>Jul 2025 — Aug 2025</b>Tripoli, Lebanon<br>Contract</div>
-          <div>
-            <h3>Python Trainer</h3>
-            <div class="org">Eshraqat Elem</div>
-            <p class="desc">Taught Python and CS fundamentals to Grades 10–11, building logical thinking and problem-solving rather than memorized syntax.</p>
-            <ul>
-              <li>Evolution of computing, programming logic, Python</li>
-              <li>Project-based learning with relatable examples</li>
-              <li>Hands-on coding exercises and small projects</li>
-              <li>Encouraged creative, independent problem solving</li>
-            </ul>
-          </div>
-        </article></div>
-
-        <div class="tilt reveal"><article class="card job compact">
-          <div class="when"><b>Dec 2022 — Aug 2025</b>Tripoli, Lebanon<br>Part-time</div>
-          <div>
-            <h3>Project Officer</h3>
-            <div class="org">Alemni Foundation</div>
-            <p class="desc">Planned and delivered programs supporting the personal, academic and professional development of university students.</p>
-            <ul>
-              <li>Planned and executed student development initiatives</li>
-              <li>Designed research-based self-development trainings</li>
-              <li>Facilitated academic and professional skills courses</li>
-              <li>Coordinated teams and volunteers to deliver on time</li>
-              <li>Managed logistics, schedules and communication</li>
-            </ul>
-          </div>
-        </article></div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills" data-gl="-2.4,0,0.6">
-      <div class="reveal">
-        <div class="eyebrow">04 — Skills</div>
-        <h2>A toolkit built for <span class="serif grad">real operations.</span></h2>
-      </div>
-      <div class="skills-grid">
-        <div class="sphere-wrap reveal" id="sphereWrap"><div class="sphere" id="sphere"></div></div>
-        <div class="skill-groups">
-          <div class="tilt reveal"><div class="card">
-            <h4>Microsoft Ecosystem <small>CORE</small></h4>
-            <div class="chips"><span>Dynamics 365 Business Central</span><span>AL Programming</span><span>Power Apps</span><span>Power Automate</span><span>Power Platform</span><span>BC Extensions</span></div>
-          </div></div>
-          <div class="tilt reveal"><div class="card">
-            <h4>Delivery <small>LIFECYCLE</small></h4>
-            <div class="chips"><span>ERP Implementation</span><span>Requirements Analysis</span><span>Solution Design</span><span>Integrations</span><span>Testing & Debugging</span><span>Performance Optimization</span><span>User Training</span><span>Documentation</span></div>
-          </div></div>
-          <div class="tilt reveal"><div class="card">
-            <h4>Engineering <small>FOUNDATION</small></h4>
-            <div class="chips"><span>Python</span><span>Java</span><span>MySQL</span><span>OOP</span><span>Data Structures</span><span>Databases</span><span>Web Development</span></div>
-          </div></div>
-          <div class="tilt reveal"><div class="card">
-            <h4>Beyond Code <small>CREATIVE</small></h4>
-            <div class="chips"><span>Graphic Design</span><span>Video Editing</span><span>Content Strategy</span><span>Teaching & Training</span><span>Project Management</span><span>Team Leadership</span></div>
-          </div></div>
         </div>
       </div>
     </section>
 
-    <!-- EDUCATION + VOLUNTEER -->
-    <section id="education" data-gl="0,0.3,0.5">
-      <div class="reveal">
-        <div class="eyebrow">05 — Education & Community</div>
-        <h2>Always learning. <span class="serif grad">Always giving back.</span></h2>
+    <!-- SKILLS -->
+    <section class="skills" id="skills">
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Business Central</span><span>AL</span><span>Power Apps</span><span>Power Automate</span><span>ERP</span><span>Python</span>
+          <span>Business Central</span><span>AL</span><span>Power Apps</span><span>Power Automate</span><span>ERP</span><span>Python</span>
+        </div>
       </div>
-      <div class="duo">
-        <div class="tilt reveal edu-wrap" style="grid-column:1/-1"><div class="card edu">
-          <div>
-            <div class="meta">Feb 2022 — Jan 2025</div>
-            <h3 style="margin-top:12px">Jinan University — Lebanon</h3>
-            <div class="deg grad">Bachelor's degree, Computer Science</div>
-            <div class="tags"><span>Student Council</span><span>Zaka.ai Ambassador</span><span>Chess</span><span>Basketball</span><span>Ping-pong</span></div>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">SKILLS</span>
+          <h2><span>/SKILLS</span></h2>
+          <span class="aside">Tools of the trade</span>
+        </div>
+        <div class="skill-grid">
+          <div class="skill-card reveal">
+            <h3>Microsoft Ecosystem <small>CORE</small></h3>
+            <ul class="chips"><li>Dynamics 365 Business Central</li><li>AL Programming</li><li>Power Apps</li><li>Power Automate</li><li>Power Platform</li><li>BC Extensions</li></ul>
           </div>
-          <div>
-            <p class="meta" style="font-size:1rem">A solid foundation in programming, software development and problem solving — now applied daily across Dynamics 365 and the Power Platform.</p>
-            <ul>
-              <li>Object-oriented programming, data structures, databases and web development</li>
-              <li>Hands-on projects using Java, Python and MySQL</li>
-              <li>Student Council — connecting students with university management, organizing campus events</li>
-              <li>Zaka.ai campus ambassador — organizing AI events and developing AI courses</li>
-            </ul>
+          <div class="skill-card reveal">
+            <h3>Delivery <small>LIFECYCLE</small></h3>
+            <ul class="chips"><li>ERP Implementation</li><li>Requirements Analysis</li><li>Solution Design</li><li>Integrations</li><li>Testing & Debugging</li><li>Performance</li><li>Deployment</li><li>Documentation</li></ul>
           </div>
-        </div></div>
-
-        <div class="tilt reveal"><div class="card vol">
-          <div class="meta">Jan 2024 — Apr 2025 · Volunteer · Children</div>
-          <h3 style="margin-top:12px">Initiatives Manager</h3>
-          <div class="org">Alemni Foundation</div>
-          <p>Led initiatives for children from the first idea to the final event, making sure every activity had a real impact.</p>
-          <ul>
-            <li>Planned and managed initiatives and events end-to-end</li>
-            <li>Recruited, coordinated and guided volunteer teams</li>
-            <li>Worked with partners to deliver meaningful activities</li>
-            <li>Solved problems on the spot to keep events running</li>
-          </ul>
-        </div></div>
-
-        <div class="tilt reveal"><div class="card vol">
-          <div class="meta">Mar 2024 — Mar 2025 · Volunteer · Education</div>
-          <h3 style="margin-top:12px">Ambassador</h3>
-          <div class="org">ZAKA | زكا</div>
-          <p>Represented Zaka.ai at Jinan University, helping students discover artificial intelligence and start learning it.</p>
-          <ul>
-            <li>Promoted Zaka.ai's AI learning programs on campus</li>
-            <li>Organized AI events, workshops and awareness sessions</li>
-            <li>Developed and delivered introductory AI courses</li>
-            <li>Connected students with AI & tech opportunities</li>
-          </ul>
-        </div></div>
+          <div class="skill-card reveal">
+            <h3>Engineering <small>FOUNDATION</small></h3>
+            <ul class="chips"><li>Python</li><li>Java</li><li>MySQL</li><li>OOP</li><li>Data Structures</li><li>Databases</li><li>Web Development</li><li>AI Fundamentals</li></ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact" data-gl="0,0,1.25">
-      <div class="reveal">
-        <div class="eyebrow" style="justify-content:center">06 — Contact</div>
-        <h2>Let's simplify<br><span class="serif grad">your operations.</span></h2>
-        <p>Have a Business Central project, a process to automate, or just want to talk ERP over tea? Let's connect.</p>
-        <div class="btns">
-          <a class="btn primary" href="mailto:hnoeman@proservice365.com">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            Get in touch
-          </a>
-          <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zm6.5 0h3.8v1.5h.05c.53-1 1.84-2.05 3.78-2.05 4.05 0 4.8 2.66 4.8 6.12v5.43h-4v-4.82c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.9h-4z"/></svg>
-            LinkedIn
-          </a>
+    <!-- EDUCATION -->
+    <section class="education" id="education">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">EDUCATION</span>
+          <h2><span>/EDUCATION</span></h2>
+        </div>
+        <div class="xp">
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="ed1">
+              <span><span class="co">Jinan University — Lebanon</span><span class="ro">Bachelor's degree, Computer Science</span></span>
+              <span class="dt">Feb 2022 — Jan 2025</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="ed1"><div>
+              <div class="xp-body">
+                <p>A solid foundation in programming, software development and problem solving — now applied every day across Dynamics 365 and the Power Platform.</p>
+                <ul class="list">
+                  <li>Object-oriented programming, data structures, databases and web development</li>
+                  <li>Hands-on projects using Java, Python and MySQL</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">B.Sc. Computer Science</div><div class="tags"><span>Java</span><span>Python</span><span>MySQL</span><span>OOP</span><span>Data Structures</span><span>Web Dev</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+      <div class="wrap reveal">
+        <span class="chip-pill"><span class="dot"></span>Let's work together</span>
+        <h2>Have a <span class="outline">project</span><br>in mind?</h2>
+        <p>Have a Business Central project or a process to automate? Let's simplify it together.</p>
+        <a class="btn" href="mailto:hnoeman@proservice365.com">Contact me
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        <div class="socials">
+          <a class="social" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="social" href="https://github.com/Hicham-Noeman" target="_blank" rel="noopener">GitHub</a>
+          <a class="social" href="mailto:hnoeman@proservice365.com">Email</a>
         </div>
       </div>
     </section>
@@ -589,343 +567,267 @@
     <span>Understand the operation first. Code second.</span>
   </footer>
 
+  <div class="preview" id="preview" aria-hidden="true"></div>
+
   <script type="importmap">
-    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    } }
+  </script>
+
+  <script>
+    // page must stay usable even if the 3D module fails to load
+    setTimeout(() => { if (!document.body.classList.contains("ready")) document.body.classList.add("ready", "no-js"); }, 3000);
   </script>
 
   <script type="module">
     import * as THREE from "three";
+    import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+    import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
     document.getElementById("yr").textContent = new Date().getFullYear();
 
-    /* ---------- Split hero title into chars ---------- */
+    /* ---------- Hero name: split into letters ---------- */
     let ci = 0;
-    document.querySelectorAll("#title .line").forEach(line => {
-      const target = line.querySelector(".grad") || line;
-      const text = target.textContent;
-      target.textContent = "";
+    document.querySelectorAll("#title .word").forEach(w => {
+      const text = w.textContent;
+      w.textContent = "";
       [...text].forEach(ch => {
         const s = document.createElement("span");
-        s.className = "char";
+        s.className = "ch";
         s.style.setProperty("--i", ci++);
         s.textContent = ch;
-        target.appendChild(s);
+        w.appendChild(s);
       });
     });
 
-    /* ---------- Three.js scene ---------- */
-    const canvas = document.getElementById("gl");
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    renderer.setSize(innerWidth, innerHeight);
+    /* ---------- Nav + mobile menu ---------- */
+    const nav = document.getElementById("nav");
+    const onScroll = () => nav.classList.toggle("scrolled", scrollY > 40);
+    addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    const menuBtn = document.getElementById("menuBtn");
+    const setMenu = open => {
+      document.body.classList.toggle("menu-open", open);
+      menuBtn.setAttribute("aria-expanded", open);
+      menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.body.style.overflow = open ? "hidden" : "";
+    };
+    menuBtn.addEventListener("click", () => setMenu(!document.body.classList.contains("menu-open")));
+    document.querySelectorAll("#navLinks a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+    addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
+
+    /* ---------- Reveal on scroll ---------- */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".reveal, .sec-head").forEach(el => io.observe(el));
+    document.querySelectorAll(".rows, .xp, .skill-grid").forEach(group => {
+      [...group.querySelectorAll(".reveal")].forEach((el, i) => (el.style.transitionDelay = `${i * 0.08}s`));
+    });
+
+    /* ---------- Statement: words light up as you scroll ---------- */
+    const statement = document.getElementById("statement");
+    const words = [];
+    [...statement.childNodes].forEach(node => {
+      const accent = node.nodeType === 1;
+      const parts = node.textContent.split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      parts.forEach(p => {
+        if (!p.trim()) { frag.appendChild(document.createTextNode(p)); return; }
+        const s = document.createElement("span");
+        s.className = "w" + (accent ? " accent" : "");
+        s.textContent = p;
+        words.push(s);
+        frag.appendChild(s);
+      });
+      statement.replaceChild(frag, node);
+    });
+    function lightWords() {
+      const r = statement.getBoundingClientRect();
+      const p = Math.min(Math.max((innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.35), 0), 1);
+      const n = Math.round(p * words.length);
+      words.forEach((w, i) => w.classList.toggle("lit", i < n));
+    }
+    if (reduced) words.forEach(w => w.classList.add("lit"));
+    else { addEventListener("scroll", lightWords, { passive: true }); lightWords(); }
+
+    /* ---------- Ghost words drift sideways with scroll ---------- */
+    const ghosts = [...document.querySelectorAll(".ghost")];
+    function driftGhosts() {
+      ghosts.forEach(g => {
+        const r = g.parentElement.getBoundingClientRect();
+        const p = (r.top + r.height / 2) / innerHeight - 0.5;
+        g.style.transform = `translateX(${p * -12}%)`;
+      });
+    }
+    if (!reduced) { addEventListener("scroll", driftGhosts, { passive: true }); driftGhosts(); }
+
+    /* ---------- Accordions (experience / education) ---------- */
+    document.querySelectorAll(".xp-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".xp-item");
+        const open = !item.classList.contains("open");
+        item.classList.toggle("open", open);
+        btn.setAttribute("aria-expanded", open);
+      });
+    });
+
+    /* ---------- Floating preview that follows the cursor ---------- */
+    if (finePointer) {
+      const pv = document.getElementById("preview");
+      let tx = 0, ty = 0, x = 0, y = 0, vx = 0, active = false;
+      document.querySelectorAll(".row, .xp-item").forEach(el => {
+        const src = el.querySelector(".pv");
+        if (!src) return;
+        const hot = el.classList.contains("row") ? el : el.querySelector(".xp-btn");
+        hot.addEventListener("pointerenter", e => { pv.innerHTML = src.innerHTML; pv.classList.add("on"); active = true; x = tx = e.clientX; y = ty = e.clientY; });
+        hot.addEventListener("pointerleave", () => { pv.classList.remove("on"); active = false; });
+      });
+      addEventListener("pointermove", e => { tx = e.clientX; ty = e.clientY; });
+      (function follow() {
+        const nx = x + (tx - x) * 0.14;
+        vx = nx - x; x = nx; y += (ty - y) * 0.14;
+        if (active || pv.classList.contains("on")) {
+          const w = pv.offsetWidth, h = pv.offsetHeight;
+          const px = Math.min(x + 28, innerWidth - w - 16);
+          const py = Math.min(Math.max(y - h / 2, 16), innerHeight - h - 16);
+          pv.style.transform = `translate(${px}px, ${py}px) rotate(${Math.max(Math.min(vx * 0.6, 8), -8)}deg)`;
+        }
+        requestAnimationFrame(follow);
+      })();
+    }
+
+    /* ---------- Hero 3D: floating glass cards (contained in the centre column) ---------- */
+    const stage = document.getElementById("stage");
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 900 ? 1.5 : 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+    stage.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x05060a, 0.045);
-    const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 7);
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
 
-    const world = new THREE.Group();
-    scene.add(world);
-    const orb = new THREE.Group();
-    world.add(orb);
+    scene.add(new THREE.AmbientLight(0x3366cc, 0.6));
+    const back = new THREE.DirectionalLight(0x5aa0ff, 4); back.position.set(0, 3, -5); scene.add(back);
+    const key = new THREE.DirectionalLight(0xffffff, 1.5); key.position.set(-4, 3, 5); scene.add(key);
+    const rim = new THREE.PointLight(0x8cc4ff, 25, 12); rim.position.set(3, -1, 2); scene.add(rim);
 
-    const uniforms = {
-      uTime: { value: 0 },
-      uC1: { value: new THREE.Color("#5b8cff") },
-      uC2: { value: new THREE.Color("#9d6bff") },
-      uC3: { value: new THREE.Color("#2ee6c5") },
-      uAmp: { value: 0.2 }
-    };
-
-    const vert = `
-      uniform float uTime; uniform float uAmp;
-      varying vec3 vN; varying vec3 vV; varying float vD;
-      float wave(vec3 p){
-        return sin(p.x*2.1+uTime*.9)*sin(p.y*2.4+uTime*.7)*sin(p.z*2.2+uTime*.8)
-             + .5*sin(p.x*4.3-uTime*1.1)*sin(p.z*3.9+uTime*.6);
-      }
-      void main(){
-        vec3 p = position;
-        float d = wave(normal*1.5) * uAmp;
-        p += normal * d; vD = d;
-        vec4 mv = modelViewMatrix * vec4(p, 1.);
-        vV = -mv.xyz; vN = normalize(normalMatrix * normal);
-        gl_Position = projectionMatrix * mv;
-      }`;
-
-    // glowing fresnel core
-    const core = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.4, 64),
-      new THREE.ShaderMaterial({
-        uniforms, vertexShader: vert, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-        fragmentShader: `
-          uniform vec3 uC1,uC2,uC3; varying vec3 vN; varying vec3 vV; varying float vD;
-          void main(){
-            float f = pow(1. - max(dot(normalize(vN), normalize(vV)), 0.), 2.4);
-            vec3 c = mix(uC1, uC2, smoothstep(-.2, .2, vD));
-            c = mix(c, uC3, f * .7);
-            gl_FragColor = vec4(c * (.25 + f * 1.6), .08 + f * .9);
-          }`
-      })
-    );
-    orb.add(core);
-
-    // wireframe skin following the same displacement
-    const wire = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.42, 5),
-      new THREE.ShaderMaterial({
-        uniforms, vertexShader: vert, wireframe: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-        fragmentShader: `
-          uniform vec3 uC1,uC3; varying vec3 vN; varying vec3 vV;
-          void main(){
-            float f = pow(1. - max(dot(normalize(vN), normalize(vV)), 0.), 1.5);
-            gl_FragColor = vec4(mix(uC1, uC3, f), .05 + f * .25);
-          }`
-      })
-    );
-    orb.add(wire);
-
-    // soft point sprite texture
-    const dot = (() => {
-      const c = document.createElement("canvas"); c.width = c.height = 64;
+    function cardTexture(top, bottom, label, dark) {
+      const c = document.createElement("canvas"); c.width = 512; c.height = 720;
       const g = c.getContext("2d");
-      const r = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-      r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(0.3, "rgba(255,255,255,.6)"); r.addColorStop(1, "rgba(255,255,255,0)");
-      g.fillStyle = r; g.fillRect(0, 0, 64, 64);
-      return new THREE.CanvasTexture(c);
-    })();
-
-    // neural network shell: nodes + connections
-    const NODES = 90, R = 2.6;
-    const nodePos = [];
-    for (let i = 0; i < NODES; i++) {
-      const y = 1 - (i / (NODES - 1)) * 2, r = Math.sqrt(1 - y * y), th = i * 2.399963;
-      const jitter = 1 + (Math.random() - 0.5) * 0.25;
-      nodePos.push(new THREE.Vector3(Math.cos(th) * r * R * jitter, y * R * jitter, Math.sin(th) * r * R * jitter));
+      const lg = g.createLinearGradient(0, 0, 512, 720);
+      lg.addColorStop(0, top); lg.addColorStop(1, bottom);
+      g.fillStyle = lg; g.fillRect(0, 0, 512, 720);
+      const hl = g.createRadialGradient(170, 200, 0, 170, 200, 320);
+      hl.addColorStop(0, dark ? "rgba(120,170,255,.25)" : "rgba(255,255,255,.6)"); hl.addColorStop(1, "rgba(255,255,255,0)");
+      g.fillStyle = hl; g.fillRect(0, 0, 512, 720);
+      g.fillStyle = dark ? "rgba(214,232,255,.85)" : "rgba(10,30,70,.6)";
+      g.font = "600 38px Manrope, sans-serif";
+      g.fillText(label, 44, 664);
+      g.globalAlpha = 0.5;
+      g.beginPath(); g.arc(466, 64, 14, 0, Math.PI * 2); g.fill();
+      const t = new THREE.CanvasTexture(c);
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.anisotropy = 8;
+      return t;
     }
-    const nodeGeo = new THREE.BufferGeometry().setFromPoints(nodePos);
-    const nodes = new THREE.Points(nodeGeo, new THREE.PointsMaterial({
-      size: 0.09, map: dot, color: 0xbfd0ff, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
-    }));
-    const linePts = [];
-    for (let i = 0; i < NODES; i++)
-      for (let j = i + 1; j < NODES; j++)
-        if (nodePos[i].distanceTo(nodePos[j]) < 1.05) linePts.push(nodePos[i], nodePos[j]);
-    const lines = new THREE.LineSegments(
-      new THREE.BufferGeometry().setFromPoints(linePts),
-      new THREE.LineBasicMaterial({ color: 0x7f8dff, transparent: true, opacity: 0.16, depthWrite: false, blending: THREE.AdditiveBlending })
-    );
-    const net = new THREE.Group();
-    net.add(nodes, lines);
-    orb.add(net);
-
-    // data pulses travelling along connections
-    const PULSES = 40;
-    const pulseGeo = new THREE.BufferGeometry();
-    const pulseArr = new Float32Array(PULSES * 3);
-    pulseGeo.setAttribute("position", new THREE.BufferAttribute(pulseArr, 3));
-    const pulseData = Array.from({ length: PULSES }, () => ({ seg: (Math.random() * (linePts.length / 2)) | 0, t: Math.random(), s: 0.004 + Math.random() * 0.01 }));
-    const pulses = new THREE.Points(pulseGeo, new THREE.PointsMaterial({
-      size: 0.13, map: dot, color: 0x2ee6c5, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
-    }));
-    net.add(pulses);
-
-    // orbit rings
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0x9d6bff, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending });
-    const rings = [];
-    [[3.3, 1.2, 0.3], [3.7, -0.5, 1.1], [4.1, 0.9, -0.8]].forEach(([rad, rx, rz], k) => {
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(rad, 0.004, 8, 256), ringMat.clone());
-      ring.material.opacity = 0.28 - k * 0.07;
-      ring.rotation.set(rx, 0, rz);
-      // satellite on ring
-      const sat = new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 16), new THREE.MeshBasicMaterial({ color: k === 1 ? 0x2ee6c5 : 0xffffff }));
-      sat.position.x = rad;
-      ring.add(sat);
-      rings.push(ring);
-      orb.add(ring);
+    const mkMat = (map, dark) => new THREE.MeshPhysicalMaterial({
+      map, roughness: dark ? 0.22 : 0.32, metalness: dark ? 0.45 : 0.05,
+      clearcoat: 1, clearcoatRoughness: 0.12, transparent: true, opacity: dark ? 0.97 : 0.92,
+      envMapIntensity: dark ? 1.4 : 1, iridescence: dark ? 0 : 0.3
     });
 
-    // deep starfield
-    const STARS = 2200;
-    const starArr = new Float32Array(STARS * 3);
-    for (let i = 0; i < STARS; i++) {
-      const r = 10 + Math.random() * 30, th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
-      starArr.set([r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph)], i * 3);
+    const geo = new RoundedBoxGeometry(1.5, 2.1, 0.06, 6, 0.12);
+    const group = new THREE.Group();
+    scene.add(group);
+    const cards = [
+      { mat: mkMat(cardTexture("#bcd9ff", "#3b7fe6", "AL", false), false), pos: [-0.8, 0.35, 0.5], rot: [-0.2, 0.5, 0.32] },
+      { mat: mkMat(cardTexture("#16294d", "#04070f", "Business Central", true), true), pos: [0, 0, 0], rot: [-0.12, 0.32, 0.22] },
+      { mat: mkMat(cardTexture("#e6f1ff", "#6ea8ff", "Power Platform", false), false), pos: [0.8, -0.35, -0.5], rot: [-0.16, 0.2, 0.14] }
+    ].map(({ mat, pos, rot }, i) => {
+      const m = new THREE.Mesh(geo, mat);
+      m.userData = { base: new THREE.Vector3(...pos), rot: new THREE.Euler(...rot), phase: i * 1.7 };
+      group.add(m);
+      return m;
+    });
+
+    const glowTex = (() => {
+      const c = document.createElement("canvas"); c.width = c.height = 256;
+      const g = c.getContext("2d");
+      const r = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+      r.addColorStop(0, "rgba(90,160,255,.85)"); r.addColorStop(0.4, "rgba(47,123,246,.3)"); r.addColorStop(1, "rgba(47,123,246,0)");
+      g.fillStyle = r; g.fillRect(0, 0, 256, 256);
+      return new THREE.CanvasTexture(c);
+    })();
+    const glow = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.MeshBasicMaterial({ map: glowTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+    glow.position.z = -2;
+    scene.add(glow);
+
+    // fit the camera so the whole card group always sits inside the stage box
+    const NEED_W = 3.9, NEED_H = 3.4;
+    function resize() {
+      const w = stage.clientWidth, h = stage.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      const t = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+      camera.position.set(0, 0, Math.max(NEED_H / 2 / t, NEED_W / 2 / (t * camera.aspect)) + 0.6);
+      camera.updateProjectionMatrix();
+      render();
     }
-    const starGeo = new THREE.BufferGeometry();
-    starGeo.setAttribute("position", new THREE.BufferAttribute(starArr, 3));
-    const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({
-      size: 0.08, map: dot, color: 0x9aa4c8, transparent: true, opacity: 0.8, depthWrite: false, blending: THREE.AdditiveBlending
-    }));
-    scene.add(stars);
 
-    /* ---------- Section-driven orb placement ---------- */
-    const target = { x: 1.6, y: 0, s: 1 };
-    const isMobile = () => innerWidth < 820;
-    const sectionObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const [x, y, s] = e.target.dataset.gl.split(",").map(Number);
-        target.x = isMobile() ? 0 : x; target.y = y; target.s = isMobile() ? s * 0.75 : s;
-      });
-    }, { threshold: 0.35 });
-    document.querySelectorAll("[data-gl]").forEach(s => sectionObs.observe(s));
-
-    /* ---------- Input ---------- */
     const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
-    addEventListener("pointermove", e => {
+    if (finePointer) addEventListener("pointermove", e => {
       mouse.x = (e.clientX / innerWidth) * 2 - 1;
       mouse.y = -(e.clientY / innerHeight) * 2 + 1;
     });
-    let scrollVel = 0, lastY = scrollY;
-
-    addEventListener("resize", () => {
-      camera.aspect = innerWidth / innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(innerWidth, innerHeight);
-    });
 
     const clock = new THREE.Clock();
-    const tmp = new THREE.Vector3();
-    function tick() {
-      const dt = Math.min(clock.getDelta(), 0.05);
-      const t = clock.elapsedTime;
-      uniforms.uTime.value = t;
-
-      scrollVel += ((scrollY - lastY) - scrollVel) * 0.1;
-      lastY = scrollY;
-      uniforms.uAmp.value += ((0.18 + Math.min(Math.abs(scrollVel) * 0.004, 0.25)) - uniforms.uAmp.value) * 0.08;
-
+    let intro = reduced ? 1 : 0, introStart = null;
+    function render() {
+      const t = clock.getElapsedTime();
+      // time-based ease-out so the rise looks the same on 60 Hz and 144 Hz screens
+      if (!reduced && document.body.classList.contains("ready")) {
+        if (introStart === null) introStart = t;
+        intro = 1 - Math.pow(1 - Math.min((t - introStart) / 1.8, 1), 3);
+      }
       mouse.sx += (mouse.x - mouse.sx) * 0.05;
       mouse.sy += (mouse.y - mouse.sy) * 0.05;
+      const rise = (1 - intro) * -4.5; // cards rise into view on load
 
-      world.position.x += (target.x - world.position.x) * 0.04;
-      world.position.y += (target.y - world.position.y) * 0.04;
-      const sc = world.scale.x + (target.s - world.scale.x) * 0.04;
-      world.scale.setScalar(sc);
-
-      orb.rotation.y += dt * 0.12 + scrollVel * 0.0006;
-      orb.rotation.x = mouse.sy * 0.35;
-      orb.rotation.z = mouse.sx * -0.15;
-      net.rotation.y -= dt * 0.05;
-      rings.forEach((r, k) => (r.rotation.z += dt * (0.15 + k * 0.08) * (k % 2 ? -1 : 1)));
-      stars.rotation.y = t * 0.01 + mouse.sx * 0.05;
-      stars.rotation.x = mouse.sy * 0.05 + scrollY * 0.00008;
-
-      camera.position.x += (mouse.sx * 0.5 - camera.position.x) * 0.05;
-      camera.position.y += (mouse.sy * 0.3 - camera.position.y) * 0.05;
-      camera.lookAt(0, 0, 0);
-
-      // move pulses along network edges
-      pulseData.forEach((p, i) => {
-        p.t += p.s;
-        if (p.t >= 1) { p.t = 0; p.seg = (Math.random() * (linePts.length / 2)) | 0; }
-        tmp.lerpVectors(linePts[p.seg * 2], linePts[p.seg * 2 + 1], p.t);
-        pulseArr.set([tmp.x, tmp.y, tmp.z], i * 3);
+      cards.forEach((m, i) => {
+        const { base, rot, phase } = m.userData;
+        const f = reduced ? 0 : Math.sin(t * 0.8 + phase);
+        m.position.set(base.x, base.y + f * 0.07 + rise * (1 + i * 0.25), base.z);
+        m.rotation.set(rot.x + f * 0.03, rot.y + (reduced ? 0 : Math.sin(t * 0.5 + phase) * 0.07), rot.z + f * 0.02);
       });
-      pulseGeo.attributes.position.needsUpdate = true;
-
+      group.rotation.y = mouse.sx * 0.3;
+      group.rotation.x = -mouse.sy * 0.15;
+      glow.material.opacity = (0.7 + Math.sin(t * 0.7) * 0.08) * intro;
       renderer.render(scene, camera);
-      if (!reduced) requestAnimationFrame(tick);
-    }
-    tick();
-
-    /* ---------- Loader ---------- */
-    addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("loader").classList.add("done");
-        document.body.classList.add("ready");
-      }, 900);
-    });
-
-    /* ---------- Nav state ---------- */
-    const nav = document.getElementById("nav");
-    addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 40), { passive: true });
-
-    /* ---------- Reveal on scroll ---------- */
-    const revealObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); revealObs.unobserve(e.target); } });
-    }, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
-    document.querySelectorAll(".reveal").forEach((el, i) => {
-      el.style.transitionDelay = `${(i % 4) * 0.08}s`;
-      revealObs.observe(el);
-    });
-
-    /* ---------- 3D tilt cards ---------- */
-    if (matchMedia("(hover: hover)").matches && !reduced) {
-      document.querySelectorAll(".tilt").forEach(wrap => {
-        const card = wrap.firstElementChild;
-        wrap.addEventListener("pointermove", e => {
-          const r = card.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-          const max = r.width > 700 ? 4 : 10;
-          card.style.transform = `rotateY(${(px - 0.5) * max}deg) rotateX(${(0.5 - py) * max}deg) translateZ(10px)`;
-          card.style.setProperty("--mx", `${px * 100}%`);
-          card.style.setProperty("--my", `${py * 100}%`);
-        });
-        wrap.addEventListener("pointerleave", () => (card.style.transform = ""));
-      });
     }
 
-    /* ---------- Skills sphere (CSS 3D) ---------- */
-    const skills = [
-      ["Business Central", 1], ["AL", 1], ["Power Apps", 1], ["Power Automate", 1], ["Dynamics 365", 1], ["ERP", 1],
-      ["Power Platform", 0], ["Integrations", 0], ["Solution Design", 0], ["Requirements", 0], ["Automation", 1],
-      ["Python", 0], ["Java", 0], ["MySQL", 0], ["OOP", 0], ["Data Structures", 0], ["Web Dev", 0],
-      ["Debugging", 0], ["Testing", 0], ["Deployment", 0], ["Training", 0], ["Documentation", 0],
-      ["Graphic Design", 0], ["Video Editing", 0], ["Project Mgmt", 0], ["Leadership", 0], ["AI", 0], ["Problem Solving", 1]
-    ];
-    const sphere = document.getElementById("sphere");
-    const wrapEl = document.getElementById("sphereWrap");
-    const tags = skills.map(([name, isCore], i) => {
-      const el = document.createElement("span");
-      el.textContent = name;
-      if (isCore) el.className = "core";
-      sphere.appendChild(el);
-      const y = 1 - (i / (skills.length - 1)) * 2, r = Math.sqrt(1 - y * y), th = i * 2.399963;
-      return { el, v: [Math.cos(th) * r, y, Math.sin(th) * r] };
-    });
-    let rx = 0.3, ry = 0, vx = 0.0015, vy = 0.004, dragging = false, px = 0, py = 0;
-    wrapEl.addEventListener("pointerdown", e => { dragging = true; px = e.clientX; py = e.clientY; wrapEl.setPointerCapture(e.pointerId); });
-    wrapEl.addEventListener("pointerup", () => (dragging = false));
-    wrapEl.addEventListener("pointermove", e => {
-      if (!dragging) return;
-      vy = (e.clientX - px) * 0.0006; vx = (e.clientY - py) * -0.0006;
-      px = e.clientX; py = e.clientY;
-    });
-    function sphereTick() {
-      if (!dragging) { vx += (0.0015 - vx) * 0.02; vy += (0.004 - vy) * 0.02; }
-      rx += vx; ry += vy;
-      const rad = Math.min(wrapEl.clientWidth, wrapEl.clientHeight) * 0.42;
-      const cx = Math.cos(rx), sx = Math.sin(rx), cy = Math.cos(ry), sy = Math.sin(ry);
-      tags.forEach(({ el, v }) => {
-        let [x, y, z] = v;
-        let x1 = x * cy + z * sy, z1 = -x * sy + z * cy;
-        let y1 = y * cx - z1 * sx, z2 = y * sx + z1 * cx;
-        const depth = (z2 + 1) / 2;
-        el.style.transform = `translate(-50%,-50%) translate3d(${x1 * rad}px,${y1 * rad}px,${z2 * rad}px)`;
-        el.style.opacity = 0.2 + depth * 0.8;
-        el.style.zIndex = Math.round(depth * 100);
-        el.style.filter = depth < 0.35 ? `blur(${(0.35 - depth) * 4}px)` : "none";
-      });
-      requestAnimationFrame(sphereTick);
+    let visible = true, running = false;
+    function loop() {
+      if (!visible || document.hidden) { running = false; return; }
+      render();
+      requestAnimationFrame(loop);
     }
-    sphereTick();
+    const start = () => { if (!running && !reduced) { running = true; loop(); } };
+    new ResizeObserver(resize).observe(stage);
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; start(); }).observe(stage);
+    document.addEventListener("visibilitychange", start);
+    resize();
+    start();
 
-    /* ---------- Cursor ---------- */
-    const cursor = document.getElementById("cursor");
-    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
-    addEventListener("pointermove", e => { tx = e.clientX; ty = e.clientY; });
-    (function cursorTick() {
-      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
-      cursor.style.transform = `translate(${cx}px, ${cy}px)`;
-      requestAnimationFrame(cursorTick);
-    })();
-    document.querySelectorAll("a, .btn").forEach(el => {
-      el.addEventListener("pointerenter", () => cursor.classList.add("hover"));
-      el.addEventListener("pointerleave", () => cursor.classList.remove("hover"));
-    });
+    requestAnimationFrame(() => document.body.classList.add("ready"));
   </script>
 </body>
 </html>
