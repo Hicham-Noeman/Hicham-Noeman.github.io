@@ -400,10 +400,13 @@
     footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 24px var(--pad-x); padding-bottom: max(24px, env(safe-area-inset-bottom)); color: var(--dim); font-size: .85rem; background: var(--bg-2); border-top: 1px solid var(--line); }
 
     .no-js .reveal, .no-js .fade, .no-js .hero h1 .ch, .no-js .sec-head h2 span { opacity: 1; transform: none; }
-    .wa-float { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 55; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #25d366; box-shadow: 0 10px 30px rgba(0,0,0,.45); opacity: 0; visibility: hidden; transform: translateY(16px) scale(.9); transition: opacity .35s, visibility .35s, transform .35s var(--ease); }
+    .wa-float { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 55; height: 52px; padding: 0 15px; border-radius: 100px; display: flex; align-items: center; color: var(--ice); background: rgba(9, 18, 38, .78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--glass-border); box-shadow: 0 14px 40px -12px rgba(47, 123, 246, .6), inset 0 1px 0 rgba(255, 255, 255, .08); opacity: 0; visibility: hidden; transform: translateY(16px); transition: opacity .35s, visibility .35s, transform .35s var(--ease), background .3s, border-color .3s; }
     .wa-float.show { opacity: 1; visibility: visible; transform: none; }
-    .wa-float:hover { transform: scale(1.06); }
-    .wa-float svg { width: 28px; height: 28px; }
+    .wa-float:hover, .wa-float:focus-visible { background: rgba(16, 34, 70, .9); border-color: rgba(140, 196, 255, .45); }
+    .wa-float svg { width: 22px; height: 22px; flex: none; }
+    .wa-float .lbl { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; font-size: .85rem; font-weight: 600; transition: max-width .45s var(--ease), opacity .3s, margin .45s var(--ease); }
+    .wa-float:hover .lbl, .wa-float:focus-visible .lbl { max-width: 110px; opacity: 1; margin-inline-start: 10px; }
+    .wa-float .on { position: absolute; top: 8px; inset-inline-end: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 2px #0a1428, 0 0 10px var(--green); }
     .menu-open .wa-float { opacity: 0; visibility: hidden; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -775,7 +778,7 @@
     </section>
   </main>
 
-  <a class="wa-float" id="waFloat" href="https://wa.me/96171684504?text=Hi%20Hicham%2C%20I%20found%20your%20website%20and%20would%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.06L2 22l5.06-1.55A9.9 9.9 0 1 0 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3 .92.93-2.93-.2-.31a8.2 8.2 0 1 1 6.75 3.65zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/></svg></a>
+  <a class="wa-float" id="waFloat" href="https://wa.me/96171684504?text=Hi%20Hicham%2C%20I%20found%20your%20website%20and%20would%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.06L2 22l5.06-1.55A9.9 9.9 0 1 0 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3 .92.93-2.93-.2-.31a8.2 8.2 0 1 1 6.75 3.65zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/></svg><span class="lbl">WhatsApp</span><span class="on" aria-hidden="true"></span></a>
 
   <footer>
     <span>© <span id="yr"></span> Hicham Noeman</span>
