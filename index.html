@@ -12,9 +12,13 @@
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   <!-- link preview card (WhatsApp, LinkedIn, Facebook, X) -->
   <link rel="canonical" href="https://hicham-noeman.dev/">
+  <link rel="alternate" hreflang="en" href="https://hicham-noeman.dev/">
+  <link rel="alternate" hreflang="ar" href="https://hicham-noeman.dev/ar/">
+  <link rel="alternate" hreflang="x-default" href="https://hicham-noeman.dev/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hicham Noeman">
   <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ar_AR">
   <meta property="og:url" content="https://hicham-noeman.dev/">
   <meta property="og:title" content="Hicham Noeman — Technical Consultant">
   <meta property="og:description" content="Microsoft Dynamics 365 Business Central solutions with AL, Power Apps and Power Automate.">
@@ -34,6 +38,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Hicham Noeman",
+    "alternateName": "هشام نعمان",
     "url": "https://hicham-noeman.dev/",
     "image": "https://hicham-noeman.dev/images/og-image.jpg",
     "jobTitle": "Technical Consultant",
@@ -45,6 +50,9 @@
     "knowsAbout": ["Microsoft Dynamics 365 Business Central", "AL", "Power Apps", "Power Automate", "ERP Implementation", "Python", "SQL"],
     "sameAs": ["https://www.linkedin.com/in/hicham-noeman", "https://github.com/Hicham-Noeman"]
   }
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can you customize Business Central without breaking future updates?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. I build customizations as AL extensions, which sit on top of the standard system instead of changing it. Microsoft's updates don't overwrite your changes, and upgrades stay manageable."}}, {"@type": "Question", "name": "Can Business Central connect to the other tools we use?", "acceptedAnswer": {"@type": "Answer", "text": "Usually, yes. Power Automate and Power Apps connect Business Central to Microsoft 365, Teams and Outlook — for example approvals in Teams or automatic email notifications. Other systems can be integrated through Business Central's APIs."}}, {"@type": "Question", "name": "Do you work remotely?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. I'm based in Tripoli, Lebanon, and I already work remotely with ProService 365, a team based in Canada. Workshops, demos and support all run smoothly online."}}, {"@type": "Question", "name": "Do you help after go-live?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Support doesn't stop at deployment: debugging, performance issues, small improvements and training your users so the team is comfortable with the system."}}, {"@type": "Question", "name": "We're not sure what we need. Where do we start?", "acceptedAnswer": {"@type": "Answer", "text": "With a short conversation about how your business works today and what's slowing you down. From there we can see whether a configuration change, an extension or an automation is the right fit. Message me on WhatsApp or by email."}}]}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,6 +108,11 @@
     .btn svg { width: 16px; height: 16px; transition: transform .3s var(--ease); }
     .btn:hover svg { transform: translate(2px, -2px); }
     .btn.ghost { background: rgba(255, 255, 255, .06); color: var(--text); border: 1px solid var(--glass-border); }
+    .btn.alt { background: rgba(255, 255, 255, .06); color: var(--text); border: 1px solid var(--glass-border); }
+    .btn.alt:hover { background: rgba(255, 255, 255, .12); box-shadow: none; }
+    .btn.alt:hover svg { transform: translateY(2px); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .cta .btn-row { justify-content: center; }
     .social { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 100px; font-size: .85rem; font-weight: 500; color: var(--ice); background: rgba(255,255,255,.04); border: 1px solid var(--glass-border); transition: background .3s, border-color .3s; }
     .social:hover { background: rgba(255,255,255,.1); border-color: rgba(200,222,255,.35); }
     .social svg { width: 15px; height: 15px; flex: none; }
@@ -133,6 +146,9 @@
     .nav-links a:hover { color: var(--text); }
     .nav-links sup { font-size: .65rem; color: var(--dim); margin-left: 3px; }
     .nav .btn { min-height: 40px; padding: 9px 18px; font-size: .85rem; }
+    .nav-end { display: flex; align-items: center; gap: 10px; }
+    .lang { display: inline-grid; place-items: center; min-width: 44px; height: 40px; padding: 0 14px; border-radius: 100px; font-size: .85rem; font-weight: 600; color: var(--ice); background: rgba(255,255,255,.05); border: 1px solid var(--glass-border); transition: background .3s; }
+    .lang:hover { background: rgba(255,255,255,.12); }
     .menu-btn { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--glass-border); background: rgba(255,255,255,.05); place-items: center; }
     .menu-btn span, .menu-btn span::before, .menu-btn span::after { display: block; width: 16px; height: 1.5px; background: currentColor; position: relative; transition: transform .3s, background .3s; }
     .menu-btn span::before, .menu-btn span::after { content: ""; position: absolute; left: 0; }
@@ -142,6 +158,7 @@
     .menu-open .menu-btn span::after { transform: translateY(-5px) rotate(-45deg); }
     @media (max-width: 900px) {
       .menu-btn { display: grid; }
+      .lang { height: 44px; }
       .nav-cta { display: none; }
       .nav-links { position: fixed; inset: 0; z-index: -1; flex-direction: column; justify-content: center; align-items: center; gap: 26px; background: rgba(3,6,13,.985); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 1.6rem; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
       .nav-links a { color: var(--text); }
@@ -223,6 +240,7 @@
       .portrait { width: min(320px, 78vw); }
       .stage::before { width: min(440px, 112vw); }
       .hero-left { max-width: 560px; align-self: center; text-align: center; }
+      .hero-left .btn-row { justify-content: center; }
       .hero-right { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; align-self: center; margin-top: 26px; }
       .hero-right .label { width: 100%; text-align: center; }
       .scroll-cue { display: none; }
@@ -344,6 +362,14 @@
     /* ---------- EDUCATION ---------- */
     .education { padding: 0 0 var(--pad-y); }
 
+    /* ---------- FAQ ---------- */
+    .faq { padding: 0 0 var(--pad-y); }
+    .faq .xp-btn { grid-template-columns: 1fr 40px; }
+    .faq .xp-btn .co { font-size: clamp(1.05rem, 1.8vw, 1.25rem); }
+    .faq .xp-body { grid-template-columns: 1fr; }
+    .faq .xp-body p { max-width: 760px; }
+    @media (max-width: 760px) { .faq .xp-btn { grid-template-columns: 1fr 36px; } .faq .xp-btn .pm { grid-row: 1; } }
+
     /* ---------- CTA ---------- */
     .cta { position: relative; padding: var(--pad-y) 0 clamp(50px, 6vw, 70px); text-align: center; overflow: hidden; background: radial-gradient(55% 60% at 50% 45%, rgba(47,123,246,.28), transparent 70%), var(--bg-2); border-top: 1px solid var(--line); }
     .cta h2 { font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 7vw, 6rem); line-height: 1; letter-spacing: -.03em; margin: 22px 0 34px; }
@@ -377,11 +403,15 @@
       <li><a href="#expertise">Expertise</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="btn nav-cta" href="#contact">Let's Talk
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
+    <div class="nav-end">
+      <a class="lang" href="/ar/" hreflang="ar" lang="ar" title="النسخة العربية">عربي</a>
+      <a class="btn nav-cta" href="#contact">Let's Talk
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
+    </div>
   </nav>
 
   <main id="top">
@@ -396,8 +426,12 @@
         <div class="hero-left fade">
           <h2>Technical Consultant</h2>
           <p>Business Central developer building AL extensions and Power Platform solutions.</p>
-          <a class="btn" href="#contact">Get in touch
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <div class="btn-row">
+            <a class="btn" href="#contact">Get in touch
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            <a class="btn alt" href="/cv/Hicham-Noeman-CV.pdf" download>Download CV
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
+          </div>
         </div>
 
         <div class="stage">
@@ -642,13 +676,75 @@
       </div>
     </section>
 
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">FAQ</span>
+          <h2><span>/FAQ</span></h2>
+          <span class="aside">Questions clients ask</span>
+        </div>
+        <div class="xp">
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq1">
+              <span class="co">Can you customize Business Central without breaking future updates?</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq1"><div>
+              <div class="xp-body"><p>Yes. I build customizations as AL extensions, which sit on top of the standard system instead of changing it. Microsoft's updates don't overwrite your changes, and upgrades stay manageable.</p></div>
+            </div></div>
+          </div>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq2">
+              <span class="co">Can Business Central connect to the other tools we use?</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq2"><div>
+              <div class="xp-body"><p>Usually, yes. Power Automate and Power Apps connect Business Central to Microsoft 365, Teams and Outlook — for example approvals in Teams or automatic email notifications. Other systems can be integrated through Business Central's APIs.</p></div>
+            </div></div>
+          </div>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq3">
+              <span class="co">Do you work remotely?</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq3"><div>
+              <div class="xp-body"><p>Yes. I'm based in Tripoli, Lebanon, and I already work remotely with ProService 365, a team based in Canada. Workshops, demos and support all run smoothly online.</p></div>
+            </div></div>
+          </div>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq4">
+              <span class="co">Do you help after go-live?</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq4"><div>
+              <div class="xp-body"><p>Yes. Support doesn't stop at deployment: debugging, performance issues, small improvements and training your users so the team is comfortable with the system.</p></div>
+            </div></div>
+          </div>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq5">
+              <span class="co">We're not sure what we need. Where do we start?</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq5"><div>
+              <div class="xp-body"><p>With a short conversation about how your business works today and what's slowing you down. From there we can see whether a configuration change, an extension or an automation is the right fit. Message me on WhatsApp or by email.</p></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta" id="contact">
       <div class="wrap reveal">
         <span class="chip-pill"><span class="dot"></span>Get in touch</span>
         <h2>Let's <span class="outline">connect.</span></h2>
-        <a class="btn" href="mailto:hnoeman@proservice365.com">Email me
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        <div class="btn-row">
+          <a class="btn" href="mailto:hnoeman@proservice365.com">Email me
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a class="btn alt" href="/cv/Hicham-Noeman-CV.pdf" download>Download CV
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
+        </div>
         <div class="socials">
           <a class="social" href="https://www.linkedin.com/in/hicham-noeman" target="_blank" rel="noopener">LinkedIn</a>
           <a class="social" href="https://github.com/Hicham-Noeman" target="_blank" rel="noopener">GitHub</a>

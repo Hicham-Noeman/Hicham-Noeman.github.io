@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>هشام نعمان — مستشار تقني</title>
+  <meta name="description" content="هشام نعمان — مستشار تقني ومطوّر برمجيات متخصص في Microsoft Dynamics 365 Business Central وAL وPower Apps وPower Automate.">
+  <meta name="theme-color" content="#03060d">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/images/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <!-- link preview card (WhatsApp, LinkedIn, Facebook, X) -->
+  <link rel="canonical" href="https://hicham-noeman.dev/ar/">
+  <link rel="alternate" hreflang="en" href="https://hicham-noeman.dev/">
+  <link rel="alternate" hreflang="ar" href="https://hicham-noeman.dev/ar/">
+  <link rel="alternate" hreflang="x-default" href="https://hicham-noeman.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="هشام نعمان">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:url" content="https://hicham-noeman.dev/ar/">
+  <meta property="og:title" content="هشام نعمان — مستشار تقني">
+  <meta property="og:description" content="حلول Microsoft Dynamics 365 Business Central باستخدام AL وPower Apps وPower Automate.">
+  <!-- JPG under 300 KB: WhatsApp drops larger preview images. Bump ?v= when the image changes so apps refetch it. -->
+  <meta property="og:image" content="https://hicham-noeman.dev/images/og-image.jpg?v=3">
+  <meta property="og:image:secure_url" content="https://hicham-noeman.dev/images/og-image.jpg?v=3">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="هشام نعمان — مستشار تقني ومطوّر Business Central">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="هشام نعمان — مستشار تقني">
+  <meta name="twitter:description" content="حلول Microsoft Dynamics 365 Business Central باستخدام AL وPower Apps وPower Automate.">
+  <meta name="twitter:image" content="https://hicham-noeman.dev/images/og-image.jpg?v=3">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "ar", "mainEntity": [{"@type": "Question", "name": "هل يمكنك تخصيص Business Central دون التأثير على التحديثات المستقبلية؟", "acceptedAnswer": {"@type": "Answer", "text": "نعم. أبني التخصيصات كإضافات بلغة AL تعمل فوق النظام الأساسي بدلاً من تعديله، فلا تمحو تحديثات Microsoft تعديلاتك، وتبقى الترقيات سهلة الإدارة."}}, {"@type": "Question", "name": "هل يمكن ربط Business Central بالأدوات الأخرى التي نستخدمها؟", "acceptedAnswer": {"@type": "Answer", "text": "غالباً نعم. يربط Power Automate وPower Apps نظام Business Central بـ Microsoft 365 وTeams وOutlook — مثل الموافقات عبر Teams أو الإشعارات التلقائية بالبريد الإلكتروني. ويمكن ربط الأنظمة الأخرى عبر واجهات Business Central البرمجية (APIs)."}}, {"@type": "Question", "name": "هل تعمل عن بُعد؟", "acceptedAnswer": {"@type": "Answer", "text": "نعم. أقيم في طرابلس، لبنان، وأعمل حالياً عن بُعد مع ProService 365، وهي شركة مقرّها كندا. ورش العمل والعروض والدعم كلها تتم بسلاسة عبر الإنترنت."}}, {"@type": "Question", "name": "هل تقدّم الدعم بعد التشغيل؟", "acceptedAnswer": {"@type": "Answer", "text": "نعم. الدعم لا يتوقف عند الإطلاق: معالجة الأخطاء، مشاكل الأداء، التحسينات الصغيرة، وتدريب المستخدمين ليكون فريقك مرتاحاً في استخدام النظام."}}, {"@type": "Question", "name": "لسنا متأكدين مما نحتاجه. من أين نبدأ؟", "acceptedAnswer": {"@type": "Answer", "text": "بمحادثة قصيرة حول طريقة عمل مؤسستك اليوم وما الذي يبطئها. ومن هناك نحدد إن كان الحل الأنسب تعديلاً في الإعدادات، أو إضافة برمجية، أو أتمتة. راسلني عبر واتساب أو البريد الإلكتروني."}}]}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #03060d;
+      --bg-2: #060c19;
+      --blue: #2f7bf6;
+      --sky: #8cc4ff;
+      --ice: #d6e8ff;
+      --text: #eef4ff;
+      --muted: #9fb0c9;
+      --dim: #5d6f8c;
+      --line: rgba(160, 195, 255, 0.13);
+      --glass-border: rgba(200, 222, 255, 0.16);
+      --green: #4ade80;
+      --font: "Manrope", "IBM Plex Sans Arabic", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+      --pad-x: clamp(16px, 5vw, 72px);
+      --pad-y: clamp(80px, 10vw, 140px);
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--font);
+      font-size: 16px; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--blue); color: #fff; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--sky); outline-offset: 4px; border-radius: 8px; }
+    .skip { position: fixed; top: -60px; left: 16px; z-index: 200; padding: 10px 18px; border-radius: 100px; background: var(--text); color: var(--bg); font-weight: 600; transition: top .2s; }
+    .skip:focus { top: 16px; }
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 var(--pad-x); position: relative; }
+    /* the huge ghost words must never widen the page on phones */
+    main { overflow-x: clip; }
+
+    /* ---------- Small pieces ---------- */
+    .chip-pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 100px;
+      font-size: .8rem; font-weight: 500; color: var(--ice);
+      background: rgba(255, 255, 255, .05); border: 1px solid var(--glass-border);
+    }
+    .chip-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); flex: none; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px;
+      padding: 12px 22px; border-radius: 100px; font-size: .92rem; font-weight: 600;
+      background: var(--text); color: var(--bg); transition: transform .3s var(--ease), box-shadow .3s;
+    }
+    .btn:hover { box-shadow: 0 0 34px rgba(47, 123, 246, .55); }
+    .btn svg { width: 16px; height: 16px; transition: transform .3s var(--ease); }
+    .btn:hover svg { transform: translate(2px, -2px); }
+    .btn.ghost { background: rgba(255, 255, 255, .06); color: var(--text); border: 1px solid var(--glass-border); }
+    .btn.alt { background: rgba(255, 255, 255, .06); color: var(--text); border: 1px solid var(--glass-border); }
+    .btn.alt:hover { background: rgba(255, 255, 255, .12); box-shadow: none; }
+    .btn.alt:hover svg { transform: translateY(2px); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .cta .btn-row { justify-content: center; }
+    .social { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 100px; font-size: .85rem; font-weight: 500; color: var(--ice); background: rgba(255,255,255,.04); border: 1px solid var(--glass-border); transition: background .3s, border-color .3s; }
+    .social:hover { background: rgba(255,255,255,.1); border-color: rgba(200,222,255,.35); }
+    .social svg { width: 15px; height: 15px; flex: none; }
+
+    /* section header: "/TITLE" with a huge faint word behind it */
+    .sec-head { position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 64px); }
+    .ghost {
+      position: absolute; left: 50%; top: 50%; translate: -50% -62%; z-index: 0; pointer-events: none; white-space: nowrap;
+      font-weight: 800; font-size: clamp(4rem, 15vw, 13rem); letter-spacing: .02em; line-height: 1;
+      color: rgba(140, 196, 255, .045); user-select: none;
+    }
+    .sec-head h2 { position: relative; z-index: 1; font-weight: 600; font-size: clamp(2rem, 4.5vw, 3.4rem); letter-spacing: -.03em; line-height: 1; overflow: hidden; }
+    .sec-head h2 span { display: inline-block; transform: translateY(105%); transition: transform 1s var(--ease); }
+    .sec-head.in h2 span { transform: none; }
+    .sec-head .aside { position: relative; z-index: 1; color: var(--muted); font-size: .95rem; }
+    .sec-head.center { justify-content: center; text-align: center; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+      padding: 18px var(--pad-x); padding-top: max(18px, env(safe-area-inset-top));
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      transition: background .4s, border-color .4s, padding .4s; border-bottom: 1px solid transparent;
+    }
+    nav.scrolled { background: rgba(3, 6, 13, .8); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); padding-top: max(12px, env(safe-area-inset-top)); padding-bottom: 12px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; font-size: .9rem; font-weight: 500; }
+    .nav-links a { color: var(--muted); transition: color .3s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links sup { font-size: .65rem; color: var(--dim); margin-left: 3px; }
+    .nav .btn { min-height: 40px; padding: 9px 18px; font-size: .85rem; }
+    .nav-end { display: flex; align-items: center; gap: 10px; }
+    .lang { display: inline-grid; place-items: center; min-width: 44px; height: 40px; padding: 0 14px; border-radius: 100px; font-size: .85rem; font-weight: 600; color: var(--ice); background: rgba(255,255,255,.05); border: 1px solid var(--glass-border); transition: background .3s; }
+    .lang:hover { background: rgba(255,255,255,.12); }
+    .menu-btn { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--glass-border); background: rgba(255,255,255,.05); place-items: center; }
+    .menu-btn span, .menu-btn span::before, .menu-btn span::after { display: block; width: 16px; height: 1.5px; background: currentColor; position: relative; transition: transform .3s, background .3s; }
+    .menu-btn span::before, .menu-btn span::after { content: ""; position: absolute; left: 0; }
+    .menu-btn span::before { top: -5px; } .menu-btn span::after { top: 5px; }
+    .menu-open .menu-btn span { background: transparent; }
+    .menu-open .menu-btn span::before { transform: translateY(5px) rotate(45deg); }
+    .menu-open .menu-btn span::after { transform: translateY(-5px) rotate(-45deg); }
+    @media (max-width: 900px) {
+      .menu-btn { display: grid; }
+      .lang { height: 44px; }
+      .nav-cta { display: none; }
+      .nav-links { position: fixed; inset: 0; z-index: -1; flex-direction: column; justify-content: center; align-items: center; gap: 26px; background: rgba(3,6,13,.985); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 1.6rem; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
+      .nav-links a { color: var(--text); }
+      .menu-open .nav-links { opacity: 1; visibility: visible; }
+      /* backdrop-filter on the scrolled nav would trap the fixed full-screen menu inside the nav bar */
+      .menu-open nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: transparent; border-color: transparent; }
+    }
+    @media (max-width: 480px) { .nav .chip-pill .long { display: none; } }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden;
+      background: radial-gradient(50% 45% at 50% 72%, rgba(47, 123, 246, .3), transparent 70%), var(--bg);
+    }
+    .hero .wrap { min-height: inherit; display: grid; grid-template-columns: 1fr 1.25fr 1fr; grid-template-rows: auto 1fr; column-gap: 24px; padding-top: 110px; padding-bottom: 40px; }
+    .hero h1 {
+      grid-column: 1 / -1; text-align: center; font-weight: 800; text-transform: uppercase;
+      font-size: clamp(2.8rem, 8.6vw, 10rem); line-height: .95; letter-spacing: -.02em; white-space: nowrap;
+    }
+    .hero h1 .word { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .02em .04em; }
+    /* gradients are applied per letter: background-clip:text on the parent breaks with transformed children */
+    .hero h1 .outline .ch { background: linear-gradient(180deg, rgba(214, 232, 255, .55), rgba(140, 196, 255, .28)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero h1 .solid .ch { background: linear-gradient(180deg, #ffffff, #8cc4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero h1 .ch { display: inline-block; transform: translateY(110%); }
+    .ready .hero h1 .ch { transform: none; transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * .04s + .1s); }
+
+    .hero-left { grid-column: 1; grid-row: 2; align-self: center; max-width: 330px; }
+    .hero-left h2 { font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: 8px; }
+    .hero-left p { color: var(--muted); font-size: .98rem; margin-bottom: 24px; }
+    /* ---------- Portrait: black & white, colour brush on hover / touch ---------- */
+    .stage { grid-column: 2; grid-row: 2; position: relative; display: grid; place-items: center; padding: 24px 0; perspective: 1200px; }
+    .stage::before, .stage::after {
+      content: ""; position: absolute; left: 50%; top: 50%; border-radius: 50%; pointer-events: none;
+      border: 1px solid var(--line); translate: -50% -50%;
+    }
+    .stage::before { width: min(520px, 125%); aspect-ratio: 1; border-style: dashed; animation: spin 60s linear infinite; }
+    .stage::after { width: min(420px, 100%); aspect-ratio: 1; background: radial-gradient(circle, rgba(47,123,246,.35), transparent 65%); border: 0; }
+    @keyframes spin { to { rotate: 360deg; } }
+    /* colour is revealed only inside a soft circle around the cursor / finger (--x, --y, radius --r) */
+    /* colour is painted like a brush along the cursor / finger path and fades out ~1.5s later (canvas .brush) */
+    .portrait {
+      position: relative; z-index: 1; width: min(360px, 100%); aspect-ratio: 4 / 5; margin: 0;
+      border-radius: 999px 999px 28px 28px; overflow: hidden; cursor: crosshair;
+      background: linear-gradient(180deg, #13244a, #070f20);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 40px 90px -30px rgba(47,123,246,.6), inset 0 1px 0 rgba(255,255,255,.12);
+      -webkit-tap-highlight-color: transparent; touch-action: pan-y;
+    }
+    .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; user-select: none; -webkit-user-drag: none; }
+    .portrait .bw { filter: grayscale(1) contrast(1.05) brightness(.95); }
+    .portrait .brush { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    /* cut-out photo (transparent PNG): no frame, body fades out at the bottom */
+    .portrait.cutout { border: 0; border-radius: 0; background: none; box-shadow: none; overflow: visible; -webkit-mask-image: linear-gradient(#000 70%, transparent 97%); mask-image: linear-gradient(#000 70%, transparent 97%); }
+    .portrait.cutout img { object-fit: contain; object-position: center bottom; }
+    .portrait.cutout::after { display: none; }
+    .portrait::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 65%, rgba(3,6,13,.55)); }
+    .portrait-ph { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: var(--dim); font-size: .85rem; text-align: center; padding: 20px; }
+    .portrait-ph svg { width: 42%; max-width: 140px; color: rgba(140,196,255,.35); }
+    .portrait.empty img { display: none; }
+    .portrait.empty .portrait-ph { display: flex; }
+    .stage > .fade { position: relative; z-index: 1; width: 100%; display: grid; place-items: center; transform: translateY(60px); }
+    .ready .stage .fade { transform: none; transition-delay: .5s; transition-duration: 1.2s; }
+    .hero-right { grid-column: 3; grid-row: 2; align-self: center; justify-self: end; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+    .hero-right .label { font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+    .fade { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .ready .fade { opacity: 1; transform: none; transition-delay: .9s; }
+    .ready .fade.late { transition-delay: 1.15s; }
+    .scroll-cue { position: absolute; left: 50%; bottom: 22px; translate: -50% 0; font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--dim); display: flex; align-items: center; gap: 10px; }
+    .scroll-cue i { width: 18px; height: 28px; border: 1px solid var(--dim); border-radius: 10px; position: relative; }
+    .scroll-cue i::after { content: ""; position: absolute; left: 50%; top: 6px; width: 2px; height: 5px; margin-left: -1px; background: var(--ice); border-radius: 2px; animation: wheel 1.8s infinite; }
+    @keyframes wheel { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(9px); } }
+
+    @media (max-width: 960px) {
+      .hero .wrap { display: flex; flex-direction: column; padding-top: 100px; }
+      .hero h1 { white-space: normal; font-size: clamp(2.6rem, 14vw, 7rem); }
+      .hero h1 .word { display: block; }
+      .stage { order: -1; margin: 20px 0 30px; padding: 10px 0; }
+      .hero h1 { order: -2; }
+      .portrait { width: min(320px, 78vw); }
+      .stage::before { width: min(440px, 112vw); }
+      .hero-left { max-width: 560px; align-self: center; text-align: center; }
+      .hero-left .btn-row { justify-content: center; }
+      .hero-right { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; align-self: center; margin-top: 26px; }
+      .hero-right .label { width: 100%; text-align: center; }
+      .scroll-cue { display: none; }
+    }
+
+    /* ---------- ABOUT ---------- */
+    .about { padding: var(--pad-y) 0; }
+    .statement { font-weight: 500; font-size: clamp(1.6rem, 3.6vw, 3rem); line-height: 1.25; letter-spacing: -.025em; max-width: 1100px; }
+    .statement .w { color: var(--dim); transition: color .35s; }
+    .statement .w.lit { color: var(--text); }
+    .statement .w.accent.lit { color: var(--sky); }
+    .about-note { color: var(--muted); font-size: 1.05rem; margin-top: 22px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(44px, 6vw, 80px); border-block: 1px solid var(--line); }
+    .stats div { padding: 24px 20px; border-left: 1px solid var(--line); }
+    .stats div:first-child { border-left: 0; padding-left: 0; }
+    .stats strong { display: block; font-size: clamp(2rem, 3.4vw, 2.8rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.1; }
+    .stats span { color: var(--muted); font-size: .88rem; }
+    @media (max-width: 760px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stats div { padding: 20px 0 20px 18px; }
+      .stats div:nth-child(odd) { border-left: 0; padding-left: 0; }
+      .stats div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    }
+
+    /* ---------- SERVICES (list rows) ---------- */
+    .services { padding: var(--pad-y) 0; }
+    .rows { border-top: 1px solid var(--line); }
+    .row {
+      position: relative; display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 20px;
+      padding: clamp(22px, 3vw, 34px) clamp(8px, 1.5vw, 20px); border-bottom: 1px solid var(--line);
+      transition: background .4s, padding .4s var(--ease);
+    }
+    .row::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(47,123,246,.14), transparent 80%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .row:hover::before { opacity: 1; }
+    .row .num { font-size: .85rem; color: var(--dim); font-weight: 500; }
+    .row h3 { font-weight: 600; font-size: clamp(1.4rem, 3.6vw, 2.9rem); letter-spacing: -.03em; line-height: 1.1; text-transform: uppercase; transition: transform .5s var(--ease), color .4s; }
+    .row:hover h3 { transform: translateX(12px); color: var(--sky); }
+    .row p { color: var(--muted); font-size: .95rem; margin-top: 8px; max-width: 560px; }
+    .row .arr { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--glass-border); transition: transform .5s var(--ease), background .4s, color .4s; }
+    .row .arr svg { width: 18px; height: 18px; }
+    .row:hover .arr { transform: rotate(45deg); background: var(--text); color: var(--bg); }
+    .pv { display: none; }
+    @media (max-width: 600px) { .row { grid-template-columns: 1fr auto; } .row .num { display: none; } .row .arr { width: 38px; height: 38px; } }
+
+    /* floating preview that follows the cursor over rows */
+    .preview {
+      position: fixed; left: 0; top: 0; z-index: 70; width: 300px; pointer-events: none;
+      border-radius: 16px; overflow: hidden; opacity: 0; scale: .85;
+      background: linear-gradient(165deg, rgba(22, 40, 78, .96), rgba(6, 13, 28, .97));
+      border: 1px solid var(--glass-border); box-shadow: 0 30px 70px -20px rgba(47, 123, 246, .55);
+      transition: opacity .3s, scale .4s var(--ease);
+    }
+    .preview.on { opacity: 1; scale: 1; }
+    .preview .bar { display: flex; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); align-items: center; }
+    .preview .bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2); }
+    .preview .bar span { margin-left: auto; font-family: var(--mono); font-size: .65rem; color: var(--dim); }
+    .preview pre { font-family: var(--mono); font-size: .7rem; line-height: 1.75; color: var(--ice); padding: 14px 16px; white-space: pre; overflow: hidden; }
+    .preview .k { color: #7fb2ff; } .preview .s { color: #b8f0d8; } .preview .c { color: var(--dim); } .preview .f { color: #ffd59a; }
+    .preview .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px; }
+    .preview .tags span { font-size: .72rem; padding: 4px 10px; border-radius: 100px; background: rgba(255,255,255,.07); border: 1px solid var(--glass-border); color: var(--ice); }
+    .preview .ttl { padding: 16px 16px 0; font-weight: 600; font-size: .95rem; }
+
+    /* ---------- EXPERIENCE (dark list) ---------- */
+    .experience { padding: var(--pad-y) 0; background: var(--bg-2); border-block: 1px solid var(--line); }
+    .xp { border-top: 1px solid var(--line); }
+    .xp-item { border-bottom: 1px solid var(--line); }
+    .xp-sub { margin: clamp(50px, 7vw, 80px) 0 18px; font-size: .8rem; font-weight: 600; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 14px; }
+    .xp-sub::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+    .xp-simple { list-style: none; }
+    .xp-row { display: flex; justify-content: space-between; align-items: center; gap: 8px 20px; flex-wrap: wrap; padding: 18px clamp(8px, 1.5vw, 20px); border-bottom: 1px solid var(--line); }
+    .xp-row .co { display: block; font-weight: 600; font-size: 1.05rem; }
+    .xp-row .ro, .xp-row .dt { color: var(--muted); font-size: .9rem; }
+    .xp-row .dt { white-space: nowrap; }
+    @media (max-width: 600px) { .xp-row { flex-direction: column; align-items: flex-start; gap: 6px; } }
+    .xp-btn {
+      width: 100%; display: grid; grid-template-columns: 1fr auto 40px; align-items: center; gap: 20px; text-align: left;
+      padding: clamp(20px, 2.6vw, 28px) clamp(8px, 1.5vw, 20px); transition: background .4s;
+    }
+    .xp-btn:hover { background: rgba(47, 123, 246, .07); }
+    .xp-btn .co { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 600; display: block; }
+    .xp-btn .ro { color: var(--muted); font-size: .95rem; }
+    .xp-btn .dt { color: var(--muted); font-size: .92rem; white-space: nowrap; }
+    .xp-btn .dt .now { color: var(--green); font-weight: 600; }
+    .xp-btn .pm { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--glass-border); position: relative; justify-self: end; transition: transform .4s var(--ease), background .3s; }
+    .xp-btn .pm::before, .xp-btn .pm::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: currentColor; translate: -50% -50%; }
+    .xp-btn .pm::after { rotate: 90deg; transition: rotate .4s var(--ease); }
+    .xp-btn[aria-expanded="true"] .pm { background: var(--text); color: var(--bg); }
+    .xp-btn[aria-expanded="true"] .pm::after { rotate: 0deg; }
+    .xp-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--ease); }
+    .xp-panel > div { overflow: hidden; }
+    .xp-item.open .xp-panel { grid-template-rows: 1fr; }
+    .xp-body { padding: 0 clamp(8px, 1.5vw, 20px) 30px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 30px; }
+    .xp-body p { color: var(--muted); }
+    .xp-body .meta { color: var(--dim); font-size: .88rem; margin-top: 10px; }
+    .list { list-style: none; display: grid; gap: 9px; }
+    .list li { position: relative; padding-left: 20px; color: var(--ice); font-size: .95rem; }
+    .list li::before { content: ""; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--sky); }
+    @media (max-width: 760px) {
+      .xp-btn { grid-template-columns: 1fr 36px; }
+      .xp-btn .dt { grid-column: 1; grid-row: 2; font-size: .85rem; }
+      .xp-btn .pm { grid-column: 2; grid-row: 1 / span 2; }
+      .xp-body { grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    /* ---------- SKILLS ---------- */
+    .skills { padding: var(--pad-y) 0; overflow: hidden; }
+    .skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .sk-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+    .sk-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: var(--sky); background: rgba(47,123,246,.12); border: 1px solid rgba(140,196,255,.22); }
+    .sk-icon svg { width: 22px; height: 22px; }
+    .sk-num { font-size: .72rem; letter-spacing: .18em; color: var(--dim); font-weight: 500; }
+    .skill-card { border: 1px solid var(--line); border-radius: 18px; padding: clamp(22px, 3vw, 30px); background: linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.01)); transition: border-color .4s, transform .5s var(--ease); }
+    .skill-card:hover { border-color: rgba(140, 196, 255, .35); transform: translateY(-4px); }
+    .skill-card h3 { font-weight: 600; font-size: 1.25rem; letter-spacing: -.01em; margin-bottom: 16px; }
+    .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips li { font-size: .86rem; padding: 6px 13px; border-radius: 100px; background: rgba(255,255,255,.05); border: 1px solid var(--glass-border); color: var(--ice); }
+    @media (max-width: 720px) { .skill-grid { grid-template-columns: 1fr; } }
+
+    /* ---------- EDUCATION ---------- */
+    .education { padding: 0 0 var(--pad-y); }
+
+    /* ---------- FAQ ---------- */
+    .faq { padding: 0 0 var(--pad-y); }
+    .faq .xp-btn { grid-template-columns: 1fr 40px; }
+    .faq .xp-btn .co { font-size: clamp(1.05rem, 1.8vw, 1.25rem); }
+    .faq .xp-body { grid-template-columns: 1fr; }
+    .faq .xp-body p { max-width: 760px; }
+    @media (max-width: 760px) { .faq .xp-btn { grid-template-columns: 1fr 36px; } .faq .xp-btn .pm { grid-row: 1; } }
+
+    /* ---------- CTA ---------- */
+    .cta { position: relative; padding: var(--pad-y) 0 clamp(50px, 6vw, 70px); text-align: center; overflow: hidden; background: radial-gradient(55% 60% at 50% 45%, rgba(47,123,246,.28), transparent 70%), var(--bg-2); border-top: 1px solid var(--line); }
+    .cta h2 { font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 7vw, 6rem); line-height: 1; letter-spacing: -.03em; margin: 22px 0 34px; }
+    /* gradient fill instead of text-stroke: the variable font shows overlapping contours when stroked */
+    .cta h2 .outline { background: linear-gradient(180deg, #ffffff, #8cc4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .cta p { color: var(--muted); max-width: 480px; margin: 0 auto 32px; font-size: 1.05rem; }
+    .cta .socials { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: clamp(50px, 8vw, 90px); }
+    footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 24px var(--pad-x); padding-bottom: max(24px, env(safe-area-inset-bottom)); color: var(--dim); font-size: .85rem; background: var(--bg-2); border-top: 1px solid var(--line); }
+
+    .no-js .reveal, .no-js .fade, .no-js .hero h1 .ch, .no-js .sec-head h2 span { opacity: 1; transform: none; }
+    .wa-float { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 55; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #25d366; box-shadow: 0 10px 30px rgba(0,0,0,.45); opacity: 0; visibility: hidden; transform: translateY(16px) scale(.9); transition: opacity .35s, visibility .35s, transform .35s var(--ease); }
+    .wa-float.show { opacity: 1; visibility: visible; transform: none; }
+    .wa-float:hover { transform: scale(1.06); }
+    .wa-float svg { width: 28px; height: 28px; }
+    .menu-open .wa-float { opacity: 0; visibility: hidden; }
+
+    /* ---------- Arabic / right-to-left adjustments ---------- */
+    [dir="rtl"] .hero h1, [dir="rtl"] .sec-head h2, [dir="rtl"] .ghost, [dir="rtl"] .row h3, [dir="rtl"] .cta h2,
+    [dir="rtl"] .statement, [dir="rtl"] .stats strong, [dir="rtl"] .xp-sub, [dir="rtl"] .hero-left h2,
+    [dir="rtl"] .hero-right .label, [dir="rtl"] .sk-num, [dir="rtl"] .skill-card h3 { letter-spacing: 0; }
+    [dir="rtl"] .hero h1 { font-weight: 700; line-height: 1.2; }
+    [dir="rtl"] .hero h1 .word { padding: .05em .04em .18em; }
+    [dir="rtl"] .sec-head h2 { line-height: 1.35; padding-bottom: .05em; }
+    [dir="rtl"] .cta h2 { line-height: 1.3; }
+    [dir="rtl"] .statement { line-height: 1.6; }
+    [dir="rtl"] .skip { left: auto; right: 16px; }
+    [dir="rtl"] .btn svg, [dir="rtl"] .row .arr svg { transform: scaleX(-1); }
+    [dir="rtl"] .btn:hover svg { transform: scaleX(-1) translate(2px, -2px); }
+    [dir="rtl"] .btn.alt svg, [dir="rtl"] .btn.alt:hover svg { transform: none; }
+    [dir="rtl"] .row::before { background: linear-gradient(270deg, rgba(47,123,246,.14), transparent 80%); }
+    [dir="rtl"] .row:hover h3 { transform: translateX(-12px); }
+    [dir="rtl"] .row:hover .arr { transform: rotate(-45deg); }
+    [dir="rtl"] .stats div { border-left: 0; border-right: 1px solid var(--line); }
+    [dir="rtl"] .stats div:first-child { border-right: 0; padding-right: 0; padding-left: 20px; }
+    [dir="rtl"] .xp-btn { text-align: right; }
+    [dir="rtl"] .stats strong { direction: ltr; unicode-bidi: isolate; text-align: right; }
+    [dir="rtl"] .list li { padding-left: 0; padding-right: 20px; }
+    [dir="rtl"] .list li::before { left: auto; right: 0; }
+    [dir="rtl"] .preview .bar, [dir="rtl"] .preview pre { direction: ltr; text-align: left; }
+    [dir="rtl"] .wa-float { right: auto; left: max(18px, env(safe-area-inset-left)); }
+    @media (max-width: 760px) {
+      [dir="rtl"] .stats div { padding: 20px 18px 20px 0; }
+      [dir="rtl"] .stats div:nth-child(odd) { border-right: 0; padding-right: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal, .fade, .hero h1 .ch, .sec-head h2 span { opacity: 1 !important; transform: none !important; }
+      .statement .w { color: var(--text); }
+    }
+  </style>
+</head>
+<body>
+  <a href="#about" class="skip">انتقل إلى المحتوى</a>
+
+  <nav id="nav" class="nav" aria-label="القائمة الرئيسية">
+    <span class="chip-pill"><span class="dot"></span>مستشار تقني<span class="long">&nbsp;في ProService 365</span></span>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">نبذة</a></li>
+      <li><a href="#expertise">الاختصاص</a></li>
+      <li><a href="#experience">الخبرات</a></li>
+      <li><a href="#skills">المهارات</a></li>
+      <li><a href="#faq">أسئلة شائعة</a></li>
+      <li><a href="#contact">تواصل</a></li>
+    </ul>
+    <div class="nav-end">
+      <a class="lang" href="/" hreflang="en" lang="en" title="English version">EN</a>
+      <a class="btn nav-cta" href="#contact">لنتحدث
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks"><span></span></button>
+    </div>
+  </nav>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" aria-label="Introduction">
+      <div class="wrap">
+        <h1 id="title" aria-label="هشام نعمان">
+          <span class="word outline" aria-hidden="true">هشام</span>
+          <span class="word solid" aria-hidden="true">نعمان</span>
+        </h1>
+
+        <div class="hero-left fade">
+          <h2>مستشار تقني</h2>
+          <p>مطوّر Business Central، أبني إضافات بلغة AL وحلولاً على Power Platform.</p>
+          <div class="btn-row">
+            <a class="btn" href="#contact">تواصل معي
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            <a class="btn alt" href="/cv/Hicham-Noeman-CV.pdf" download>السيرة الذاتية (EN)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
+          </div>
+        </div>
+
+        <div class="stage">
+          <!-- Portrait: transparent cut-out; remove class "cutout" to show a regular photo in the arch frame -->
+
+          <div class="fade">
+          <figure class="portrait cutout" id="portrait">
+            <img class="bw" src="/images/hicham-cutout.webp" alt="صورة هشام نعمان" width="960" height="1200" fetchpriority="high" decoding="async">
+            <canvas class="brush" id="brush" aria-hidden="true"></canvas>
+            <div class="portrait-ph" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21.5c.8-4.6 4.2-7.3 8.5-7.3s7.7 2.7 8.5 7.3z"/></svg>
+              الصورة قريباً
+            </div>
+          </figure>
+          </div>
+        </div>
+
+        <div class="hero-right fade late">
+          <span class="label">تواصل</span>
+          <a class="social" href="https://www.linkedin.com/in/hicham-noeman" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zm6.5 0h3.8v1.5h.05c.53-1 1.84-2.05 3.78-2.05 4.05 0 4.8 2.66 4.8 6.12v5.43h-4v-4.82c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.9h-4z"/></svg>LinkedIn</a>
+          <a class="social" href="https://github.com/Hicham-Noeman" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+          <a class="social" href="mailto:hnoeman@proservice365.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>البريد</a>
+          <a class="social" href="https://wa.me/96171684504?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D9%87%D8%B4%D8%A7%D9%85%D8%8C%20%D9%88%D8%AC%D8%AF%D8%AA%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D9%88%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AA%D8%AD%D8%AF%D8%AB%20%D9%85%D8%B9%D9%83%20%D8%B9%D9%86%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.06L2 22l5.06-1.55A9.9 9.9 0 1 0 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3 .92.93-2.93-.2-.31a8.2 8.2 0 1 1 6.75 3.65zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/></svg>واتساب</a>
+        </div>
+      </div>
+      <div class="scroll-cue fade late" aria-hidden="true"><i></i>مرّر</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">نبذة</span>
+          <h2><span>/نبذة</span></h2>
+          <span class="aside">افهم أولاً، ثم اكتب الكود.</span>
+        </div>
+        <p class="statement" id="statement">بالنسبة لي، التطوير أبعد بكثير من كتابة الكود. يبدأ بفهم كيف تعمل المؤسسة <em class="accent">فعلياً</em>، وإيجاد التحدي الكامن وراء كل عملية، ثم بناء <em class="accent">الحل المناسب</em> حوله.</p>
+        <p class="about-note reveal">فضولي بطبعي، دائم التعلّم — وطاقتي من الشاي.</p>
+        <div class="stats reveal">
+          <div><strong>3.5+</strong><span>سنوات من الخبرة</span></div>
+          <div><strong>7</strong><span>أدوار ومناصب</span></div>
+          <div><strong>AL</strong><span>إضافات Business Central</span></div>
+          <div><strong>B.Sc.</strong><span>إجازة في علوم الكمبيوتر</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section class="services" id="expertise">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">الاختصاص</span>
+          <h2><span>/الاختصاص</span></h2>
+          <span class="aside">ما أعمل عليه</span>
+        </div>
+        <div class="rows">
+          <div class="row reveal">
+            <span class="num">01</span>
+            <div><h3>تطوير Business Central</h3><p>إضافات AL مخصّصة — جداول، صفحات، تقارير ومنطق عمل.</p></div>
+            <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="pv"><div class="bar"><i></i><i></i><i></i><span>Customer.TableExt.al</span></div><pre><span class="k">tableextension</span> 50100 <span class="s">"HN Customer"</span>
+  <span class="k">extends</span> Customer
+{
+  <span class="k">fields</span>
+  {
+    <span class="k">field</span>(50100; <span class="s">"Credit Score"</span>; Integer)
+    { Caption = <span class="s">'Credit Score'</span>; }
+  }
+}</pre></div>
+          </div>
+          <div class="row reveal">
+            <span class="num">02</span>
+            <div><h3>تطبيق أنظمة ERP</h3><p>من تحليل المتطلبات حتى الإطلاق.</p></div>
+            <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="pv"><div class="ttl">مراحل التطبيق</div><div class="tags"><span>المتطلبات</span><span>تحليل الفجوات</span><span>تصميم الحل</span><span>التطوير</span><span>اختبار المستخدمين</span><span>الإطلاق</span><span>الدعم</span></div></div>
+          </div>
+          <div class="row reveal">
+            <span class="num">03</span>
+            <div><h3>الأتمتة عبر Power Platform</h3><p>Power Apps وPower Automate مرتبطة بـ Business Central.</p></div>
+            <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="pv"><div class="bar"><i></i><i></i><i></i><span>Flow · Approval</span></div><pre><span class="c">// Power Automate</span>
+<span class="f">When</span> a sales order is created
+  ↓
+<span class="f">Get</span> record from Business Central
+  ↓
+<span class="f">Start</span> approval → Teams
+  ↓
+<span class="f">Update</span> status <span class="s">"Released"</span></pre></div>
+          </div>
+          <div class="row reveal">
+            <span class="num">04</span>
+            <div><h3>التحسين والدعم</h3><p>معالجة الأخطاء، تحسين الأداء وتدريب المستخدمين.</p></div>
+            <span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="pv"><div class="ttl">الموثوقية أولاً</div><div class="tags"><span>معالجة الأخطاء</span><span>الأداء</span><span>الاختبار</span><span>تدريب المستخدمين</span><span>التوثيق</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="experience" id="experience">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">الخبرات</span>
+          <h2><span>/الخبرات</span></h2>
+          <span class="aside">2022 — الآن</span>
+        </div>
+        <div class="xp">
+          <div class="xp-item reveal open">
+            <button class="xp-btn" aria-expanded="true" aria-controls="xp1">
+              <span><span class="co">ProService 365</span><span class="ro">مطوّر برمجيات · مستشار تقني</span></span>
+              <span class="dt">نيسان 2023 — <span class="now">الآن</span></span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp1"><div>
+              <div class="xp-body">
+                <div class="meta">كندا · عن بُعد</div>
+                <ul class="list">
+                  <li>إضافات Business Central بلغة AL — جداول، صفحات، تقارير ومنطق عمل</li>
+                  <li>تطبيق أنظمة ERP، من المتطلبات حتى التشغيل</li>
+                  <li>Power Apps وPower Automate مدمجة مع Business Central</li>
+                  <li>معالجة الأخطاء، التحسين ودعم المستخدمين</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">ProService 365</div><div class="tags"><span>Business Central</span><span>AL</span><span>Power Apps</span><span>Power Automate</span><span>ERP</span></div></div>
+          </div>
+
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="xp2">
+              <span><span class="co">Eshraqat Elem</span><span class="ro">مدرّب Python</span></span>
+              <span class="dt">تموز 2025 — آب 2025</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp2"><div>
+              <div class="xp-body">
+                <div class="meta">طرابلس، لبنان</div>
+                <ul class="list">
+                  <li>تعليم Python والتفكير البرمجي لطلاب الصفّين العاشر والحادي عشر</li>
+                  <li>جلسات برمجة تطبيقية قائمة على المشاريع</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="bar"><i></i><i></i><i></i><span>lesson_01.py</span></div><pre><span class="k">def</span> <span class="f">solve</span>(problem):
+    <span class="c"># think first, code second</span>
+    steps = understand(problem)
+    <span class="k">return</span> [build(s) <span class="k">for</span> s <span class="k">in</span> steps]</pre></div>
+          </div>
+
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="xp3">
+              <span><span class="co">Zaka.ai</span><span class="ro">سفير الحرم الجامعي · جامعة الجنان</span></span>
+              <span class="dt">آذار 2024 — آذار 2025</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="xp3"><div>
+              <div class="xp-body">
+                <div class="meta">تطوّع</div>
+                <ul class="list">
+                  <li>تنظيم فعاليات وورش عمل في الذكاء الاصطناعي داخل الجامعة</li>
+                  <li>إعداد وتقديم دورات تمهيدية في الذكاء الاصطناعي</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">Zaka.ai</div><div class="tags"><span>الذكاء الاصطناعي</span><span>ورش عمل</span><span>تصميم الدورات</span></div></div>
+          </div>
+        </div>
+
+        <h3 class="xp-sub reveal">خبرات أخرى</h3>
+        <ul class="xp xp-simple">
+          <li class="xp-row reveal"><span><span class="co">AEC Alameddine</span><span class="ro">مدير وسائل التواصل الاجتماعي ومصمّم غرافيك</span></span><span class="dt">آب 2025 — آب 2026</span></li>
+          <li class="xp-row reveal"><span><span class="co">Khotwa Center</span><span class="ro">مسؤول إداري وشؤون الطلاب</span></span><span class="dt">تشرين الأول 2025 — حزيران 2026</span></li>
+          <li class="xp-row reveal"><span><span class="co">Alemni Foundation</span><span class="ro">مسؤول مشاريع</span></span><span class="dt">كانون الأول 2022 — آب 2025</span></li>
+          <li class="xp-row reveal"><span><span class="co">Alemni Foundation</span><span class="ro">مدير مبادرات · تطوّع</span></span><span class="dt">كانون الثاني 2024 — نيسان 2025</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="skills" id="skills">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">المهارات</span>
+          <h2><span>/المهارات</span></h2>
+          <span class="aside">أدوات العمل</span>
+        </div>
+        <div class="skill-grid">
+          <div class="skill-card reveal">
+            <div class="sk-top"><span class="sk-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></span><span class="sk-num">01 · الأساس</span></div>
+            <h3>منظومة Microsoft</h3>
+            <ul class="chips"><li>Microsoft Dynamics 365</li><li>Business Central</li><li>برمجة AL</li><li>Power Apps</li><li>Power Automate</li><li>Power Platform</li></ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="sk-top"><span class="sk-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 12h4l3-7 3 14 3-7h3"/></svg></span><span class="sk-num">02 · دورة العمل</span></div>
+            <h3>التنفيذ</h3>
+            <ul class="chips"><li>تطبيق أنظمة ERP</li><li>تحليل المتطلبات</li><li>تصميم الحلول</li><li>ربط الأنظمة</li><li>الاختبار ومعالجة الأخطاء</li><li>الأداء</li><li>النشر</li><li>التوثيق</li></ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="sk-top"><span class="sk-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg></span><span class="sk-num">03 · القاعدة</span></div>
+            <h3>البرمجة والبيانات</h3>
+            <ul class="chips"><li>Python</li><li>البرمجة كائنية التوجّه</li><li>هياكل البيانات</li><li>قواعد البيانات</li><li>MySQL</li><li>تطوير الويب</li><li>أساسيات الذكاء الاصطناعي</li></ul>
+          </div>
+          <div class="skill-card reveal">
+            <div class="sk-top"><span class="sk-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c.6-3.4 3-5.3 6-5.3s5.4 1.9 6 5.3"/><path d="M16 4.5a3 3 0 0 1 0 6M18 14.8c1.8.6 2.9 2.3 3.2 5.2"/></svg></span><span class="sk-num">04 · مهني</span></div>
+            <h3>القيادة والتصميم</h3>
+            <ul class="chips"><li>إدارة المشاريع</li><li>قيادة الفرق</li><li>تصميم UI / UX</li><li>التصميم الغرافيكي</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="education" id="education">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">التعليم</span>
+          <h2><span>/التعليم</span></h2>
+        </div>
+        <div class="xp">
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="ed1">
+              <span><span class="co">جامعة الجنان — لبنان</span><span class="ro">إجازة في علوم الكمبيوتر</span></span>
+              <span class="dt">شباط 2022 — كانون الثاني 2025</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="ed1"><div>
+              <div class="xp-body">
+                <div class="meta">لبنان</div>
+                <ul class="list">
+                  <li>البرمجة كائنية التوجّه، هياكل البيانات، قواعد البيانات وتطوير الويب</li>
+                  <li>مشاريع باستخدام Python وMySQL</li>
+                </ul>
+              </div>
+            </div></div>
+            <div class="pv"><div class="ttl">إجازة في علوم الكمبيوتر</div><div class="tags"><span>Python</span><span>MySQL</span><span>OOP</span><span>Data Structures</span><span>Web Dev</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="ghost" aria-hidden="true">أسئلة</span>
+          <h2><span>/أسئلة شائعة</span></h2>
+          <span class="aside">أسئلة يطرحها العملاء</span>
+        </div>
+        <div class="xp">
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq1">
+              <span class="co">هل يمكنك تخصيص Business Central دون التأثير على التحديثات المستقبلية؟</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq1"><div>
+              <div class="xp-body"><p>نعم. أبني التخصيصات كإضافات بلغة AL تعمل فوق النظام الأساسي بدلاً من تعديله، فلا تمحو تحديثات Microsoft تعديلاتك، وتبقى الترقيات سهلة الإدارة.</p></div>
+            </div></div>
+          </div>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq2">
+              <span class="co">هل يمكن ربط Business Central بالأدوات الأخرى التي نستخدمها؟</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq2"><div>
+              <div class="xp-body"><p>غالباً نعم. يربط Power Automate وPower Apps نظام Business Central بـ Microsoft 365 وTeams وOutlook — مثل الموافقات عبر Teams أو الإشعارات التلقائية بالبريد الإلكتروني. ويمكن ربط الأنظمة الأخرى عبر واجهات Business Central البرمجية (APIs).</p></div>
+            </div></div>
+          </div>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq3">
+              <span class="co">هل تعمل عن بُعد؟</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq3"><div>
+              <div class="xp-body"><p>نعم. أقيم في طرابلس، لبنان، وأعمل حالياً عن بُعد مع ProService 365، وهي شركة مقرّها كندا. ورش العمل والعروض والدعم كلها تتم بسلاسة عبر الإنترنت.</p></div>
+            </div></div>
+          </div>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq4">
+              <span class="co">هل تقدّم الدعم بعد التشغيل؟</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq4"><div>
+              <div class="xp-body"><p>نعم. الدعم لا يتوقف عند الإطلاق: معالجة الأخطاء، مشاكل الأداء، التحسينات الصغيرة، وتدريب المستخدمين ليكون فريقك مرتاحاً في استخدام النظام.</p></div>
+            </div></div>
+          </div>
+          <div class="xp-item reveal">
+            <button class="xp-btn" aria-expanded="false" aria-controls="faq5">
+              <span class="co">لسنا متأكدين مما نحتاجه. من أين نبدأ؟</span>
+              <span class="pm" aria-hidden="true"></span>
+            </button>
+            <div class="xp-panel" id="faq5"><div>
+              <div class="xp-body"><p>بمحادثة قصيرة حول طريقة عمل مؤسستك اليوم وما الذي يبطئها. ومن هناك نحدد إن كان الحل الأنسب تعديلاً في الإعدادات، أو إضافة برمجية، أو أتمتة. راسلني عبر واتساب أو البريد الإلكتروني.</p></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+      <div class="wrap reveal">
+        <span class="chip-pill"><span class="dot"></span>تواصل معي</span>
+        <h2>لنبقَ <span class="outline">على تواصل.</span></h2>
+        <div class="btn-row">
+          <a class="btn" href="mailto:hnoeman@proservice365.com">راسلني
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a class="btn alt" href="/cv/Hicham-Noeman-CV.pdf" download>السيرة الذاتية (EN)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
+        </div>
+        <div class="socials">
+          <a class="social" href="https://www.linkedin.com/in/hicham-noeman" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="social" href="https://github.com/Hicham-Noeman" target="_blank" rel="noopener">GitHub</a>
+          <a class="social" href="mailto:hnoeman@proservice365.com">البريد</a>
+          <a class="social" href="https://wa.me/96171684504?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D9%87%D8%B4%D8%A7%D9%85%D8%8C%20%D9%88%D8%AC%D8%AF%D8%AA%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D9%88%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AA%D8%AD%D8%AF%D8%AB%20%D9%85%D8%B9%D9%83%20%D8%B9%D9%86%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9." target="_blank" rel="noopener">واتساب</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <a class="wa-float" id="waFloat" href="https://wa.me/96171684504?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D9%87%D8%B4%D8%A7%D9%85%D8%8C%20%D9%88%D8%AC%D8%AF%D8%AA%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D9%88%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AA%D8%AD%D8%AF%D8%AB%20%D9%85%D8%B9%D9%83%20%D8%B9%D9%86%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9." target="_blank" rel="noopener" aria-label="تواصل عبر واتساب"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.06L2 22l5.06-1.55A9.9 9.9 0 1 0 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3 .92.93-2.93-.2-.31a8.2 8.2 0 1 1 6.75 3.65zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/></svg></a>
+
+  <footer>
+    <span>© <span id="yr"></span> هشام نعمان</span>
+    <span>افهم العمل أولاً، ثم اكتب الكود.</span>
+  </footer>
+
+  <div class="preview" id="preview" aria-hidden="true"></div>
+
+
+  <script>
+    // page must stay usable even if the main script fails
+    setTimeout(() => { if (!document.body.classList.contains("ready")) document.body.classList.add("ready", "no-js"); }, 3000);
+  </script>
+
+  <script type="module">
+
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+    document.getElementById("yr").textContent = new Date().getFullYear();
+
+    /* ---------- Hero name: split into letters ---------- */
+    let ci = 0;
+    document.querySelectorAll("#title .word").forEach(w => {
+      const text = w.textContent;
+      w.textContent = "";
+      [text].forEach(ch => {
+        const s = document.createElement("span");
+        s.className = "ch";
+        s.style.setProperty("--i", ci++);
+        s.textContent = ch;
+        w.appendChild(s);
+      });
+    });
+
+    /* ---------- Nav + mobile menu ---------- */
+    const nav = document.getElementById("nav");
+    const waFloat = document.getElementById("waFloat");
+    const onScroll = () => { nav.classList.toggle("scrolled", scrollY > 40); waFloat.classList.toggle("show", scrollY > innerHeight * 0.7); };
+    addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    const menuBtn = document.getElementById("menuBtn");
+    const setMenu = open => {
+      document.body.classList.toggle("menu-open", open);
+      menuBtn.setAttribute("aria-expanded", open);
+      menuBtn.setAttribute("aria-label", open ? "إغلاق القائمة" : "فتح القائمة");
+      document.body.style.overflow = open ? "hidden" : "";
+    };
+    menuBtn.addEventListener("click", () => setMenu(!document.body.classList.contains("menu-open")));
+    document.querySelectorAll("#navLinks a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+    addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
+
+    /* ---------- Reveal on scroll ---------- */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".reveal, .sec-head").forEach(el => io.observe(el));
+    document.querySelectorAll(".rows, .xp, .skill-grid").forEach(group => {
+      [...group.querySelectorAll(".reveal")].forEach((el, i) => (el.style.transitionDelay = `${i * 0.08}s`));
+    });
+
+    /* ---------- Statement: words light up as you scroll ---------- */
+    const statement = document.getElementById("statement");
+    const words = [];
+    [...statement.childNodes].forEach(node => {
+      const accent = node.nodeType === 1;
+      const parts = node.textContent.split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      parts.forEach(p => {
+        if (!p.trim()) { frag.appendChild(document.createTextNode(p)); return; }
+        const s = document.createElement("span");
+        s.className = "w" + (accent ? " accent" : "");
+        s.textContent = p;
+        words.push(s);
+        frag.appendChild(s);
+      });
+      statement.replaceChild(frag, node);
+    });
+    function lightWords() {
+      const r = statement.getBoundingClientRect();
+      const p = Math.min(Math.max((innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.35), 0), 1);
+      const n = Math.round(p * words.length);
+      words.forEach((w, i) => w.classList.toggle("lit", i < n));
+    }
+    if (reduced) words.forEach(w => w.classList.add("lit"));
+    else { addEventListener("scroll", lightWords, { passive: true }); lightWords(); }
+
+    /* ---------- Ghost words drift sideways with scroll ---------- */
+    const ghosts = [...document.querySelectorAll(".ghost")];
+    function driftGhosts() {
+      ghosts.forEach(g => {
+        const r = g.parentElement.getBoundingClientRect();
+        const p = (r.top + r.height / 2) / innerHeight - 0.5;
+        g.style.transform = `translateX(${p * -12}%)`;
+      });
+    }
+    if (!reduced) { addEventListener("scroll", driftGhosts, { passive: true }); driftGhosts(); }
+
+    /* ---------- Accordions (experience / education) ---------- */
+    document.querySelectorAll(".xp-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".xp-item");
+        const open = !item.classList.contains("open");
+        item.classList.toggle("open", open);
+        btn.setAttribute("aria-expanded", open);
+      });
+    });
+
+    /* ---------- Floating preview that follows the cursor ---------- */
+    if (finePointer) {
+      const pv = document.getElementById("preview");
+      let tx = 0, ty = 0, x = 0, y = 0, vx = 0, active = false;
+      document.querySelectorAll(".row, .xp-item").forEach(el => {
+        const src = el.querySelector(".pv");
+        if (!src) return;
+        const hot = el.classList.contains("row") ? el : el.querySelector(".xp-btn");
+        hot.addEventListener("pointerenter", e => { pv.innerHTML = src.innerHTML; active = true; x = tx = e.clientX; y = ty = e.clientY; });
+        hot.addEventListener("pointerleave", () => { pv.classList.remove("on"); active = false; });
+      });
+      addEventListener("pointermove", e => {
+        tx = e.clientX; ty = e.clientY;
+        // hide the preview over the +/− button so it never covers what you're about to click
+        pv.classList.toggle("on", active && !e.target.closest(".pm"));
+      });
+      (function follow() {
+        const nx = x + (tx - x) * 0.14;
+        vx = nx - x; x = nx; y += (ty - y) * 0.14;
+        if (active || pv.classList.contains("on")) {
+          const w = pv.offsetWidth, h = pv.offsetHeight;
+          // sit to the right of the cursor, or flip to its left near the right edge (never on top of it)
+          const px = x + 28 + w < innerWidth - 16 ? x + 28 : Math.max(x - w - 28, 16);
+          const py = Math.min(Math.max(y - h / 2, 16), innerHeight - h - 16);
+          pv.style.transform = `translate(${px}px, ${py}px) rotate(${Math.max(Math.min(vx * 0.6, 8), -8)}deg)`;
+        }
+        requestAnimationFrame(follow);
+      })();
+    }
+
+
+    /* ---------- Portrait: black & white, colour painted like a brush that fades after ~1.5s ---------- */
+    const portrait = document.getElementById("portrait");
+    const photo = portrait.querySelector(".bw");
+    const canvas = document.getElementById("brush");
+    const ctx = canvas.getContext("2d");
+    const markEmpty = () => portrait.classList.add("empty");
+    photo.addEventListener("error", markEmpty);
+    if (photo.complete && !photo.naturalWidth) markEmpty();
+
+    const FADE = 1500;           // ms a brush mark stays before it is gone
+    const strokes = [];          // { x, y, t } brush dabs in portrait-local px
+    let last = null, raf = 0, w = 0, h = 0, down = false;
+
+    function sizeCanvas() {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      w = portrait.clientWidth; h = portrait.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+    // draw the colour photo exactly where the CSS draws the black & white one
+    function drawPhoto() {
+      const iw = photo.naturalWidth, ih = photo.naturalHeight;
+      const cut = portrait.classList.contains("cutout");
+      const s = cut ? Math.min(w / iw, h / ih) : Math.max(w / iw, h / ih);
+      const dw = iw * s, dh = ih * s;
+      ctx.drawImage(photo, (w - dw) / 2, cut ? h - dh : (h - dh) * 0.2, dw, dh);
+    }
+    function draw() {
+      const now = performance.now();
+      while (strokes.length && now - strokes[0].t > FADE) strokes.shift();
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = 1;
+      ctx.clearRect(0, 0, w, h);
+      if (!photo.naturalWidth || !strokes.length) return;
+      const R = Math.max(w * 0.1, 24);
+      strokes.forEach(p => {
+        const k = 1 - (now - p.t) / FADE;
+        ctx.globalAlpha = k * k * (3 - 2 * k); // smooth fade-out
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, R);
+        g.addColorStop(0, "rgba(0,0,0,1)");
+        g.addColorStop(0.5, "rgba(0,0,0,.6)");
+        g.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(p.x - R, p.y - R, R * 2, R * 2);
+      });
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-in"; // keep colour only where the brush painted
+      drawPhoto();
+    }
+    function loop() {
+      draw();
+      raf = strokes.length ? requestAnimationFrame(loop) : 0;
+    }
+    function paint(e) {
+      const r = portrait.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top, now = performance.now();
+      if (last) { // fill the gap between events so fast moves still leave a continuous stroke
+        const dx = x - last.x, dy = y - last.y, d = Math.hypot(dx, dy);
+        for (let s = 6; s < d; s += 6) strokes.push({ x: last.x + dx * s / d, y: last.y + dy * s / d, t: now });
+      }
+      strokes.push({ x, y, t: now });
+      if (strokes.length > 800) strokes.splice(0, strokes.length - 800);
+      last = { x, y };
+      if (!raf) raf = requestAnimationFrame(loop);
+    }
+
+    new ResizeObserver(sizeCanvas).observe(portrait);
+    photo.addEventListener("load", sizeCanvas);
+    // mouse paints on hover; touch / pen paint while the finger is down (vertical swipes still scroll the page)
+    portrait.addEventListener("pointermove", e => { if (e.pointerType === "mouse" || down) paint(e); });
+    portrait.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") { down = true; last = null; paint(e); } });
+    ["pointerup", "pointercancel", "pointerleave"].forEach(t => portrait.addEventListener(t, () => { down = false; last = null; }));
+
+    requestAnimationFrame(() => document.body.classList.add("ready"));
+  </script>
+</body>
+</html>

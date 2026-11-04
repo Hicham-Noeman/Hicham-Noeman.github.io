@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hicham Noeman — CV</title>
+<!-- Source of /cv/Hicham-Noeman-CV.pdf. Rebuild: see _brand/README.md -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --ink: #0b1424; --muted: #4a5a74; --line: #dbe3ef; --blue: #2f7bf6; --navy: #0a1a3a; }
+  body { font-family: Manrope, "Segoe UI", Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; display: grid; grid-template-columns: 64mm 1fr; overflow: hidden; }
+  aside { background: linear-gradient(170deg, #12295a, #03060d); color: #e8f0ff; padding: 14mm 8mm 10mm 10mm; }
+  main { padding: 16mm 12mm 12mm 11mm; }
+
+  .mono { width: 14mm; height: 14mm; margin-bottom: 5mm; }
+  h1 { font-size: 21pt; font-weight: 800; line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+  .role { color: #8cc4ff; font-weight: 600; font-size: 10.5pt; margin-top: 2.5mm; }
+
+  aside h2 { font-size: 7.6pt; letter-spacing: .2em; text-transform: uppercase; color: #8cc4ff; font-weight: 700; margin: 6.5mm 0 2.4mm; }
+  .contact { list-style: none; display: grid; gap: 1.6mm; font-size: 8.4pt; }
+  .contact span { display: block; font-size: 6.8pt; letter-spacing: .12em; text-transform: uppercase; color: #8fa3c4; }
+  .contact a { color: #fff; text-decoration: none; word-break: break-all; }
+  .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 1.2mm; }
+  .chips li { font-size: 7.4pt; padding: .45mm 2.2mm; border-radius: 10mm; background: rgba(255,255,255,.08); border: .2mm solid rgba(200,222,255,.25); color: #e8f0ff; }
+  .plain { list-style: none; display: grid; gap: 1.2mm; font-size: 8.6pt; color: #d6e8ff; }
+
+  main h2 { font-size: 8pt; letter-spacing: .2em; text-transform: uppercase; color: var(--blue); font-weight: 700; margin: 0 0 3mm; display: flex; align-items: center; gap: 3mm; }
+  main h2::after { content: ""; flex: 1; height: .3mm; background: var(--line); }
+  section + section { margin-top: 6.5mm; }
+  .summary { color: var(--ink); font-size: 9.8pt; }
+
+  .job { margin-bottom: 4.2mm; break-inside: avoid; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .job h3 { font-size: 10.4pt; font-weight: 700; }
+  .job .when { color: var(--muted); font-size: 8.4pt; white-space: nowrap; font-weight: 500; }
+  .job .where { color: var(--muted); font-size: 8.8pt; margin-bottom: 1.4mm; }
+  .job ul { padding-left: 4mm; display: grid; gap: .8mm; }
+  .job li::marker { color: var(--blue); }
+
+  .other { list-style: none; display: grid; gap: 1.8mm; }
+  .other li { display: flex; justify-content: space-between; gap: 4mm; }
+  .other b { font-weight: 600; }
+  .other .when { color: var(--muted); font-size: 8.4pt; white-space: nowrap; }
+  .other .r { color: var(--muted); }
+  .quote { margin-top: 6.5mm; padding: 3.5mm 4mm; border-left: .8mm solid var(--blue); background: #f2f6fd; color: var(--navy); font-weight: 600; font-size: 9.4pt; }
+</style>
+</head>
+<body>
+<div class="page">
+  <aside>
+    <svg class="mono" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="ac" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8cc4ff"/><stop offset="1" stop-color="#2f7bf6"/></linearGradient></defs>
+      <rect width="64" height="64" rx="14" fill="rgba(255,255,255,.06)" stroke="rgba(200,222,255,.3)"/>
+      <path fill="#f2f6ff" d="M12 17h7v11.5h9.5V17h7v30h-7V35.5H19V47h-7zM45 17h7v30h-7z"/>
+      <path fill="url(#ac)" d="M28.5 17h7L52 47h-7z"/>
+    </svg>
+    <h1>Hicham<br>Noeman</h1>
+    <div class="role">Technical Consultant<br>Business Central Developer</div>
+
+    <h2>Contact</h2>
+    <ul class="contact">
+      <li><span>Email</span><a href="mailto:hnoeman@proservice365.com">hnoeman@proservice365.com</a></li>
+      <li><span>Phone / WhatsApp</span><a href="https://wa.me/96171684504">+961 71 684 504</a></li>
+      <li><span>Website</span><a href="https://hicham-noeman.dev">hicham-noeman.dev</a></li>
+      <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/hicham-noeman">linkedin.com/in/hicham-noeman</a></li>
+      <li><span>GitHub</span><a href="https://github.com/Hicham-Noeman">github.com/Hicham-Noeman</a></li>
+      <li><span>Location</span>Tripoli, Lebanon</li>
+    </ul>
+
+    <h2>Microsoft</h2>
+    <ul class="chips"><li>Business Central</li><li>AL</li><li>Dynamics 365</li><li>Power Apps</li><li>Power Automate</li><li>Power Platform</li></ul>
+
+    <h2>Delivery</h2>
+    <ul class="chips"><li>ERP Implementation</li><li>Requirements Analysis</li><li>Solution Design</li><li>Integrations</li><li>Testing &amp; Debugging</li><li>Performance</li><li>Deployment</li><li>Documentation</li></ul>
+
+    <h2>Programming &amp; Data</h2>
+    <ul class="chips"><li>Python</li><li>OOP</li><li>Data Structures</li><li>Databases</li><li>MySQL</li><li>Web Development</li><li>AI Fundamentals</li></ul>
+
+    <h2>Professional</h2>
+    <ul class="plain"><li>Project Management</li><li>Team Leadership</li><li>UI / UX &amp; Graphic Design</li><li>Training &amp; Workshops</li></ul>
+  </aside>
+
+  <main>
+    <section>
+      <h2>Profile</h2>
+      <p class="summary">Technical Consultant and Software Developer specializing in Microsoft Dynamics 365 Business Central. I build AL extensions, deliver ERP implementations from requirements to go-live, and connect Business Central with Power Apps and Power Automate. My approach starts with understanding how a business actually works, finding the challenge behind the process, and building the right solution around it.</p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <div class="job">
+        <div class="job-head"><h3>Software Developer · Technical Consultant</h3><span class="when">Apr 2023 — Present</span></div>
+        <div class="where">ProService 365 · Canada (Remote)</div>
+        <ul>
+          <li>Develop Business Central extensions in AL — tables, pages, reports and business logic</li>
+          <li>Deliver ERP implementations, from requirements gathering to deployment</li>
+          <li>Build Power Apps and Power Automate solutions integrated with Business Central</li>
+          <li>Debugging, performance optimization and end-user support and training</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-head"><h3>Python Trainer</h3><span class="when">Jul 2025 — Aug 2025</span></div>
+        <div class="where">Eshraqat Elem · Tripoli, Lebanon</div>
+        <ul>
+          <li>Taught Python and programming logic to Grades 10–11</li>
+          <li>Ran hands-on, project-based coding sessions</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-head"><h3>Campus Ambassador</h3><span class="when">Mar 2024 — Mar 2025</span></div>
+        <div class="where">Zaka.ai · Jinan University (Volunteer)</div>
+        <ul>
+          <li>Organized AI events and workshops on campus</li>
+          <li>Built and delivered introductory AI courses</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Other Experience</h2>
+      <ul class="other">
+        <li><span><b>Social Media Manager &amp; Graphic Designer</b> <span class="r">· AEC Alameddine</span></span><span class="when">Aug 2025 — Aug 2026</span></li>
+        <li><span><b>Administrative &amp; Student Affairs Officer</b> <span class="r">· Khotwa Center</span></span><span class="when">Oct 2025 — Jun 2026</span></li>
+        <li><span><b>Project Officer</b> <span class="r">· Alemni Foundation</span></span><span class="when">Dec 2022 — Aug 2025</span></li>
+        <li><span><b>Initiatives Manager</b> <span class="r">· Alemni Foundation (Volunteer)</span></span><span class="when">Jan 2024 — Apr 2025</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="job">
+        <div class="job-head"><h3>B.Sc. Computer Science</h3><span class="when">Feb 2022 — Jan 2025</span></div>
+        <div class="where">Jinan University · Lebanon</div>
+        <ul><li>OOP, data structures, databases and web development; projects in Python and MySQL</li></ul>
+      </div>
+    </section>
+
+    <div class="quote">Understand the operation first. Code second.</div>
+  </main>
+</div>
+</body>
+</html>
