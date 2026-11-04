@@ -3,6 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RDP70728BP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RDP70728BP');
+    // contact + CV clicks, reported as events (Reports > Engagement > Events)
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      var h = a.href, m = null;
+      if (h.indexOf('wa.me/') > -1) m = 'whatsapp';
+      else if (h.indexOf('mailto:') === 0) m = 'email';
+      else if (h.indexOf('linkedin.com') > -1) m = 'linkedin';
+      else if (h.indexOf('github.com') > -1) m = 'github';
+      else if (h.indexOf('/cv/') > -1) { gtag('event', 'view_cv', { link_location: a.closest('section, nav') ? a.closest('section, nav').id || 'hero' : 'page' }); return; }
+      if (m) gtag('event', 'contact_click', { method: m, link_location: a.id || (a.closest('section, nav') ? a.closest('section, nav').id || 'hero' : 'page') });
+    });
+  </script>
   <title>هشام نعمان — مستشار تقني</title>
   <meta name="description" content="هشام نعمان — مستشار تقني ومطوّر برمجيات متخصص في Microsoft Dynamics 365 Business Central وAL وPower Apps وPower Automate.">
   <meta name="theme-color" content="#03060d">
