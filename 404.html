@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Page not found — Hicham Noeman</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#03060d">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #03060d; --text: #f2f6ff; --muted: #9aa8c2; --sky: #8cc4ff; --accent: #2f7bf6; --line: rgba(200,222,255,.16); }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px;
+      font-family: Manrope, "Segoe UI", system-ui, sans-serif; color: var(--text); text-align: center;
+      background: radial-gradient(55% 50% at 50% 55%, rgba(47,123,246,.28), transparent 70%), var(--bg);
+    }
+    .code { font-family: "JetBrains Mono", ui-monospace, monospace; color: var(--sky); font-size: .85rem; letter-spacing: .2em; }
+    h1 { font-weight: 800; font-size: clamp(5rem, 22vw, 11rem); line-height: 1; letter-spacing: -.04em; margin: 14px 0 8px;
+         background: linear-gradient(180deg, #fff, #6fa8ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    p { color: var(--muted); max-width: 30rem; margin: 0 auto 30px; line-height: 1.6; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 100px; font-weight: 600; text-decoration: none; transition: background .3s, transform .3s; }
+    .primary { background: var(--text); color: var(--bg); }
+    .primary:hover { transform: translateY(-2px); }
+    .ghost { color: var(--text); border: 1px solid var(--line); background: rgba(255,255,255,.04); }
+    .ghost:hover { background: rgba(255,255,255,.1); }
+    a:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="code">// error: route not found</div>
+    <h1>404</h1>
+    <p>This page doesn't exist — maybe the link was mistyped or it has moved. Let's get you back on track.</p>
+    <div class="actions">
+      <a class="primary" href="/">Back to home</a>
+      <a class="ghost" href="/#contact">Contact me</a>
+    </div>
+  </main>
+</body>
+</html>

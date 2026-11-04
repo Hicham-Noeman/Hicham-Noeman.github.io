@@ -29,6 +29,23 @@
   <meta name="twitter:title" content="Hicham Noeman — Technical Consultant">
   <meta name="twitter:description" content="Microsoft Dynamics 365 Business Central solutions with AL, Power Apps and Power Automate.">
   <meta name="twitter:image" content="https://hicham-noeman.dev/images/og-image.jpg?v=3">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Hicham Noeman",
+    "url": "https://hicham-noeman.dev/",
+    "image": "https://hicham-noeman.dev/images/og-image.jpg",
+    "jobTitle": "Technical Consultant",
+    "description": "Software Developer and Technical Consultant specializing in Microsoft Dynamics 365 Business Central, AL, Power Apps and Power Automate.",
+    "worksFor": { "@type": "Organization", "name": "ProService 365" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Jinan University" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Tripoli", "addressCountry": "LB" },
+    "email": "mailto:hnoeman@proservice365.com",
+    "knowsAbout": ["Microsoft Dynamics 365 Business Central", "AL", "Power Apps", "Power Automate", "ERP Implementation", "Python", "SQL"],
+    "sameAs": ["https://www.linkedin.com/in/hicham-noeman", "https://github.com/Hicham-Noeman"]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -337,6 +354,11 @@
     footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 24px var(--pad-x); padding-bottom: max(24px, env(safe-area-inset-bottom)); color: var(--dim); font-size: .85rem; background: var(--bg-2); border-top: 1px solid var(--line); }
 
     .no-js .reveal, .no-js .fade, .no-js .hero h1 .ch, .no-js .sec-head h2 span { opacity: 1; transform: none; }
+    .wa-float { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 55; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #25d366; box-shadow: 0 10px 30px rgba(0,0,0,.45); opacity: 0; visibility: hidden; transform: translateY(16px) scale(.9); transition: opacity .35s, visibility .35s, transform .35s var(--ease); }
+    .wa-float.show { opacity: 1; visibility: visible; transform: none; }
+    .wa-float:hover { transform: scale(1.06); }
+    .wa-float svg { width: 28px; height: 28px; }
+    .menu-open .wa-float { opacity: 0; visibility: hidden; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -401,7 +423,7 @@
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
           <a class="social" href="mailto:hnoeman@proservice365.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
-          <a class="social" href="https://wa.me/96171684504" target="_blank" rel="noopener">
+          <a class="social" href="https://wa.me/96171684504?text=Hi%20Hicham%2C%20I%20found%20your%20website%20and%20would%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.06L2 22l5.06-1.55A9.9 9.9 0 1 0 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3 .92.93-2.93-.2-.31a8.2 8.2 0 1 1 6.75 3.65zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/></svg>WhatsApp</a>
         </div>
       </div>
@@ -631,11 +653,13 @@
           <a class="social" href="https://www.linkedin.com/in/hicham-noeman" target="_blank" rel="noopener">LinkedIn</a>
           <a class="social" href="https://github.com/Hicham-Noeman" target="_blank" rel="noopener">GitHub</a>
           <a class="social" href="mailto:hnoeman@proservice365.com">Email</a>
-          <a class="social" href="https://wa.me/96171684504" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="social" href="https://wa.me/96171684504?text=Hi%20Hicham%2C%20I%20found%20your%20website%20and%20would%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
     </section>
   </main>
+
+  <a class="wa-float" id="waFloat" href="https://wa.me/96171684504?text=Hi%20Hicham%2C%20I%20found%20your%20website%20and%20would%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.45 15.06L2 22l5.06-1.55A9.9 9.9 0 1 0 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3 .92.93-2.93-.2-.31a8.2 8.2 0 1 1 6.75 3.65zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.2 3.7.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.29z"/></svg></a>
 
   <footer>
     <span>© <span id="yr"></span> Hicham Noeman</span>
@@ -672,7 +696,8 @@
 
     /* ---------- Nav + mobile menu ---------- */
     const nav = document.getElementById("nav");
-    const onScroll = () => nav.classList.toggle("scrolled", scrollY > 40);
+    const waFloat = document.getElementById("waFloat");
+    const onScroll = () => { nav.classList.toggle("scrolled", scrollY > 40); waFloat.classList.toggle("show", scrollY > innerHeight * 0.7); };
     addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     const menuBtn = document.getElementById("menuBtn");
