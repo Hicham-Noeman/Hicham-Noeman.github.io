@@ -1,4 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#2f7bf6"/>
-  <text x="32" y="43" text-anchor="middle" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="28" font-weight="800" fill="#ffffff">HN</text>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12295a"/><stop offset="1" stop-color="#03060d"/></linearGradient>
+    <linearGradient id="ac" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8cc4ff"/><stop offset="1" stop-color="#2f7bf6"/></linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <path fill="#f2f6ff" d="M12 17h7v11.5h9.5V17h7v30h-7V35.5H19V47h-7zM45 17h7v30h-7z"/>
+  <path fill="url(#ac)" d="M28.5 17h7L52 47h-7z"/>
 </svg>
