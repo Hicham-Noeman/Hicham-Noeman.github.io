@@ -124,7 +124,9 @@ rep('<h2>Technical Consultant</h2>', '<h2>مستشار تقني</h2>', 1)
 rep('<p>Business Central developer building AL extensions and Power Platform solutions.</p>',
     '<p>مطوّر Business Central، أبني إضافات بلغة AL وحلولاً على Power Platform.</p>', 1)
 rep('Get in touch\n', 'تواصل معي\n', 1)
-rep('download>Download CV\n', 'download>السيرة الذاتية (EN)\n', 2)
+# The CV is English-only and linked from the English page: no CV button on the Arabic page
+s, n = re.subn(r'\n *<a class="btn alt" href="/cv/Hicham-Noeman-CV\.pdf"[^>]*>View CV\n.*?</a>', '', s, flags=re.S)
+assert n == 2, n
 rep('alt="Portrait of Hicham Noeman"', 'alt="صورة هشام نعمان"', 1)
 rep('Photo coming soon', 'الصورة قريباً', 1)
 rep('<span class="label">Connect</span>', '<span class="label">تواصل</span>', 1)
@@ -241,7 +243,7 @@ rep('<span>© <span id="yr"></span> Hicham Noeman</span>', '<span>© <span id="y
 rep('<span>Understand the operation first. Code second.</span>', '<span>افهم العمل أولاً، ثم اكتب الكود.</span>', 1)
 
 # guard: no leftover English UI text that should have been translated
-for leftover in ['>About<', '>Skills<', 'Get in touch', 'Download CV', 'Other experience', 'Questions clients ask', 'Scroll<']:
+for leftover in ['>About<', '>Skills<', 'Get in touch', 'View CV', 'Hicham-Noeman-CV.pdf', 'Other experience', 'Questions clients ask', 'Scroll<']:
     assert leftover not in s, leftover
 
 open('ar/index.html', 'w', encoding='utf-8', newline='').write(s)
